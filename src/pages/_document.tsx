@@ -4,9 +4,24 @@ export default function Document() {
   return (
     <Html lang='en'>
       <Head>
+        {/* Preload Source Code Pro*/}
         <link
           rel='preload'
-          href='/fonts/inter-var-latin.woff2'
+          href='/fonts/SourceCodePro-Light.woff2'
+          as='font'
+          type='font/woff2'
+          crossOrigin='anonymous'
+        />
+        <link
+          rel='preload'
+          href='/fonts/SourceCodePro-Regular.woff2'
+          as='font'
+          type='font/woff2'
+          crossOrigin='anonymous'
+        />
+        <link
+          rel='preload'
+          href='/fonts/SourceCodePro-Bold.woff2'
           as='font'
           type='font/woff2'
           crossOrigin='anonymous'

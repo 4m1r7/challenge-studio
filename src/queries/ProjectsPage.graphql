@@ -1,0 +1,5 @@
+query ProjectsPage {
+  pageBy(uri: "projects") {
+    id
+  }
+}

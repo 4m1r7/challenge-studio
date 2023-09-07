@@ -7,12 +7,9 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
 
-  // Uncoment to add domain whitelist
-  // images: {
-  //   domains: [
-  //     'res.cloudinary.com',
-  //   ],
-  // },
+  images: {
+    domains: ['challenge-studio.ir'],
+  },
 
   // SVGR
   webpack(config) {
@@ -26,6 +23,20 @@ const nextConfig = {
             typescript: true,
             icon: true,
           },
+        },
+      ],
+    });
+
+    // GraphQL loader configuration for .graphql files
+    config.module.rules.push({
+      test: /\.(graphql|gql)$/,
+      exclude: /node_modules/,
+      use: [
+        {
+          loader: 'graphql-tag/loader',
+        },
+        {
+          loader: '@graphql-tools/webpack-loader',
         },
       ],
     });

@@ -1,0 +1,39 @@
+query ProjectData($slug: String!) {
+  projectBy(slug: $slug) {
+    id
+    title
+    content
+    featuredImage {
+      node {
+        srcSet
+      }
+    }
+    projectFields {
+      scale
+      status
+      type
+      year
+      mainVideos {
+        videoItem {
+          mediaItemUrl
+        }
+      }
+      projectVideos {
+        videoItem {
+          mediaItemUrl
+        }
+      }
+      projectImages {
+        mediaItemUrl
+      }
+      projectModel
+      members {
+        ... on Member {
+          id
+          title
+          slug
+        }
+      }
+    }
+  }
+}

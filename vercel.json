@@ -1,7 +1,25 @@
 {
   "headers": [
     {
-      "source": "/fonts/inter-var-latin.woff2",
+      "source": "/fonts/SourceCodePro-Light.woff2",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/fonts/SourceCodePro-Regular.woff2",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/fonts/SourceCodePro-Bold.woff2",
       "headers": [
         {
           "key": "Cache-Control",

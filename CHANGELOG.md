@@ -295,9 +295,6 @@ Snippets such as React import, useState, useEffect, React Component. [View more]
 
     Check out the [repository](https://github.com/theodorusclarence/og) to see the API parameters.
 
-- #### Preloaded & Self Hosted Inter Fonts
-
-    Inter fonts is a variable fonts that is self hosted and preloaded.
 
 ## Snippets
 

@@ -6,9 +6,12 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        primary: ['Inter', ...defaultTheme.fontFamily.sans],
+        primary: ['Source Code Pro', ...defaultTheme.fontFamily.sans],
       },
       colors: {
+        customDarkBlue: '#004071',
+        customLightBlue: '#72cfe8',
+        customGray: '#e4e4e4',
         primary: {
           // Customize it on globals.css :root
           50: 'rgb(var(--tw-color-primary-50) / <alpha-value>)',
