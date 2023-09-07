@@ -1,0 +1,9 @@
+query ProjectRoutes {
+  projects {
+    edges {
+      node {
+        slug
+      }
+    }
+  }
+}

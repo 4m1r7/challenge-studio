@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "gen": "graphql-codegen",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -18,7 +19,16 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@apollo/client": "^3.8.3",
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/typescript": "^4.0.1",
+    "@graphql-codegen/typescript-operations": "^4.0.1",
+    "@graphql-codegen/typescript-react-apollo": "^3.3.7",
+    "@graphql-tools/webpack-loader": "^7.0.0",
     "clsx": "^1.2.1",
+    "framer-motion": "^10.16.4",
+    "graphql": "^16.8.0",
+    "graphql-tag": "^2.12.6",
     "lucide-react": "^0.260.0",
     "next": "^13.4.10",
     "react": "^18.2.0",

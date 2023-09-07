@@ -1,0 +1,61 @@
+/* Cube.module.css */
+
+.scene {
+  width: 70vh;
+  height: 70vh;
+  perspective: 5000px;
+  transform-style: preserve-3d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.1s all linear;
+}
+
+.cube {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transform: translateZ(-100px);
+  transition: transform 0.75s;
+  transform: rotateX(-45deg) rotateY(0deg) rotateZ(-45deg);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cubeFace {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 18vw;
+  height: 18vw;
+  border: 1px solid #004071;
+  background-color: #e4e4e4;
+}
+
+.cubeFaceFront {
+  transform: rotateY(0deg) translateZ(9vw);
+}
+
+.cubeFaceRight {
+  transform: rotateY(90deg) translateZ(9vw);
+}
+
+.cubeFaceBack {
+  transform: rotateY(180deg) translateZ(9vw);
+}
+
+.cubeFaceLeft {
+  transform: rotateY(-90deg) translateZ(9vw);
+}
+
+.cubeFaceTop {
+  transform: rotateX(90deg) translateZ(9vw);
+}
+
+.cubeFaceBottom {
+  transform: rotateX(-90deg) translateZ(9vw);
+}
