@@ -1,21 +1,21 @@
-query AllProjects {
-  projects(first: 100) {
+query Awards {
+  awards(first: 100) {
     edges {
       node {
-        slug
         id
         title
-        uri
         featuredImage {
           node {
             sourceUrl(size: MEDIUM_LARGE)
           }
         }
-        projectFields {
-          scale
-          status
-          type
-          year
+        awardFields {
+          awardLink
+          relatedProject {
+            ... on Project {
+              uri
+            }
+          }
         }
       }
     }

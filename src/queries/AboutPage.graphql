@@ -1,0 +1,6 @@
+query AboutPage {
+  pageBy(uri: "about") {
+    id
+    content
+  }
+}
