@@ -107,7 +107,7 @@ export default function Projects(data: { data: AllProjectsQuery }) {
 
   return (
     <Layout theme={theme} toggleTheme={toggleTheme}>
-      <Seo templateTitle='Home' />
+      <Seo templateTitle='Projects' />
 
       <main
         className={`flex flex-grow flex-col items-center justify-start px-12
@@ -208,7 +208,7 @@ export default function Projects(data: { data: AllProjectsQuery }) {
                           <Image
                             src={item.node.featuredImage?.node.sourceUrl || ''}
                             alt={item.node.title || 'project-image'}
-                            style={{ objectFit: 'cover' }}
+                            className='object-cover'
                             fill
                             quality={100}
                           />

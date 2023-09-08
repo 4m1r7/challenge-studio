@@ -1,0 +1,6 @@
+query ContactPage {
+  pageBy(uri: "contact") {
+    id
+    content
+  }
+}

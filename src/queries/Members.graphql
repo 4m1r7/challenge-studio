@@ -1,21 +1,18 @@
-query AllProjects {
-  projects(first: 100) {
+query Members {
+  members(first: 100) {
     edges {
       node {
-        slug
         id
         title
-        uri
+        slug
         featuredImage {
           node {
             sourceUrl(size: MEDIUM_LARGE)
           }
         }
-        projectFields {
-          scale
-          status
-          type
-          year
+        memberFields {
+          oldMember
+          position
         }
       }
     }

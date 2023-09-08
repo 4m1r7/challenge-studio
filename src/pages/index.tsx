@@ -22,7 +22,7 @@ const mainComponent = {
   },
 };
 
-export default function HomePage() {
+export default function Home() {
   const { theme, toggleTheme } = useTheme();
 
   const [cursorLocation, setCursorLocation] = useState({ x: 0, y: 0 });
@@ -35,7 +35,7 @@ export default function HomePage() {
   };
 
   return (
-    <Layout theme={theme} toggleTheme={toggleTheme}>
+    <Layout theme={theme} toggleTheme={toggleTheme} noFooter>
       <Seo templateTitle='Home' />
 
       <main

@@ -1,0 +1,9 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 19" width="32" height="19">
+	<title>Rectangle 5-svg</title>
+	<defs>
+		<image  width="32" height="18" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAASBAMAAADI5sFhAAAAAXNSR0IB2cksfwAAABhQTFRFAAAA5OTk5OTk5OTk5OTk5OTk5OTk5OTk/2GHEwAAAAh0Uk5TACwfS/+VlJZLxd3aAAAAaUlEQVR4nGNgEGBAAkwMDMyuyAIhBgwiLgEIPquLExAjKUkByYYglEAkkZSEuCRAKKgSNqgUXAlcBspgdXGDm+WGogDKRLYfbFoIsguB9qE4EKQcRQHIzSgKQEpQFQBNQVXAwMBeAGUAAPJHFXaJLrUKAAAAAElFTkSuQmCC"/>
+	</defs>
+	<style>
+	</style>
+	<use id="Layer" href="#img1" x="0" y="0"/>
+</svg>

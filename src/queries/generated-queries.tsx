@@ -87,6 +87,8 @@ export type Award = ContentNode &
   Previewable &
   UniformResourceIdentifiable & {
     __typename?: 'Award';
+    /** Added to the GraphQL Schema because the ACF Field Group &quot;Award Fields&quot; was set to Show in GraphQL. */
+    awardFields?: Maybe<Award_Awardfields>;
     /**
      * The id field matches the WP_Post-&gt;ID field.
      * @deprecated Deprecated in favor of the databaseId field
@@ -236,6 +238,17 @@ export type AwardToPreviewConnectionEdge = AwardConnectionEdge &
     /** The node of the connection, without the edges */
     node: Award;
   };
+
+/** Field Group */
+export type Award_Awardfields = AcfFieldGroup & {
+  __typename?: 'Award_Awardfields';
+  awardLink?: Maybe<Scalars['String']['output']>;
+  /** The name of the ACF Field Group */
+  fieldGroupName?: Maybe<Scalars['String']['output']>;
+  relatedProject?: Maybe<Award_Awardfields_RelatedProject>;
+};
+
+export type Award_Awardfields_RelatedProject = Project;
 
 /** The category type */
 export type Category = DatabaseIdentifier &
@@ -3386,6 +3399,7 @@ export type Member_Memberfields = AcfFieldGroup & {
   /** The name of the ACF Field Group */
   fieldGroupName?: Maybe<Scalars['String']['output']>;
   oldMember?: Maybe<Scalars['Boolean']['output']>;
+  position?: Maybe<Scalars['String']['output']>;
 };
 
 /** Menus are the containers for navigation items. Menus can be assigned to menu locations, which are typically registered by the active theme. */
@@ -10664,6 +10678,13 @@ export type WritingSettings = {
   useSmilies?: Maybe<Scalars['Boolean']['output']>;
 };
 
+export type AboutPageQueryVariables = Exact<{ [key: string]: never }>;
+
+export type AboutPageQuery = {
+  __typename?: 'RootQuery';
+  pageBy?: { __typename?: 'Page'; id: string; content?: string | null } | null;
+};
+
 export type AllProjectsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type AllProjectsQuery = {
@@ -10688,6 +10709,69 @@ export type AllProjectsQuery = {
           status?: string | null;
           type?: string | null;
           year?: number | null;
+        } | null;
+      };
+    }>;
+  } | null;
+};
+
+export type AwardsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type AwardsQuery = {
+  __typename?: 'RootQuery';
+  awards?: {
+    __typename?: 'RootQueryToAwardConnection';
+    edges: Array<{
+      __typename?: 'RootQueryToAwardConnectionEdge';
+      node: {
+        __typename?: 'Award';
+        id: string;
+        title?: string | null;
+        featuredImage?: {
+          __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge';
+          node: { __typename?: 'MediaItem'; sourceUrl?: string | null };
+        } | null;
+        awardFields?: {
+          __typename?: 'Award_Awardfields';
+          awardLink?: string | null;
+          relatedProject?: {
+            __typename?: 'Project';
+            uri?: string | null;
+          } | null;
+        } | null;
+      };
+    }>;
+  } | null;
+};
+
+export type ContactPageQueryVariables = Exact<{ [key: string]: never }>;
+
+export type ContactPageQuery = {
+  __typename?: 'RootQuery';
+  pageBy?: { __typename?: 'Page'; id: string; content?: string | null } | null;
+};
+
+export type MembersQueryVariables = Exact<{ [key: string]: never }>;
+
+export type MembersQuery = {
+  __typename?: 'RootQuery';
+  members?: {
+    __typename?: 'RootQueryToMemberConnection';
+    edges: Array<{
+      __typename?: 'RootQueryToMemberConnectionEdge';
+      node: {
+        __typename?: 'Member';
+        id: string;
+        title?: string | null;
+        slug?: string | null;
+        featuredImage?: {
+          __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge';
+          node: { __typename?: 'MediaItem'; sourceUrl?: string | null };
+        } | null;
+        memberFields?: {
+          __typename?: 'Member_Memberfields';
+          oldMember?: boolean | null;
+          position?: string | null;
         } | null;
       };
     }>;
@@ -10764,9 +10848,62 @@ export type ProjectsPageQuery = {
   pageBy?: { __typename?: 'Page'; id: string } | null;
 };
 
+export const AboutPageDocument = gql`
+  query AboutPage {
+    pageBy(uri: "about") {
+      id
+      content
+    }
+  }
+`;
+
+/**
+ * __useAboutPageQuery__
+ *
+ * To run a query within a React component, call `useAboutPageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAboutPageQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAboutPageQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAboutPageQuery(
+  baseOptions?: Apollo.QueryHookOptions<AboutPageQuery, AboutPageQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<AboutPageQuery, AboutPageQueryVariables>(
+    AboutPageDocument,
+    options
+  );
+}
+export function useAboutPageLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    AboutPageQuery,
+    AboutPageQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<AboutPageQuery, AboutPageQueryVariables>(
+    AboutPageDocument,
+    options
+  );
+}
+export type AboutPageQueryHookResult = ReturnType<typeof useAboutPageQuery>;
+export type AboutPageLazyQueryHookResult = ReturnType<
+  typeof useAboutPageLazyQuery
+>;
+export type AboutPageQueryResult = Apollo.QueryResult<
+  AboutPageQuery,
+  AboutPageQueryVariables
+>;
 export const AllProjectsDocument = gql`
   query AllProjects {
-    projects {
+    projects(first: 100) {
       edges {
         node {
           slug
@@ -10775,7 +10912,7 @@ export const AllProjectsDocument = gql`
           uri
           featuredImage {
             node {
-              sourceUrl(size: MEDIUM)
+              sourceUrl(size: MEDIUM_LARGE)
             }
           }
           projectFields {
@@ -10836,6 +10973,189 @@ export type AllProjectsLazyQueryHookResult = ReturnType<
 export type AllProjectsQueryResult = Apollo.QueryResult<
   AllProjectsQuery,
   AllProjectsQueryVariables
+>;
+export const AwardsDocument = gql`
+  query Awards {
+    awards(first: 100) {
+      edges {
+        node {
+          id
+          title
+          featuredImage {
+            node {
+              sourceUrl(size: MEDIUM_LARGE)
+            }
+          }
+          awardFields {
+            awardLink
+            relatedProject {
+              ... on Project {
+                uri
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useAwardsQuery__
+ *
+ * To run a query within a React component, call `useAwardsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAwardsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAwardsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAwardsQuery(
+  baseOptions?: Apollo.QueryHookOptions<AwardsQuery, AwardsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<AwardsQuery, AwardsQueryVariables>(
+    AwardsDocument,
+    options
+  );
+}
+export function useAwardsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<AwardsQuery, AwardsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<AwardsQuery, AwardsQueryVariables>(
+    AwardsDocument,
+    options
+  );
+}
+export type AwardsQueryHookResult = ReturnType<typeof useAwardsQuery>;
+export type AwardsLazyQueryHookResult = ReturnType<typeof useAwardsLazyQuery>;
+export type AwardsQueryResult = Apollo.QueryResult<
+  AwardsQuery,
+  AwardsQueryVariables
+>;
+export const ContactPageDocument = gql`
+  query ContactPage {
+    pageBy(uri: "contact") {
+      id
+      content
+    }
+  }
+`;
+
+/**
+ * __useContactPageQuery__
+ *
+ * To run a query within a React component, call `useContactPageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useContactPageQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useContactPageQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useContactPageQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    ContactPageQuery,
+    ContactPageQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<ContactPageQuery, ContactPageQueryVariables>(
+    ContactPageDocument,
+    options
+  );
+}
+export function useContactPageLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ContactPageQuery,
+    ContactPageQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<ContactPageQuery, ContactPageQueryVariables>(
+    ContactPageDocument,
+    options
+  );
+}
+export type ContactPageQueryHookResult = ReturnType<typeof useContactPageQuery>;
+export type ContactPageLazyQueryHookResult = ReturnType<
+  typeof useContactPageLazyQuery
+>;
+export type ContactPageQueryResult = Apollo.QueryResult<
+  ContactPageQuery,
+  ContactPageQueryVariables
+>;
+export const MembersDocument = gql`
+  query Members {
+    members(first: 100) {
+      edges {
+        node {
+          id
+          title
+          slug
+          featuredImage {
+            node {
+              sourceUrl(size: MEDIUM_LARGE)
+            }
+          }
+          memberFields {
+            oldMember
+            position
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useMembersQuery__
+ *
+ * To run a query within a React component, call `useMembersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMembersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMembersQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMembersQuery(
+  baseOptions?: Apollo.QueryHookOptions<MembersQuery, MembersQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<MembersQuery, MembersQueryVariables>(
+    MembersDocument,
+    options
+  );
+}
+export function useMembersLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<MembersQuery, MembersQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<MembersQuery, MembersQueryVariables>(
+    MembersDocument,
+    options
+  );
+}
+export type MembersQueryHookResult = ReturnType<typeof useMembersQuery>;
+export type MembersLazyQueryHookResult = ReturnType<typeof useMembersLazyQuery>;
+export type MembersQueryResult = Apollo.QueryResult<
+  MembersQuery,
+  MembersQueryVariables
 >;
 export const ProjectDataDocument = gql`
   query ProjectData($slug: String!) {
@@ -10929,7 +11249,7 @@ export type ProjectDataQueryResult = Apollo.QueryResult<
 >;
 export const ProjectRoutesDocument = gql`
   query ProjectRoutes {
-    projects {
+    projects(first: 100) {
       edges {
         node {
           slug

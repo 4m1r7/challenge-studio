@@ -2,7 +2,7 @@ overwrite: true
 schema: 'https://challenge-studio.ir/graphql'
 documents: 'src/queries/**/*.graphql'
 generates:
-  src/queries/graphql-types.tsx:
+  src/queries/generated-queries.tsx:
     plugins:
       - 'typescript'
       - 'typescript-operations'
