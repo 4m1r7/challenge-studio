@@ -16,16 +16,16 @@ interface FooterProps {
 
 export default function Footer({ noFooter, theme }: FooterProps) {
   return (
-    <section>
+    <section
+      className={
+        theme == 'light'
+          ? 'text-customDarkBlue bg-customGray'
+          : ' text-customGray bg-customDarkBlue'
+      }
+    >
       {' '}
       {!noFooter && (
-        <div
-          className={
-            theme == 'light'
-              ? 'text-customDarkBlue bg-customGray'
-              : ' text-customGray bg-customDarkBlue'
-          }
-        >
+        <div>
           {theme == 'light' ? (
             <div className='mx-12 mb-16 mt-8 flex gap-5 border-y border-current py-5'>
               <DarkFacebook className='h-7 w-7' />
