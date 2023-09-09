@@ -23,7 +23,6 @@ export default function Footer({ noFooter, theme }: FooterProps) {
           : ' text-customGray bg-customDarkBlue'
       }
     >
-      {' '}
       {!noFooter && (
         <div>
           {theme == 'light' ? (
