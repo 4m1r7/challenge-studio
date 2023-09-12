@@ -16,6 +16,10 @@ const Cube = ({ cursorLocation, theme }: CubeProps) => {
           transform: `rotateX(${-cursorLocation.y * 45}deg) rotateY(${
             cursorLocation.x * 45
           }deg)`,
+          transition:
+            cursorLocation.x === 0 && cursorLocation.y === 0
+              ? '.5s all linear'
+              : '0s all linear',
         }}
       >
         <div
