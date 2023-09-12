@@ -45,7 +45,7 @@ export default function Contact(data: { data: ContactPageQuery }) {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <Layout theme={theme} toggleTheme={toggleTheme} noThemeChanger noFooter>
+    <Layout theme={theme} toggleTheme={toggleTheme} noFooter>
       <Seo templateTitle='Contact' />
 
       <main

@@ -26,18 +26,18 @@ export default function Footer({ noFooter, theme }: FooterProps) {
       {!noFooter && (
         <div>
           {theme == 'light' ? (
-            <div className='mx-12 mb-16 mt-8 flex gap-5 border-y border-current py-5'>
-              <DarkFacebook className='h-7 w-7' />
-              <DarkTwitter className='h-7 w-7' />
-              <DarkYouTube className='h-7 w-7' />
-              <DarkInstagram className='h-7 w-7' />
+            <div className='mx-12 mb-16 mt-8 flex gap-5 border-y border-current py-4'>
+              <DarkFacebook className='h-6 w-6 cursor-pointer' />
+              <DarkTwitter className='h-6 w-6 cursor-pointer' />
+              <DarkYouTube className='h-6 w-6 cursor-pointer' />
+              <DarkInstagram className='h-6 w-6 cursor-pointer' />
             </div>
           ) : (
-            <div className='mx-12 mb-16 mt-8 flex gap-5 border-y border-current py-5'>
-              <LightFacebook className='h-7 w-7' />
-              <LightTwitter className='h-7 w-7' />
-              <LightYouTube className='h-7 w-7' />
-              <LightInstagram className='h-7 w-7' />
+            <div className='mx-12 mb-16 mt-8 flex gap-5 border-y border-current py-4'>
+              <LightFacebook className='h-6 w-6 cursor-pointer' />
+              <LightTwitter className='h-6 w-6 cursor-pointer' />
+              <LightYouTube className='h-6 w-6 cursor-pointer' />
+              <LightInstagram className='h-6 w-6 cursor-pointer' />
             </div>
           )}
         </div>

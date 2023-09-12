@@ -8,22 +8,16 @@ export default function Layout({
   children,
   theme,
   toggleTheme,
-  noThemeChanger,
   noFooter,
 }: {
   children: React.ReactNode;
   theme: string;
   toggleTheme: () => void;
-  noThemeChanger?: boolean;
   noFooter?: boolean;
 }) {
   return (
     <div className=' flex min-h-screen flex-col '>
-      <Header
-        theme={theme}
-        toggleTheme={toggleTheme}
-        noThemeChanger={noThemeChanger}
-      />
+      <Header theme={theme} toggleTheme={toggleTheme} />
       {children}
       <Footer theme={theme} noFooter={noFooter} />
     </div>

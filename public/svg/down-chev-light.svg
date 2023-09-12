@@ -1,9 +1,9 @@
 <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 19" width="32" height="19">
-	<title>Rectangle 5-svg</title>
+	<title>down-chev-dark-svg</title>
 	<defs>
-		<image  width="32" height="18" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAASBAMAAADI5sFhAAAAAXNSR0IB2cksfwAAABhQTFRFAAAA5OTk5OTk5OTk5OTk5OTk5OTk5OTk/2GHEwAAAAh0Uk5TACwfS/+VlJZLxd3aAAAAaUlEQVR4nGNgEGBAAkwMDMyuyAIhBgwiLgEIPquLExAjKUkByYYglEAkkZSEuCRAKKgSNqgUXAlcBspgdXGDm+WGogDKRLYfbFoIsguB9qE4EKQcRQHIzSgKQEpQFQBNQVXAwMBeAGUAAPJHFXaJLrUKAAAAAElFTkSuQmCC"/>
+		<image  width="37" height="23" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACUAAAAXAQMAAAC24hTmAAAAAXNSR0IB2cksfwAAAAZQTFRFAAAA5OTklvnROgAAAAJ0Uk5TAP9bkSK1AAAAXElEQVR4nG2NsQ2AMAwEL0oROhZA8iaZhUFSZBNWYRRGSOkCId6pKHhZb/n9b8MHCyTYIHcqlBODtUfZHCXmiybbwBVwdWjSoGoPJq8yR5wrT3C+g5PPD2Pyzg9exaQRTTZ+yXAAAAAASUVORK5CYII="/>
 	</defs>
 	<style>
 	</style>
-	<use id="Layer" href="#img1" x="0" y="0"/>
+	<use id="Layer" href="#img1" x="-2" y="-2"/>
 </svg>
