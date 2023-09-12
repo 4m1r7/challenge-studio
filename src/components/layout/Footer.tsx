@@ -59,7 +59,7 @@ export default function Footer({ noFooter, theme }: FooterProps) {
               <DarkInstagram className='h-6 w-6 cursor-pointer' />
             </div>
           ) : (
-            <div className='mx-12 mb-16 mt-8 flex gap-5 border-y border-current py-4'>
+            <div className=' flex gap-5 '>
               <LightFacebook className='h-6 w-6 cursor-pointer' />
               <LightTwitter className='h-6 w-6 cursor-pointer' />
               <LightYouTube className='h-6 w-6 cursor-pointer' />
