@@ -2,8 +2,10 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
-import Close from '~/svg/close.svg';
+import DarkClose from '~/svg/close-dark.svg';
+import LightClose from '~/svg/close-light.svg';
 import DarkChevron from '~/svg/down-chev-dark.svg';
+import LightChevron from '~/svg/down-chev-light.svg';
 
 interface MediaModalProps {
   mediaUrls: { mediaUrl: string; mediaType: string }[];
@@ -12,6 +14,7 @@ interface MediaModalProps {
   onClose: () => void;
   onPrev: () => void;
   onNext: () => void;
+  theme: string;
 }
 
 export default function MediaModal({
@@ -21,6 +24,7 @@ export default function MediaModal({
   onClose,
   onPrev,
   onNext,
+  theme,
 }: MediaModalProps) {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
@@ -35,27 +39,51 @@ export default function MediaModal({
     setIsVideoPlaying(!isVideoPlaying);
   };
 
+  const handleClose = () => {
+    setIsVideoPlaying(false);
+    onClose();
+  };
+
   return (
     <motion.div
       key='modal'
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className='fixed inset-0 z-50 flex flex-col gap-5 bg-white p-20 pt-28'
+      className={`fixed inset-0 z-50 flex flex-col gap-5 p-20 pt-28
+                ${
+                  theme == 'light'
+                    ? 'bg-customGray text-customDarkBlue'
+                    : 'bg-customDarkBlue text-customGray'
+                }`}
     >
       {/* Gallery Image and Controls */}
       <div className=' z-50 flex w-full flex-grow items-center justify-between gap-28 '>
-        <Close
-          className=' absolute right-24 top-28 h-6 w-6 cursor-pointer '
-          onClick={onClose}
-        />
+        {theme == 'light' ? (
+          <DarkClose
+            className=' absolute right-24 top-28 h-6 w-6 cursor-pointer '
+            onClick={handleClose}
+          />
+        ) : (
+          <LightClose
+            className=' absolute right-24 top-28 h-6 w-6 cursor-pointer '
+            onClick={handleClose}
+          />
+        )}
 
-        <DarkChevron
-          className='top-1/2 h-10 w-10 -translate-y-1/2 rotate-90 transform cursor-pointer'
-          onClick={onPrev}
-        />
+        {theme == 'light' ? (
+          <DarkChevron
+            className='top-1/2 h-10 w-10 -translate-y-1/2 rotate-90 transform cursor-pointer'
+            onClick={onPrev}
+          />
+        ) : (
+          <LightChevron
+            className='top-1/2 h-10 w-10 -translate-y-1/2 rotate-90 transform cursor-pointer'
+            onClick={onPrev}
+          />
+        )}
 
-        <div className=' relative h-full flex-grow '>
+        <div className=' relative flex h-full w-full flex-col'>
           {mediaUrls[currentMediaIndex].mediaType === 'image' ? (
             <Image
               src={mediaUrls[currentMediaIndex].mediaUrl}
@@ -68,17 +96,24 @@ export default function MediaModal({
             <video
               src={mediaUrls[currentMediaIndex].mediaUrl}
               controls
-              preload='metadata'
+              preload='auto'
               onClick={toggleVideoPlayback}
-              className='h-full w-full bg-stone-300'
+              className=' absolute left-0 top-0 h-full w-full '
             />
           )}
         </div>
 
-        <DarkChevron
-          className='top-1/2 h-10 w-10 -translate-y-1/2 -rotate-90 transform cursor-pointer'
-          onClick={onNext}
-        />
+        {theme == 'light' ? (
+          <DarkChevron
+            className='top-1/2 h-10 w-10 -translate-y-1/2 -rotate-90 transform cursor-pointer'
+            onClick={onNext}
+          />
+        ) : (
+          <LightChevron
+            className='top-1/2 h-10 w-10 -translate-y-1/2 -rotate-90 transform cursor-pointer'
+            onClick={onNext}
+          />
+        )}
       </div>
 
       {/* Gallery Thumbnails */}

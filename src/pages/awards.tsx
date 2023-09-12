@@ -36,7 +36,7 @@ export default function Awards(data: { data: AwardsQuery }) {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <Layout theme={theme} toggleTheme={toggleTheme} noThemeChanger>
+    <Layout theme={theme} toggleTheme={toggleTheme}>
       <Seo templateTitle='Awards' />
 
       <main

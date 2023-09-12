@@ -204,7 +204,7 @@ export default function Projects(data: { data: AllProjectsQuery }) {
                           duration: 0.5,
                         }}
                       >
-                        <Link href={item.node.uri || ''}>
+                        <Link href={item.node.uri || ''} className='group'>
                           <Image
                             src={item.node.featuredImage?.node.sourceUrl || ''}
                             alt={item.node.title || 'project-image'}
@@ -212,18 +212,30 @@ export default function Projects(data: { data: AllProjectsQuery }) {
                             fill
                             quality={100}
                           />
+
+                          {/* Overlay */}
                           <div
-                            className={`absolute inset-0 p-4 text-left  opacity-0 transition duration-200 hover:opacity-100
+                            className={`absolute inset-0 p-4 text-left opacity-0 mix-blend-hard-light transition duration-300 group-hover:opacity-100
                                           ${
                                             theme == 'light'
-                                              ? 'text-customGray bg-customDarkBlue/75'
+                                              ? 'text-customGray bg-customDarkBlue/90'
                                               : 'text-customDarkBlue bg-customGray/60'
                                           }`}
+                          />
+
+                          {/* Title & year */}
+                          <div
+                            className={`absolute inset-0 p-4 text-left opacity-0 transition duration-300 group-hover:opacity-100
+                                          ${
+                                            theme == 'light'
+                                              ? 'text-customGray'
+                                              : 'text-customDarkBlue'
+                                          }`}
                           >
-                            <p className=' text-lg font-bold '>
+                            <p className='text-lg font-bold text-current'>
                               {item.node.title}
                             </p>
-                            <p className=' text-xl'>
+                            <p className=' text-xl text-current'>
                               –<br />
                               {item.node.projectFields?.year}
                             </p>

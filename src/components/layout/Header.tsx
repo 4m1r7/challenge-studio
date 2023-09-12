@@ -39,14 +39,9 @@ const mainComponent = {
 interface HeaderProps {
   theme: string;
   toggleTheme: () => void;
-  noThemeChanger?: boolean;
 }
 
-export default function Header({
-  theme,
-  toggleTheme,
-  noThemeChanger,
-}: HeaderProps) {
+export default function Header({ theme, toggleTheme }: HeaderProps) {
   const router = useRouter();
 
   return (
@@ -81,7 +76,7 @@ export default function Header({
 
         <nav>
           <ul
-            className={`site-menu flex justify-end gap-8 
+            className={`site-menu flex items-center justify-end gap-8 
                         ${
                           theme == 'light'
                             ? 'text-customDarkBlue'
@@ -96,39 +91,24 @@ export default function Header({
                 <Link href={link.href}>{link.label}</Link>
               </li>
             ))}
-            <a
-              href='https://www.instagram.com/challenge_studio_/'
-              className='whitespace-nowrap'
-            >
+
+            {/* <a href='https://www.instagram.com/challenge_studio_/' className='whitespace-nowrap'>
               Instagram {'>'}
-            </a>
+            </a> */}
+
+            {theme == 'light' ? (
+              <DarkMode
+                className=' h-5 w-5 cursor-pointer '
+                onClick={toggleTheme}
+              />
+            ) : (
+              <LightMode
+                className=' h-6 w-6 cursor-pointer '
+                onClick={toggleTheme}
+              />
+            )}
           </ul>
         </nav>
-
-        {!noThemeChanger && (
-          <motion.div
-            className='absolute left-12 top-[90vh] cursor-pointer'
-            key='header'
-            initial={{ x: -40, y: 40 }}
-            animate={{
-              x: 0,
-              y: 0,
-              transition: { ease: 'easeOut', duration: 1.5 },
-            }}
-            exit={{
-              x: -40,
-              y: 40,
-              transition: { ease: 'easeOut', duration: 0.5 },
-            }}
-            onClick={toggleTheme}
-          >
-            {theme == 'light' ? (
-              <DarkMode className=' h-6 w-6 ' />
-            ) : (
-              <LightMode className=' h-6 w-6 ' />
-            )}
-          </motion.div>
-        )}
       </motion.div>
     </header>
   );

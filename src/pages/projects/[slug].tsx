@@ -46,18 +46,24 @@ export default function Projects(data: { projectData: ProjectDataQuery }) {
   const project = data.projectData.projectBy;
 
   const mediaUrls = [
-    ...(project?.projectFields?.mainVideos || []).map((item) => ({
-      mediaUrl: item?.videoItem?.mediaItemUrl,
-      mediaType: 'video',
-    })),
-    ...(project?.projectFields?.projectImages || []).map((item) => ({
-      mediaUrl: item?.mediaItemUrl,
-      mediaType: 'image',
-    })),
-    ...(project?.projectFields?.projectVideos || []).map((item) => ({
-      mediaUrl: item?.videoItem?.mediaItemUrl,
-      mediaType: 'video',
-    })),
+    ...(project?.projectFields?.mainVideos || [])
+      .map((item) => ({
+        mediaUrl: item?.videoItem?.mediaItemUrl,
+        mediaType: 'video',
+      }))
+      .filter((item) => item.mediaUrl),
+    ...(project?.projectFields?.projectImages || [])
+      .map((item) => ({
+        mediaUrl: item?.mediaItemUrl,
+        mediaType: 'image',
+      }))
+      .filter((item) => item.mediaUrl),
+    ...(project?.projectFields?.projectVideos || [])
+      .map((item) => ({
+        mediaUrl: item?.videoItem?.mediaItemUrl,
+        mediaType: 'video',
+      }))
+      .filter((item) => item.mediaUrl),
   ];
 
   // light/dark themeheme context
@@ -199,7 +205,7 @@ export default function Projects(data: { projectData: ProjectDataQuery }) {
             <div className='grid w-full grid-cols-6 gap-5'>
               {mediaUrls.map((item, index) => (
                 <div
-                  key={item.mediaUrl}
+                  key={`image-${index}`}
                   onClick={() => openModal(index)}
                   className='relative aspect-square w-full cursor-pointer'
                 >
@@ -213,7 +219,6 @@ export default function Projects(data: { projectData: ProjectDataQuery }) {
                   ) : (
                     <video
                       poster={item.mediaUrl || ''}
-                      controls
                       preload='metadata'
                       className='aspect-square w-full object-cover'
                     >
@@ -241,6 +246,7 @@ export default function Projects(data: { projectData: ProjectDataQuery }) {
               onClose={closeModal}
               onPrev={goToPrevImage}
               onNext={goToNextImage}
+              theme={theme}
             />
           )}
         </motion.div>
