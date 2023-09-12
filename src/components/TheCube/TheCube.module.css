@@ -3,12 +3,11 @@
 .scene {
   width: 70vh;
   height: 70vh;
-  perspective: 5000px;
+  perspective: 30000px;
   transform-style: preserve-3d;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: 0.1s all linear;
 }
 
 .cube {
@@ -17,8 +16,7 @@
   position: relative;
   transform-style: preserve-3d;
   transform: translateZ(-100px);
-  transition: transform 0.75s;
-  transform: rotateX(-45deg) rotateY(0deg) rotateZ(-45deg);
+  transform: rotateX(-50deg) rotateY(0deg) rotateZ(-45deg);
 
   display: flex;
   justify-content: center;
@@ -32,8 +30,6 @@
   position: absolute;
   width: 18vw;
   height: 18vw;
-  border: 1px solid #004071;
-  background-color: #e4e4e4;
 }
 
 .cubeFaceFront {

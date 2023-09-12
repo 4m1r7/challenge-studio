@@ -57,7 +57,7 @@ export default function Home() {
           animate='enter'
           exit='exit'
         >
-          <TheCube cursorLocation={cursorLocation} />
+          <TheCube cursorLocation={cursorLocation} theme={theme} />
         </motion.div>
       </main>
     </Layout>
