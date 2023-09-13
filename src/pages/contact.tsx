@@ -123,7 +123,8 @@ export default function Contact(data: { data: ContactPageQuery }) {
                     id='name'
                     name='name'
                     type='text'
-                    className=' focus:border-neutral-500 focus:ring-0'
+                    className='text-customDarkBlue focus:ring-0'
+                    required
                   />
                 </div>
 
@@ -135,7 +136,8 @@ export default function Contact(data: { data: ContactPageQuery }) {
                     id='email'
                     name='email'
                     type='email'
-                    className=' focus:border-neutral-500 focus:ring-0'
+                    className='text-customDarkBlue focus:ring-0'
+                    required
                   />
                 </div>
 
@@ -146,8 +148,9 @@ export default function Contact(data: { data: ContactPageQuery }) {
                   <textarea
                     id='message'
                     name='message'
-                    className=' focus:border-neutral-500 focus:ring-0'
+                    className='text-customDarkBlue focus:ring-0'
                     required
+                    rows={3}
                   ></textarea>
                 </div>
               </div>
@@ -167,16 +170,23 @@ export default function Contact(data: { data: ContactPageQuery }) {
 
           {/* Map Image */}
           <div className='relative flex aspect-square w-2/5 items-end'>
-            <Image
-              src={
-                theme == 'light'
-                  ? '/images/map-dark-tinified.png'
-                  : '/images/map-light-tinified.png'
-              }
-              alt='Location Map'
-              fill
-              className='object-cover'
-            />
+            {theme == 'light' ? (
+              <Image
+                src='/images/map-dark-tinified.png'
+                alt='Location Map'
+                fill
+                loading='eager'
+                className='object-cover'
+              />
+            ) : (
+              <Image
+                src='/images/map-light-tinified.png'
+                alt='Location Map'
+                fill
+                loading='eager'
+                className='object-cover'
+              />
+            )}
           </div>
         </motion.div>
       </main>

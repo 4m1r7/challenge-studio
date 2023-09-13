@@ -122,5 +122,5 @@
 /* Header Styles */
 .site-menu {
   min-width: 30rem;
-  width: calc(46vw - 5.5rem);
+  width: calc(50vw - 11rem);
 }

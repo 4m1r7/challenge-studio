@@ -91,6 +91,7 @@ export default function About({ membersData, pageData }: AboutProps) {
                   src={founder.featuredImage?.node.sourceUrl || ''}
                   fill
                   className='object-cover'
+                  loading='eager'
                   alt={founder.title || 'founder'}
                 />
               </div>
