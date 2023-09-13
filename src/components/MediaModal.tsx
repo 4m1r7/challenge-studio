@@ -85,13 +85,23 @@ export default function MediaModal({
 
         <div className=' relative flex h-full w-full flex-col'>
           {mediaUrls[currentMediaIndex].mediaType === 'image' ? (
-            <Image
-              src={mediaUrls[currentMediaIndex].mediaUrl}
-              alt='Project Photo'
-              fill
-              quality={100}
-              className='object-contain'
-            />
+            <>
+              <Image
+                src={mediaUrls[currentMediaIndex].mediaUrl}
+                alt='Project Photo'
+                fill
+                quality={100}
+                className='object-contain'
+              />
+              <div
+                className=' absolute left-0 top-0 h-full w-1/2 cursor-w-resize'
+                onClick={onPrev}
+              />
+              <div
+                className=' absolute right-0 top-0 h-full w-1/2 cursor-e-resize'
+                onClick={onNext}
+              />
+            </>
           ) : (
             <video
               src={mediaUrls[currentMediaIndex].mediaUrl}

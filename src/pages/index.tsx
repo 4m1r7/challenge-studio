@@ -39,7 +39,7 @@ export default function Home() {
       <Seo templateTitle='Home' />
 
       <main
-        className={`flex flex-grow flex-col items-center justify-center px-12
+        className={`flex flex-grow flex-col items-center justify-center overflow-hidden px-12
                         ${
                           theme == 'light'
                             ? 'bg-customGray'

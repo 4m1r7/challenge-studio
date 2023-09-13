@@ -214,24 +214,10 @@ export default function Projects(data: { data: AllProjectsQuery }) {
                           />
 
                           {/* Overlay */}
-                          <div
-                            className={`absolute inset-0 p-4 text-left opacity-0 mix-blend-hard-light transition duration-300 group-hover:opacity-100
-                                          ${
-                                            theme == 'light'
-                                              ? 'text-customGray bg-customDarkBlue/90'
-                                              : 'text-customDarkBlue bg-customGray/60'
-                                          }`}
-                          />
+                          <div className='bg-customDarkBlue/50 absolute inset-0 p-4 text-left opacity-0 mix-blend-multiply transition duration-300 group-hover:opacity-100' />
 
                           {/* Title & year */}
-                          <div
-                            className={`absolute inset-0 p-4 text-left opacity-0 transition duration-300 group-hover:opacity-100
-                                          ${
-                                            theme == 'light'
-                                              ? 'text-customGray'
-                                              : 'text-customDarkBlue'
-                                          }`}
-                          >
+                          <div className='text-customGray absolute inset-0 p-4 text-left opacity-0 transition duration-300 group-hover:opacity-100'>
                             <p className='text-lg font-bold text-current'>
                               {item.node.title}
                             </p>

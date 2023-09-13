@@ -14,15 +14,6 @@ import {
 } from '@/queries/generated-queries';
 import { useTheme } from '@/ThemeContext';
 
-import DarkFacebook from '~/svg/facebook-dark.svg';
-import LightFacebook from '~/svg/facebook-light.svg';
-import DarkInstagram from '~/svg/instagram-dark.svg';
-import LightInstagram from '~/svg/instagram-light.svg';
-import DarkTwitter from '~/svg/twitter-dark.svg';
-import LightTwitter from '~/svg/twitter-light.svg';
-import DarkYouTube from '~/svg/youtube-dark.svg';
-import LightYouTube from '~/svg/youtube-light.svg';
-
 // page motion values
 const mainComponent = {
   hidden: {
@@ -53,8 +44,7 @@ export default function Contact(data: { data: ContactPageQuery }) {
     setResult('Sending....');
     const formData = new FormData(event.target as HTMLFormElement);
 
-    // TODO: change with clients access key
-    formData.append('access_key', 'c6b542e4-bc5d-4ec0-ad2f-95b4623a58f1');
+    formData.append('access_key', '5044e634-d563-40e8-b784-b6736cfe07b1');
 
     const res = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
@@ -71,11 +61,11 @@ export default function Contact(data: { data: ContactPageQuery }) {
   };
 
   return (
-    <Layout theme={theme} toggleTheme={toggleTheme} noFooter>
+    <Layout theme={theme} toggleTheme={toggleTheme}>
       <Seo templateTitle='Contact' />
 
       <main
-        className={`flex flex-grow flex-col items-center justify-end p-12
+        className={`flex flex-grow flex-col items-center justify-end px-12
                         ${
                           theme == 'light'
                             ? 'bg-customGray'
@@ -91,38 +81,20 @@ export default function Contact(data: { data: ContactPageQuery }) {
           exit='exit'
         >
           {/* Contact Info */}
-          <div className='flex h-full w-1/5 flex-col justify-end gap-8'>
-            <div
-              className={`flex flex-col gap-4 border-l pl-4 text-sm xl:pr-[5vw] 2xl:pr-[6vw] ${
-                theme == 'light'
-                  ? 'border-customDarkBlue text-customDarkBlue'
-                  : ' border-customGray text-customGray'
-              }`}
-            >
-              <h2 className='text-lg'>INFO</h2>
-              <div dangerouslySetInnerHTML={{ __html: contactContent || '' }} />
-            </div>
-
-            {theme == 'light' ? (
-              <div className='flex gap-5'>
-                <DarkFacebook className='h-8 w-8' />
-                <DarkTwitter className='h-8 w-8' />
-                <DarkYouTube className='h-8 w-8' />
-                <DarkInstagram className='h-8 w-8' />
-              </div>
-            ) : (
-              <div className='flex gap-5'>
-                <LightFacebook className='h-8 w-8' />
-                <LightTwitter className='h-8 w-8' />
-                <LightYouTube className='h-8 w-8' />
-                <LightInstagram className='h-8 w-8' />
-              </div>
-            )}
+          <div
+            className={`flex h-full w-1/5 flex-col gap-4 border-l pl-4 text-sm xl:pr-[5vw] 2xl:pr-[6vw] ${
+              theme == 'light'
+                ? 'border-customDarkBlue text-customDarkBlue'
+                : ' border-customGray text-customGray'
+            }`}
+          >
+            <h2 className='text-lg'>INFO</h2>
+            <div dangerouslySetInnerHTML={{ __html: contactContent || '' }} />
           </div>
 
           {/* Contact Form */}
           <div
-            className={`relative mb-16 flex w-2/5 flex-col items-start justify-end border-l border-current pl-4
+            className={`relative flex w-2/5 flex-col items-start justify-end border-l border-current pl-4
                             ${
                               theme == 'light'
                                 ? 'text-customDarkBlue'
@@ -130,10 +102,13 @@ export default function Contact(data: { data: ContactPageQuery }) {
                             }`}
           >
             <h2 className='mb-2 text-left text-lg'>JOIN US</h2>
-            <p className='mb-8 w-2/3 text-justify text-sm'>
+            <p className='mb-8 w-2/3 text-justify text-sm font-light'>
               Challenge Studio is always looking for talented people to join its
               team. If you are interested in working with us, submit your
-              portfolio & cv to work@challenge-studio.ir
+              portfolio & cv to{' '}
+              <a href='mailto:work@challenge-studio.ir' className='font-bold '>
+                work@challenge-studio.ir
+              </a>
             </p>
 
             <h2 className='mb-2 text-left text-lg'>CONTACT</h2>
