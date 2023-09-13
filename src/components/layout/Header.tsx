@@ -46,12 +46,12 @@ export default function Header({ theme, toggleTheme }: HeaderProps) {
 
   return (
     <header
-      className={` top-0 z-50 w-full ${
+      className={` sticky top-0 z-50 w-full ${
         theme == 'light' ? 'bg-customGray' : 'bg-customDarkBlue'
       }`}
     >
       <motion.div
-        className='flex h-28 w-full items-center justify-start gap-6 px-12 py-5'
+        className='flex h-20 w-full items-center justify-start gap-6 px-12 pb-3 pt-5'
         key='header'
         variants={mainComponent}
         initial='hidden'
@@ -68,9 +68,9 @@ export default function Header({ theme, toggleTheme }: HeaderProps) {
 
         <div className='flex flex-grow items-center justify-end '>
           {theme == 'light' ? (
-            <DarkSigns className='h-full w-52' />
+            <DarkSigns className='h-16 w-52' />
           ) : (
-            <LightSigns className='h-full w-52' />
+            <LightSigns className='h-16 w-52' />
           )}
         </div>
 

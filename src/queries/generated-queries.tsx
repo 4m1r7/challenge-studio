@@ -6091,7 +6091,7 @@ export type Project_Projectfields = AcfFieldGroup & {
   projectVideos?: Maybe<Array<Maybe<Project_Projectfields_ProjectVideos>>>;
   scale?: Maybe<Scalars['String']['output']>;
   status?: Maybe<Scalars['String']['output']>;
-  type?: Maybe<Scalars['String']['output']>;
+  type?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   year?: Maybe<Scalars['Float']['output']>;
 };
 
@@ -10707,7 +10707,7 @@ export type AllProjectsQuery = {
           __typename?: 'Project_Projectfields';
           scale?: string | null;
           status?: string | null;
-          type?: string | null;
+          type?: Array<string | null> | null;
           year?: number | null;
         } | null;
       };
@@ -10797,7 +10797,7 @@ export type ProjectDataQuery = {
       __typename?: 'Project_Projectfields';
       scale?: string | null;
       status?: string | null;
-      type?: string | null;
+      type?: Array<string | null> | null;
       year?: number | null;
       projectModel?: string | null;
       mainVideos?: Array<{

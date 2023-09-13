@@ -49,7 +49,7 @@ export default function Footer({ noFooter, theme }: FooterProps) {
           initial='hidden'
           animate='enter'
           exit='exit'
-          className='mx-12 mb-16 mt-8 flex justify-between border-y border-current py-4'
+          className='mx-12 my-10 flex justify-between border-y border-current px-1 py-4'
         >
           {theme == 'light' ? (
             <div className=' flex gap-5 '>

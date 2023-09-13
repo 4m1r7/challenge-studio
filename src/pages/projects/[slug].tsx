@@ -138,19 +138,31 @@ export default function Projects(data: { projectData: ProjectDataQuery }) {
 
               <div className='border-l border-current pl-4 text-current'>
                 <div className='flex'>
-                  <p className='mr-3 font-light'>Type {'>'}</p>
-                  <p>{project?.projectFields?.type}</p>
+                  <p className='mr-3 whitespace-nowrap font-light'>
+                    Type {'>'}
+                  </p>
+                  <div className='flex flex-col'>
+                    {project?.projectFields?.type?.map((type) => (
+                      <p key={type}>{type}</p>
+                    ))}
+                  </div>
                 </div>
                 <div className='flex'>
-                  <p className='mr-3 font-light'>Status {'>'}</p>
+                  <p className='mr-3 whitespace-nowrap font-light'>
+                    Status {'>'}
+                  </p>
                   <p>{project?.projectFields?.status}</p>
                 </div>
                 <div className='flex'>
-                  <p className='mr-3 font-light'>Scale {'>'}</p>
+                  <p className='mr-3 whitespace-nowrap font-light'>
+                    Scale {'>'}
+                  </p>
                   <p>{project?.projectFields?.scale}</p>
                 </div>
                 <div className='flex'>
-                  <p className='mr-3 font-light'>Year {'>'}</p>
+                  <p className='mr-3 whitespace-nowrap font-light'>
+                    Year {'>'}
+                  </p>
                   <p>{project?.projectFields?.year}</p>
                 </div>
               </div>

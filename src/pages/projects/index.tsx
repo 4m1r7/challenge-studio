@@ -47,22 +47,27 @@ export default function Projects(data: { data: AllProjectsQuery }) {
     const { projectFields } = item.node;
 
     if (projectFields) {
-      // Iterate through the keys in projectFields
       Object.keys(projectFields).forEach((filterType) => {
-        // Exclude keys that start with '__'
         if (!filterType.startsWith('__')) {
-          // add filter type
           if (!filterOptions[filterType]) {
             filterOptions[filterType] = [];
           }
-          // add corresponding filter type values
+
           const filterValue =
             projectFields[filterType as keyof typeof projectFields];
-          if (
-            filterValue &&
-            !filterOptions[filterType].includes(filterValue as string)
-          ) {
-            filterOptions[filterType].push(filterValue as string);
+
+          if (Array.isArray(filterValue)) {
+            // If it's an array, iterate through its values
+            filterValue.forEach((value) => {
+              if (!filterOptions[filterType].includes(value as string)) {
+                filterOptions[filterType].push(value as string);
+              }
+            });
+          } else {
+            // If it's a single value, add it as before
+            if (!filterOptions[filterType].includes(filterValue as string)) {
+              filterOptions[filterType].push(filterValue as string);
+            }
           }
         }
       });
@@ -128,7 +133,7 @@ export default function Projects(data: { data: AllProjectsQuery }) {
         >
           {/* Projects filters */}
           <div className='w-[12%] pl-4'>
-            {/* Sorting the filter option type based on arbitrary filterOrderIndex array the rendering them */}
+            {/* Sorting the filter option type based on arbitrary filterOrderIndex array then rendering them */}
             {filterOrderIndex
               .map((index) => Object.entries(filterOptions)[index - 1])
               .map(([filterType, filterValues]) => (
@@ -168,28 +173,39 @@ export default function Projects(data: { data: AllProjectsQuery }) {
               {projects &&
                 projects
                   .filter((item) => {
-                    // Check if the project matches the selected filters
                     const { projectFields } = item.node;
 
-                    // Build an array of filter conditions
-                    const filterConditions = Object.keys(activeFilters).map(
-                      (filterType) => {
-                        const filterValue = activeFilters[filterType];
+                    // Check if projectFields is not null or undefined
+                    if (projectFields) {
+                      const filterConditions = Object.keys(activeFilters).map(
+                        (filterType) => {
+                          const filterValue = activeFilters[filterType];
 
-                        // Only include the condition if the filter value is not null
-                        if (filterValue !== null) {
-                          return (
-                            projectFields?.[
-                              filterType as keyof typeof projectFields
-                            ] === filterValue
-                          );
+                          if (filterValue !== null) {
+                            // Check if filterValue is in the projectFields.type array
+                            if (
+                              filterType === 'type' &&
+                              Array.isArray(projectFields.type)
+                            ) {
+                              return projectFields.type.includes(
+                                filterValue as string
+                              );
+                            }
+                            return (
+                              projectFields?.[
+                                filterType as keyof typeof projectFields
+                              ] === filterValue
+                            );
+                          }
+
+                          return true;
                         }
-                        return true; // Include the project if the filter value is null
-                      }
-                    );
+                      );
+                      // Check if all filter conditions are true (logical AND)
+                      return filterConditions.every((condition) => condition);
+                    }
 
-                    // Check if all filter conditions are true (logical AND)
-                    return filterConditions.every((condition) => condition);
+                    return false; // Exclude projects with null or undefined projectFields
                   })
                   .map((item) => {
                     return (
@@ -214,24 +230,10 @@ export default function Projects(data: { data: AllProjectsQuery }) {
                           />
 
                           {/* Overlay */}
-                          <div
-                            className={`absolute inset-0 p-4 text-left opacity-0 mix-blend-hard-light transition duration-300 group-hover:opacity-100
-                                          ${
-                                            theme == 'light'
-                                              ? 'text-customGray bg-customDarkBlue/90'
-                                              : 'text-customDarkBlue bg-customGray/60'
-                                          }`}
-                          />
+                          <div className='bg-customDarkBlue/50 absolute inset-0 p-4 text-left opacity-0 mix-blend-multiply transition duration-300 group-hover:opacity-100' />
 
                           {/* Title & year */}
-                          <div
-                            className={`absolute inset-0 p-4 text-left opacity-0 transition duration-300 group-hover:opacity-100
-                                          ${
-                                            theme == 'light'
-                                              ? 'text-customGray'
-                                              : 'text-customDarkBlue'
-                                          }`}
-                          >
+                          <div className='text-customGray absolute inset-0 p-4 text-left opacity-0 transition duration-300 group-hover:opacity-100'>
                             <p className='text-lg font-bold text-current'>
                               {item.node.title}
                             </p>

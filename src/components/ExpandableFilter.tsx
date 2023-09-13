@@ -54,6 +54,9 @@ export default function FilterComponent({
       </div>
 
       <ul className={`text-xs ${showFilterValues ? 'mb-6 block' : 'hidden'}`}>
+        <li key={`all-${filterType}s`} className='mt-2'>
+          <button onClick={() => onFilterChange(filterType, null)}>All</button>
+        </li>
         {filterValues
           .slice()
           .sort()
