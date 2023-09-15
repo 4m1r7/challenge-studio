@@ -1,0 +1,9 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" width="52" height="52">
+	<title>fullscreen1-svgrepo-com-svg</title>
+	<defs>
+		<image  width="50" height="50" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAAXNSR0IB2cksfwAAADlQTFRFAC9UAC9TACpLACtLACpLACVBAAAAACM9ACtLAD9uAC9TAC9TAD1sACZCAEBxACVCACVCAD9vACE7RUCzZAAAABN0Uk5T3969wLxwAEW+/93c/oD/fH3/KivupuYAAADxSURBVHic7ZbJDoMwDESNswdSlv//2IayOwFibpXwDWaeAYl4DFChmEsKpbNl7OaBWM5zkNpVIOsm5I25Co1HECJ8iploFSIiupgZjRNSyvxsM1LGTKYFKWFmy4rcM4thQ+6YVd4h18wmRgQxvX1BaCnB2pxwSoxPMSYvnRBaKSBimxItaQRU7ijR0TZADT15t9DTJhTRYTheD8nnJch9vciL/APC//n5R4x/kMvGhdqFXclQMmYbsIWjz1qQ8pY4SIhPxvjzsOBHEj/4+PHKD3H+qsBeSNDz1p5aQuXqZXFCa/JGFfeuubwbFzLJQbCCL/z5PjmgiYwIAAAAAElFTkSuQmCC"/>
+	</defs>
+	<style>
+	</style>
+	<use id="Layer" href="#img1" x="1" y="1"/>
+</svg>

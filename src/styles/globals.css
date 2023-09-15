@@ -124,3 +124,10 @@
   min-width: 30rem;
   width: calc(50vw - 11rem);
 }
+
+.right-chev-cursor {
+  cursor: url('/svg/right-chev-cursor.svg') 10 10, auto;
+}
+.left-chev-cursor {
+  cursor: url('/svg/left-chev-cursor.svg') 10 10, auto;
+}

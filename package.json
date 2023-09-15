@@ -1,5 +1,5 @@
 {
-  "name": "ts-nextjs-tailwind-starter",
+  "name": "challenge-studio",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -25,6 +25,8 @@
     "@graphql-codegen/typescript-operations": "^4.0.1",
     "@graphql-codegen/typescript-react-apollo": "^3.3.7",
     "@graphql-tools/webpack-loader": "^7.0.0",
+    "@react-three/drei": "^9.83.9",
+    "@react-three/fiber": "^8.14.1",
     "clsx": "^1.2.1",
     "framer-motion": "^10.16.4",
     "graphql": "^16.8.0",
@@ -34,7 +36,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
-    "tailwind-merge": "^1.13.2"
+    "tailwind-merge": "^1.13.2",
+    "three": "^0.156.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.3.0",
@@ -44,6 +47,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@types/react": "^18.2.15",
+    "@types/three": "^0.156.0",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
     "autoprefixer": "^10.4.14",

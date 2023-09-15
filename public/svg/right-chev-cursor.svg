@@ -1,0 +1,9 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 32" width="12" height="20">
+	<title>down-chev-dark-svg</title>
+	<defs>
+		<image  width="18" height="32" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAgBAMAAADtUjXCAAAAAXNSR0IB2cksfwAAABhQTFRFAAAAABs2ABkxAAAAABIjABMjABIjAB01WucftQAAAAh0Uk5TADqA/9PS1FBb890vAAAATklEQVR4nGNgEGCAAiYTGEvY2AHKYjE2hQk6wwVZjU0QggFwlXDBYCTtSCrJETTDYMENR+iAO4IVSQiuyhRTCIsqPELFcPcgQoihAEoDAD5UEQM9HhiYAAAAAElFTkSuQmCC"/>
+	</defs>
+	<style>
+	</style>
+	<use id="Layer" href="#img1" x="0" y="0"/>
+</svg>
