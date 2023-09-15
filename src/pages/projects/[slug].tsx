@@ -23,6 +23,7 @@ import DarkArrow from '~/svg/back-arrow-dark.svg';
 import LightArrow from '~/svg/back-arrow-light.svg';
 import DownChevDark from '~/svg/down-chev-dark.svg';
 import DownChevLight from '~/svg/down-chev-light.svg';
+import Play from '~/svg/play-button.svg';
 import DarkRotate from '~/svg/rotate-dark.svg';
 import LightRotate from '~/svg/rotate-light.svg';
 
@@ -199,6 +200,7 @@ export default function Projects(data: { projectData: ProjectDataQuery }) {
                     'Project Model Is Not Available',
                 }}
               />
+              {/* <ModelViewer /> */}
             </div>
           </div>
 
@@ -229,13 +231,16 @@ export default function Projects(data: { projectData: ProjectDataQuery }) {
                       alt='Gallery Image'
                     />
                   ) : (
-                    <video
-                      poster={item.mediaUrl || ''}
-                      preload='metadata'
-                      className='aspect-square w-full object-cover'
-                    >
-                      <source src={item.mediaUrl || ''} type='video/mp4' />
-                    </video>
+                    <div className='flex aspect-square w-full items-center justify-center'>
+                      <video
+                        poster={item.mediaUrl || ''}
+                        preload='metadata'
+                        className='aspect-square w-full bg-stone-700 object-cover'
+                      >
+                        <source src={item.mediaUrl || ''} type='video/mp4' />
+                      </video>
+                      <Play className='absolute h-16 w-16 ' />
+                    </div>
                   )}
                 </div>
               ))}
