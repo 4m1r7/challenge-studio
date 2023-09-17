@@ -67,7 +67,7 @@ export default function Footer({ noFooter, theme }: FooterProps) {
             </div>
           )}
 
-          <p>Designed @ [ BÂZ.SPACE ]</p>
+          {/* <p>Designed @ [ BÂZ.SPACE ]</p> */}
         </motion.div>
       )}
     </section>

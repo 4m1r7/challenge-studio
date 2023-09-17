@@ -194,6 +194,7 @@ export default function Projects(data: { projectData: ProjectDataQuery }) {
               ) : (
                 <LightRotate className='absolute right-0 h-24 w-24 ' />
               )}
+
               <ModelViewer
                 fileUrl={
                   project?.projectFields?.projectModel?.mediaItemUrl || null
