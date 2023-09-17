@@ -9,6 +9,7 @@ import client from '@/lib/apolloClient';
 
 import Layout from '@/components/layout/Layout';
 import MediaModal from '@/components/MediaModal';
+import ModelViewer from '@/components/ModelViewer';
 import Seo from '@/components/Seo';
 
 import {
@@ -193,14 +194,12 @@ export default function Projects(data: { projectData: ProjectDataQuery }) {
               ) : (
                 <LightRotate className='absolute right-0 h-24 w-24 ' />
               )}
-              <div
-                dangerouslySetInnerHTML={{
-                  __html:
-                    project?.projectFields?.projectModel ||
-                    'Project Model Is Not Available',
-                }}
+
+              <ModelViewer
+                fileUrl={
+                  project?.projectFields?.projectModel?.mediaItemUrl || null
+                }
               />
-              {/* <ModelViewer /> */}
             </div>
           </div>
 

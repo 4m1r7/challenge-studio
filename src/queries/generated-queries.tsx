@@ -3835,10 +3835,14 @@ export enum MimeTypeEnum {
   ApplicationWordperfect = 'APPLICATION_WORDPERFECT',
   /** application/x-7z-compressed mime type. */
   ApplicationX_7ZCompressed = 'APPLICATION_X_7Z_COMPRESSED',
+  /** application/x-bzip2 mime type. */
+  ApplicationXBzip2 = 'APPLICATION_X_BZIP2',
   /** application/x-gzip mime type. */
   ApplicationXGzip = 'APPLICATION_X_GZIP',
   /** application/x-tar mime type. */
   ApplicationXTar = 'APPLICATION_X_TAR',
+  /** application/x-xz mime type. */
+  ApplicationXXz = 'APPLICATION_X_XZ',
   /** application/zip mime type. */
   ApplicationZip = 'APPLICATION_ZIP',
   /** audio/aac mime type. */
@@ -3877,6 +3881,8 @@ export enum MimeTypeEnum {
   ImageWebp = 'IMAGE_WEBP',
   /** image/x-icon mime type. */
   ImageXIcon = 'IMAGE_X_ICON',
+  /** model/gltf-binary mime type. */
+  ModelGltfBinary = 'MODEL_GLTF_BINARY',
   /** text/calendar mime type. */
   TextCalendar = 'TEXT_CALENDAR',
   /** text/css mime type. */
@@ -3921,6 +3927,8 @@ export enum MimeTypeEnum {
   VideoXMsWmv = 'VIDEO_X_MS_WMV',
   /** video/x-ms-wmx mime type. */
   VideoXMsWmx = 'VIDEO_X_MS_WMX',
+  /** xz mime type. */
+  Xz = 'XZ',
 }
 
 /** An object with an ID */
@@ -6087,7 +6095,7 @@ export type Project_Projectfields = AcfFieldGroup & {
   mainVideos?: Maybe<Array<Maybe<Project_Projectfields_MainVideos>>>;
   members?: Maybe<Array<Maybe<Project_Projectfields_Members>>>;
   projectImages?: Maybe<Array<Maybe<MediaItem>>>;
-  projectModel?: Maybe<Scalars['String']['output']>;
+  projectModel?: Maybe<MediaItem>;
   projectVideos?: Maybe<Array<Maybe<Project_Projectfields_ProjectVideos>>>;
   scale?: Maybe<Scalars['String']['output']>;
   status?: Maybe<Scalars['String']['output']>;
@@ -10799,7 +10807,6 @@ export type ProjectDataQuery = {
       status?: string | null;
       type?: Array<string | null> | null;
       year?: number | null;
-      projectModel?: string | null;
       mainVideos?: Array<{
         __typename?: 'Project_Projectfields_mainVideos';
         videoItem?: {
@@ -10818,6 +10825,10 @@ export type ProjectDataQuery = {
         __typename?: 'MediaItem';
         mediaItemUrl?: string | null;
       } | null> | null;
+      projectModel?: {
+        __typename?: 'MediaItem';
+        mediaItemUrl?: string | null;
+      } | null;
       members?: Array<{
         __typename?: 'Member';
         id: string;
@@ -11186,7 +11197,9 @@ export const ProjectDataDocument = gql`
         projectImages {
           mediaItemUrl
         }
-        projectModel
+        projectModel {
+          mediaItemUrl
+        }
         members {
           ... on Member {
             id
