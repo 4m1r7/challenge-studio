@@ -169,7 +169,7 @@ export default function Projects(data: { data: AllProjectsQuery }) {
 
           {/* Projects grid */}
           <div className='grid h-fit w-[88%] grid-cols-5 gap-4'>
-            <AnimatePresence mode='wait'>
+            <AnimatePresence>
               {projects &&
                 projects
                   .filter((item) => {
