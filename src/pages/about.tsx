@@ -130,8 +130,7 @@ export default function About({ membersData, pageData }: AboutProps) {
           >
             {/* Current Members */}
             <h2 className='font-normal'>
-              {' '}
-              {'<'} Challenge Team {'>'}{' '}
+              {'<'} Challenge Team {'>'}
             </h2>
 
             <div className='grid w-11/12 grid-cols-4 gap-16 xl:w-9/12'>
@@ -153,6 +152,12 @@ export default function About({ membersData, pageData }: AboutProps) {
                     <p className='text-xs font-light'>
                       {member.memberFields?.position}
                     </p>
+                    <div
+                      className='mt-2 text-left text-xs font-light'
+                      dangerouslySetInnerHTML={{
+                        __html: member?.content || '',
+                      }}
+                    />
                   </div>
                 ))}
             </div>
@@ -168,8 +173,7 @@ export default function About({ membersData, pageData }: AboutProps) {
 
             {/* Previuos Members */}
             <h2 className='font-normal'>
-              {' '}
-              {'<'} Previous Members {'>'}{' '}
+              {'<'} Previous Members {'>'}
             </h2>
 
             <div className='grid w-11/12 grid-cols-4 gap-16 xl:w-9/12'>

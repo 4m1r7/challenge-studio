@@ -2,5 +2,13 @@ query ContactPage {
   pageBy(uri: "contact") {
     id
     content
+    contactPageFields {
+      darkModeMap {
+        mediaItemUrl
+      }
+      lightModeMap {
+        mediaItemUrl
+      }
+    }
   }
 }

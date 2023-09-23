@@ -1787,6 +1787,8 @@ export type CreateMediaItemPayload = {
 export type CreateMemberInput = {
   /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
   clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The content of the object */
+  content?: InputMaybe<Scalars['String']['input']>;
   /** The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17  */
   date?: InputMaybe<Scalars['String']['input']>;
   /** A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types. */
@@ -3242,12 +3244,15 @@ export type Member = ContentNode &
   DatabaseIdentifier &
   MenuItemLinkable &
   Node &
+  NodeWithContentEditor &
   NodeWithFeaturedImage &
   NodeWithTemplate &
   NodeWithTitle &
   Previewable &
   UniformResourceIdentifiable & {
     __typename?: 'Member';
+    /** The content of the post. */
+    content?: Maybe<Scalars['String']['output']>;
     /** Connection between the ContentNode type and the ContentType type */
     contentType?: Maybe<ContentNodeToContentTypeConnectionEdge>;
     /** The name of the Content Type the node belongs to */
@@ -3318,6 +3323,11 @@ export type Member = ContentNode &
     /** The unique resource identifier path */
     uri?: Maybe<Scalars['String']['output']>;
   };
+
+/** The Member type */
+export type MemberContentArgs = {
+  format?: InputMaybe<PostObjectFieldFormatEnum>;
+};
 
 /** The Member type */
 export type MemberEnqueuedScriptsArgs = {
@@ -4132,6 +4142,8 @@ export type Page = ContentNode &
     commentStatus?: Maybe<Scalars['String']['output']>;
     /** Connection between the Page type and the Comment type */
     comments?: Maybe<PageToCommentConnection>;
+    /** Added to the GraphQL Schema because the ACF Field Group &quot;Contact Page Fields&quot; was set to Show in GraphQL. */
+    contactPageFields?: Maybe<Page_Contactpagefields>;
     /** The content of the post. */
     content?: Maybe<Scalars['String']['output']>;
     /** Connection between the ContentNode type and the ContentType type */
@@ -4528,6 +4540,15 @@ export type PageToRevisionConnectionWhereArgs = {
   status?: InputMaybe<PostStatusEnum>;
   /** Title of the object */
   title?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Field Group */
+export type Page_Contactpagefields = AcfFieldGroup & {
+  __typename?: 'Page_Contactpagefields';
+  darkModeMap?: Maybe<MediaItem>;
+  /** The name of the ACF Field Group */
+  fieldGroupName?: Maybe<Scalars['String']['output']>;
+  lightModeMap?: Maybe<MediaItem>;
 };
 
 /** An plugin object */
@@ -9497,6 +9518,8 @@ export type UpdateMediaItemPayload = {
 export type UpdateMemberInput = {
   /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
   clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The content of the object */
+  content?: InputMaybe<Scalars['String']['input']>;
   /** The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17  */
   date?: InputMaybe<Scalars['String']['input']>;
   /** The ID of the Member object */
@@ -10756,7 +10779,22 @@ export type ContactPageQueryVariables = Exact<{ [key: string]: never }>;
 
 export type ContactPageQuery = {
   __typename?: 'RootQuery';
-  pageBy?: { __typename?: 'Page'; id: string; content?: string | null } | null;
+  pageBy?: {
+    __typename?: 'Page';
+    id: string;
+    content?: string | null;
+    contactPageFields?: {
+      __typename?: 'Page_Contactpagefields';
+      darkModeMap?: {
+        __typename?: 'MediaItem';
+        mediaItemUrl?: string | null;
+      } | null;
+      lightModeMap?: {
+        __typename?: 'MediaItem';
+        mediaItemUrl?: string | null;
+      } | null;
+    } | null;
+  } | null;
 };
 
 export type MembersQueryVariables = Exact<{ [key: string]: never }>;
@@ -10770,6 +10808,7 @@ export type MembersQuery = {
       node: {
         __typename?: 'Member';
         id: string;
+        content?: string | null;
         title?: string | null;
         slug?: string | null;
         featuredImage?: {
@@ -11055,6 +11094,14 @@ export const ContactPageDocument = gql`
     pageBy(uri: "contact") {
       id
       content
+      contactPageFields {
+        darkModeMap {
+          mediaItemUrl
+        }
+        lightModeMap {
+          mediaItemUrl
+        }
+      }
     }
   }
 `;
@@ -11112,6 +11159,7 @@ export const MembersDocument = gql`
       edges {
         node {
           id
+          content
           title
           slug
           featuredImage {

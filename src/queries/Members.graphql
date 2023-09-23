@@ -3,6 +3,7 @@ query Members {
     edges {
       node {
         id
+        content
         title
         slug
         featuredImage {
