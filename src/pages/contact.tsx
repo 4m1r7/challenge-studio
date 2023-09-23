@@ -31,7 +31,7 @@ const mainComponent = {
 
 export default function Contact(data: { data: ContactPageQuery }) {
   // clean up the project array before use
-  const contactContent = data.data.pageBy?.content;
+  const contactData = data.data.pageBy;
 
   // light/dark themeheme context
   const { theme, toggleTheme } = useTheme();
@@ -89,7 +89,10 @@ export default function Contact(data: { data: ContactPageQuery }) {
             }`}
           >
             <h2 className='text-lg'>INFO</h2>
-            <div dangerouslySetInnerHTML={{ __html: contactContent || '' }} />
+            <div
+              className='flex flex-col gap-5'
+              dangerouslySetInnerHTML={{ __html: contactData?.content || '' }}
+            />
           </div>
 
           {/* Contact Form */}
@@ -172,7 +175,10 @@ export default function Contact(data: { data: ContactPageQuery }) {
           <div className='relative flex aspect-square w-2/5 items-end'>
             {theme == 'light' ? (
               <Image
-                src='/images/map-dark-tinified.png'
+                src={
+                  contactData?.contactPageFields?.lightModeMap?.mediaItemUrl ||
+                  ''
+                }
                 alt='Location Map'
                 fill
                 loading='eager'
@@ -180,7 +186,10 @@ export default function Contact(data: { data: ContactPageQuery }) {
               />
             ) : (
               <Image
-                src='/images/map-light-tinified.png'
+                src={
+                  contactData?.contactPageFields?.darkModeMap?.mediaItemUrl ||
+                  ''
+                }
                 alt='Location Map'
                 fill
                 loading='eager'
