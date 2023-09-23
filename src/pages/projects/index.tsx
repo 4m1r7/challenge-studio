@@ -217,7 +217,7 @@ export default function Projects(data: { data: AllProjectsQuery }) {
                         exit={{ opacity: 0 }}
                         transition={{
                           ease: 'easeOut',
-                          duration: 0.5,
+                          duration: 0.25,
                         }}
                       >
                         <Link href={item.node.uri || ''} className='group'>
