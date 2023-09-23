@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 import { Mesh } from 'three';
 import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
+import LoadingCube from '@/components/LoadingCube';
+
 interface MeshComponentProps {
   fileUrl: string | null;
   setIsLoading: (isLoading: string | null) => void;
@@ -60,7 +62,13 @@ function MeshComponent({ fileUrl, setIsLoading }: MeshComponentProps) {
   );
 }
 
-export default function ModelViewer({ fileUrl }: { fileUrl: string | null }) {
+export default function ModelViewer({
+  fileUrl,
+  theme,
+}: {
+  fileUrl: string | null;
+  theme: string;
+}) {
   const [isLoading, setIsLoading] = useState<string | null>(
     'Loading Project Model...'
   );
@@ -69,14 +77,23 @@ export default function ModelViewer({ fileUrl }: { fileUrl: string | null }) {
     <div className='flex h-[75vh] w-full items-center justify-center'>
       {fileUrl ? (
         <>
-          {isLoading && <p className='absolute'>{isLoading}</p>}
+          {isLoading && (
+            <div className=' absolute flex flex-col items-center justify-center pb-20'>
+              <LoadingCube theme={theme} />
+              <p>{isLoading}</p>
+            </div>
+          )}
+
           <Canvas
             camera={{
-              position: [25, 12, 25],
+              position: [20, 12, 20],
             }}
             shadows
           >
-            <OrbitControls enableZoom={true} zoomSpeed={0.25} />
+            <OrbitControls
+              enableZoom={isLoading ? false : true}
+              zoomSpeed={0.25}
+            />
 
             {/* Ambient Light */}
             <ambientLight intensity={0.5} />

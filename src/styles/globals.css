@@ -131,3 +131,13 @@
 .left-chev-cursor {
   cursor: url('/svg/left-chev-cursor.svg') 10 10, auto;
 }
+
+/* Single Projest Description Negative Space */
+.project-description {
+  width: calc(100vw - 6rem);
+}
+.negative-space {
+  shape-outside: inset(0px);
+  width: 76%;
+  float: right;
+}

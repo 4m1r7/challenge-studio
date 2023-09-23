@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import client from '@/lib/apolloClient';
 
@@ -36,7 +36,7 @@ const filterOrderIndex = [3, 4, 1, 2];
 
 export default function Projects(data: { data: AllProjectsQuery }) {
   // clean up the project array before use
-  const projects = data?.data?.projects?.edges;
+  const projects = useMemo(() => data?.data?.projects?.edges, [data]);
 
   // light/dark themeheme context
   const { theme, toggleTheme } = useTheme();
@@ -169,7 +169,7 @@ export default function Projects(data: { data: AllProjectsQuery }) {
 
           {/* Projects grid */}
           <div className='grid h-fit w-[88%] grid-cols-5 gap-4'>
-            <AnimatePresence>
+            <AnimatePresence mode='wait'>
               {projects &&
                 projects
                   .filter((item) => {
