@@ -110,7 +110,7 @@ export default function MediaModal({
         )}
 
         {/* Media */}
-        <div className=' relative flex h-full w-full flex-col'>
+        <div className=' relative flex h-full w-full flex-col items-center justify-center'>
           {mediaUrls[currentMediaIndex].mediaType === 'image' ? (
             <>
               <Image
@@ -118,7 +118,7 @@ export default function MediaModal({
                 alt='Project Photo'
                 fill
                 quality={100}
-                className='object-contain'
+                className='m-auto object-contain'
               />
               <div
                 className='prev-overlay left-chev-cursor absolute left-0 top-0 h-full w-1/2'

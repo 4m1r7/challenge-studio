@@ -51,6 +51,8 @@ export default function Footer({ noFooter, theme }: FooterProps) {
           exit='exit'
           className='mx-12 my-10 flex justify-between border-y border-current px-1 py-4'
         >
+          <p>Architecture is inherently a challenge.</p>
+
           {theme == 'light' ? (
             <div className=' flex gap-5 '>
               <DarkFacebook className='h-6 w-6 cursor-pointer' />
@@ -66,8 +68,6 @@ export default function Footer({ noFooter, theme }: FooterProps) {
               <LightInstagram className='h-6 w-6 cursor-pointer' />
             </div>
           )}
-
-          {/* <p>Designed @ [ BÂZ.SPACE ]</p> */}
         </motion.div>
       )}
     </section>

@@ -3,7 +3,7 @@ import { GetStaticProps } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
-import { useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import client from '@/lib/apolloClient';
 
@@ -45,7 +45,7 @@ const mainComponent = {
 
 export default function Projects(data: { projectData: ProjectDataQuery }) {
   // clean up the project data before use
-  const project = data.projectData.projectBy;
+  const project = useMemo(() => data.projectData.projectBy, [data]);
 
   const mediaUrls = [
     ...(project?.projectFields?.mainVideos || [])
@@ -95,6 +95,19 @@ export default function Projects(data: { projectData: ProjectDataQuery }) {
       prevIndex === mediaUrls.length - 1 ? 0 : prevIndex + 1
     );
   };
+
+  // Setting height for the negative space element
+  const negativeSpace = useRef<HTMLDivElement | null>(null);
+  const [isHeightSet, setIsHeightSet] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (negativeSpace.current && !isHeightSet) {
+      negativeSpace.current.style.height = `calc(88vh - ${
+        negativeSpace.current.getBoundingClientRect().top
+      }px)`;
+      setIsHeightSet(true);
+    }
+  }, [isHeightSet]);
 
   return (
     <Layout theme={theme} toggleTheme={toggleTheme}>
@@ -181,10 +194,12 @@ export default function Projects(data: { projectData: ProjectDataQuery }) {
                 </div>
               )}
 
-              <div
-                dangerouslySetInnerHTML={{ __html: project?.content || '' }}
-                className='border-l border-current pl-4 text-sm text-current'
-              />
+              <div className='project-description border-l border-current pl-4 text-sm text-current'>
+                <div className='negative-space' ref={negativeSpace} />
+                <div
+                  dangerouslySetInnerHTML={{ __html: project?.content || '' }}
+                />
+              </div>
             </div>
 
             {/* Project Model */}
@@ -199,17 +214,17 @@ export default function Projects(data: { projectData: ProjectDataQuery }) {
                 fileUrl={
                   project?.projectFields?.projectModel?.mediaItemUrl || null
                 }
+                theme={theme}
               />
             </div>
           </div>
 
-          <Link href='#gallery' className='mb-40'>
-            {theme == 'light' ? (
-              <DownChevDark className='right-0 h-6 w-6 ' />
-            ) : (
-              <DownChevLight className='right-0 h-6 w-6 ' />
-            )}
-          </Link>
+          {/* Down Arrow */}
+          {theme == 'light' ? (
+            <DownChevDark className='right-0 mb-40 mt-10 h-6 w-6' />
+          ) : (
+            <DownChevLight className='right-0 mb-40 mt-10 h-6 w-6' />
+          )}
 
           {/* Gallery */}
           <div id='gallery' className='w-full'>
