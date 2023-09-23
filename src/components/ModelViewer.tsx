@@ -1,7 +1,7 @@
 import { OrbitControls } from '@react-three/drei';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { useEffect, useRef, useState } from 'react';
-import { Mesh } from 'three';
+import { RefObject, useEffect, useRef, useState } from 'react';
+import { Group, Mesh } from 'three';
 import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import LoadingCube from '@/components/LoadingCube';
@@ -11,9 +11,14 @@ interface MeshComponentProps {
   setIsLoading: (isLoading: string | null) => void;
   castShadow?: boolean;
   receiveShadow?: boolean;
+  sceneGroup: RefObject<Group>;
 }
 
-function MeshComponent({ fileUrl, setIsLoading }: MeshComponentProps) {
+function MeshComponent({
+  fileUrl,
+  setIsLoading,
+  sceneGroup,
+}: MeshComponentProps) {
   const model = useRef<Mesh | null>(null);
   const [gltf, setGltf] = useState<GLTF | null>(null);
   const [hasUserInteracted, setHasUserInteracted] = useState(false);
@@ -45,8 +50,8 @@ function MeshComponent({ fileUrl, setIsLoading }: MeshComponentProps) {
   }, []);
 
   useFrame(() => {
-    if (model.current && gltf && !hasUserInteracted) {
-      model.current.rotation.y += 0.005;
+    if (sceneGroup.current && gltf && !hasUserInteracted) {
+      sceneGroup.current.rotation.y += 0.005;
     }
   });
 
@@ -72,6 +77,7 @@ export default function ModelViewer({
   const [isLoading, setIsLoading] = useState<string | null>(
     'Loading Project Model...'
   );
+  const sceneGroup = useRef<Group>(null);
 
   return (
     <div className='flex h-[75vh] w-full items-center justify-center'>
@@ -92,27 +98,31 @@ export default function ModelViewer({
           >
             <OrbitControls
               enableZoom={isLoading ? false : true}
-              zoomSpeed={0.25}
+              zoomSpeed={1}
             />
 
             {/* Ambient Light */}
-            <ambientLight intensity={0.5} />
+            <ambientLight intensity={0.75} />
 
-            {/* Directional Light (Sunlight) */}
-            <directionalLight
-              castShadow
-              intensity={2.5}
-              position={[20, 20, 0]}
-              shadow-mapSize-width={1024}
-              shadow-mapSize-height={1024}
-            />
+            <group ref={sceneGroup}>
+              {/* Directional Light (Sunlight) */}
+              <directionalLight
+                castShadow
+                intensity={2}
+                position={[-10, 20, 10]}
+                shadow-mapSize-width={1024}
+                shadow-mapSize-height={1024}
+              />
 
-            <MeshComponent
-              castShadow
-              receiveShadow
-              fileUrl={fileUrl}
-              setIsLoading={setIsLoading}
-            />
+              {/* Model Component */}
+              <MeshComponent
+                castShadow
+                receiveShadow
+                fileUrl={fileUrl}
+                setIsLoading={setIsLoading}
+                sceneGroup={sceneGroup}
+              />
+            </group>
           </Canvas>
         </>
       ) : (
