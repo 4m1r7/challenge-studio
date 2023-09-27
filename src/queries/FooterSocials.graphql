@@ -1,0 +1,12 @@
+query FooterSocials {
+  pageBy(uri: "contact") {
+    contactPageFields {
+      socialMedia {
+        facebookLink
+        instagramLink
+        twitterLink
+        youtubeLink
+      }
+    }
+  }
+}

@@ -31,9 +31,19 @@ const mainComponent = {
 interface FooterProps {
   noFooter?: boolean;
   theme: string;
+  footerSocialsData:
+    | {
+        [key: string]: string | null;
+      }
+    | null
+    | undefined;
 }
 
-export default function Footer({ noFooter, theme }: FooterProps) {
+export default function Footer({
+  noFooter,
+  theme,
+  footerSocialsData,
+}: FooterProps) {
   return (
     <section
       className={
@@ -49,25 +59,64 @@ export default function Footer({ noFooter, theme }: FooterProps) {
           initial='hidden'
           animate='enter'
           exit='exit'
-          className='mx-12 my-10 flex justify-between border-y border-current px-1 py-4'
+          className='relative mx-12 my-10 flex justify-between border-y border-current px-1 py-4'
         >
           <p>Architecture is inherently a challenge.</p>
 
-          {theme == 'light' ? (
-            <div className=' flex gap-5 '>
-              <DarkFacebook className='h-6 w-6 cursor-pointer' />
-              <DarkTwitter className='h-6 w-6 cursor-pointer' />
-              <DarkYouTube className='h-6 w-6 cursor-pointer' />
-              <DarkInstagram className='h-6 w-6 cursor-pointer' />
-            </div>
-          ) : (
-            <div className=' flex gap-5 '>
-              <LightFacebook className='h-6 w-6 cursor-pointer' />
-              <LightTwitter className='h-6 w-6 cursor-pointer' />
-              <LightYouTube className='h-6 w-6 cursor-pointer' />
-              <LightInstagram className='h-6 w-6 cursor-pointer' />
-            </div>
-          )}
+          <div className='absolute flex w-full justify-center'>
+            {theme == 'light' ? (
+              <div className=' flex gap-5 '>
+                {footerSocialsData?.facebookLink && (
+                  <a href={footerSocialsData?.facebookLink}>
+                    <DarkFacebook className='h-6 w-6 cursor-pointer' />
+                  </a>
+                )}
+                {footerSocialsData?.twitterLink && (
+                  <a href={footerSocialsData?.twitterLink}>
+                    <DarkTwitter className='h-6 w-6 cursor-pointer' />
+                  </a>
+                )}
+                {footerSocialsData?.youtubeLink && (
+                  <a href={footerSocialsData?.youtubeLink}>
+                    <DarkYouTube className='h-6 w-6 cursor-pointer' />
+                  </a>
+                )}
+                {footerSocialsData?.instagramLink && (
+                  <a href={footerSocialsData?.instagramLink}>
+                    <DarkInstagram className='h-6 w-6 cursor-pointer' />
+                  </a>
+                )}
+              </div>
+            ) : (
+              <div className=' flex gap-5 '>
+                {footerSocialsData?.facebookLink && (
+                  <a href={footerSocialsData?.facebookLink}>
+                    <LightFacebook className='h-6 w-6 cursor-pointer' />
+                  </a>
+                )}
+                {footerSocialsData?.twitterLink && (
+                  <a href={footerSocialsData?.twitterLink}>
+                    <LightTwitter className='h-6 w-6 cursor-pointer' />
+                  </a>
+                )}
+                {footerSocialsData?.youtubeLink && (
+                  <a href={footerSocialsData?.youtubeLink}>
+                    <LightYouTube className='h-6 w-6 cursor-pointer' />
+                  </a>
+                )}
+                {footerSocialsData?.instagramLink && (
+                  <a href={footerSocialsData?.instagramLink}>
+                    <LightInstagram className='h-6 w-6 cursor-pointer' />
+                  </a>
+                )}
+              </div>
+            )}
+          </div>
+
+          <p>
+            <span className='text-lg'>©</span> 2023 Challenge Studio, All rights
+            reserved
+          </p>
         </motion.div>
       )}
     </section>

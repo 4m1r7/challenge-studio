@@ -13,6 +13,8 @@ import Seo from '@/components/Seo';
 import {
   AllProjectsDocument,
   AllProjectsQuery,
+  FooterSocialsDocument,
+  FooterSocialsQuery,
 } from '@/queries/generated-queries';
 import { useTheme } from '@/ThemeContext';
 
@@ -34,9 +36,15 @@ const mainComponent = {
 // Setting the order based on index positions
 const filterOrderIndex = [3, 4, 1, 2];
 
-export default function Projects(data: { data: AllProjectsQuery }) {
-  // clean up the project array before use
-  const projects = useMemo(() => data?.data?.projects?.edges, [data]);
+interface ProjectsProps {
+  data: AllProjectsQuery;
+  socials: FooterSocialsQuery;
+}
+
+export default function Projects({ data, socials }: ProjectsProps) {
+  // clean up the projects array & footer socials before use
+  const projects = useMemo(() => data?.projects?.edges, [data]);
+  const footerSocialsData = socials.pageBy?.contactPageFields?.socialMedia;
 
   // light/dark themeheme context
   const { theme, toggleTheme } = useTheme();
@@ -111,7 +119,11 @@ export default function Projects(data: { data: AllProjectsQuery }) {
   };
 
   return (
-    <Layout theme={theme} toggleTheme={toggleTheme}>
+    <Layout
+      theme={theme}
+      toggleTheme={toggleTheme}
+      footerSocialsData={footerSocialsData}
+    >
       <Seo templateTitle='Projects' />
 
       <main
@@ -259,9 +271,14 @@ export async function getStaticProps() {
     query: AllProjectsDocument,
   });
 
+  const { data: socials } = await client.query({
+    query: FooterSocialsDocument,
+  });
+
   return {
     props: {
       data,
+      socials,
     },
   };
 }

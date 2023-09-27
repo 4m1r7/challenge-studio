@@ -4545,10 +4545,31 @@ export type PageToRevisionConnectionWhereArgs = {
 /** Field Group */
 export type Page_Contactpagefields = AcfFieldGroup & {
   __typename?: 'Page_Contactpagefields';
+  /** The name of the ACF Field Group */
+  fieldGroupName?: Maybe<Scalars['String']['output']>;
+  googleMapsLink?: Maybe<Scalars['String']['output']>;
+  maps?: Maybe<Page_Contactpagefields_Maps>;
+  socialMedia?: Maybe<Page_Contactpagefields_SocialMedia>;
+};
+
+/** Field Group */
+export type Page_Contactpagefields_Maps = AcfFieldGroup & {
+  __typename?: 'Page_Contactpagefields_Maps';
   darkModeMap?: Maybe<MediaItem>;
   /** The name of the ACF Field Group */
   fieldGroupName?: Maybe<Scalars['String']['output']>;
   lightModeMap?: Maybe<MediaItem>;
+};
+
+/** Field Group */
+export type Page_Contactpagefields_SocialMedia = AcfFieldGroup & {
+  __typename?: 'Page_Contactpagefields_SocialMedia';
+  facebookLink?: Maybe<Scalars['String']['output']>;
+  /** The name of the ACF Field Group */
+  fieldGroupName?: Maybe<Scalars['String']['output']>;
+  instagramLink?: Maybe<Scalars['String']['output']>;
+  twitterLink?: Maybe<Scalars['String']['output']>;
+  youtubeLink?: Maybe<Scalars['String']['output']>;
 };
 
 /** An plugin object */
@@ -10785,13 +10806,36 @@ export type ContactPageQuery = {
     content?: string | null;
     contactPageFields?: {
       __typename?: 'Page_Contactpagefields';
-      darkModeMap?: {
-        __typename?: 'MediaItem';
-        mediaItemUrl?: string | null;
+      googleMapsLink?: string | null;
+      maps?: {
+        __typename?: 'Page_Contactpagefields_Maps';
+        darkModeMap?: {
+          __typename?: 'MediaItem';
+          mediaItemUrl?: string | null;
+        } | null;
+        lightModeMap?: {
+          __typename?: 'MediaItem';
+          mediaItemUrl?: string | null;
+        } | null;
       } | null;
-      lightModeMap?: {
-        __typename?: 'MediaItem';
-        mediaItemUrl?: string | null;
+    } | null;
+  } | null;
+};
+
+export type FooterSocialsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type FooterSocialsQuery = {
+  __typename?: 'RootQuery';
+  pageBy?: {
+    __typename?: 'Page';
+    contactPageFields?: {
+      __typename?: 'Page_Contactpagefields';
+      socialMedia?: {
+        __typename?: 'Page_Contactpagefields_SocialMedia';
+        facebookLink?: string | null;
+        instagramLink?: string | null;
+        twitterLink?: string | null;
+        youtubeLink?: string | null;
       } | null;
     } | null;
   } | null;
@@ -11095,12 +11139,15 @@ export const ContactPageDocument = gql`
       id
       content
       contactPageFields {
-        darkModeMap {
-          mediaItemUrl
+        maps {
+          darkModeMap {
+            mediaItemUrl
+          }
+          lightModeMap {
+            mediaItemUrl
+          }
         }
-        lightModeMap {
-          mediaItemUrl
-        }
+        googleMapsLink
       }
     }
   }
@@ -11152,6 +11199,70 @@ export type ContactPageLazyQueryHookResult = ReturnType<
 export type ContactPageQueryResult = Apollo.QueryResult<
   ContactPageQuery,
   ContactPageQueryVariables
+>;
+export const FooterSocialsDocument = gql`
+  query FooterSocials {
+    pageBy(uri: "contact") {
+      contactPageFields {
+        socialMedia {
+          facebookLink
+          instagramLink
+          twitterLink
+          youtubeLink
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useFooterSocialsQuery__
+ *
+ * To run a query within a React component, call `useFooterSocialsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFooterSocialsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFooterSocialsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useFooterSocialsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    FooterSocialsQuery,
+    FooterSocialsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<FooterSocialsQuery, FooterSocialsQueryVariables>(
+    FooterSocialsDocument,
+    options
+  );
+}
+export function useFooterSocialsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    FooterSocialsQuery,
+    FooterSocialsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<FooterSocialsQuery, FooterSocialsQueryVariables>(
+    FooterSocialsDocument,
+    options
+  );
+}
+export type FooterSocialsQueryHookResult = ReturnType<
+  typeof useFooterSocialsQuery
+>;
+export type FooterSocialsLazyQueryHookResult = ReturnType<
+  typeof useFooterSocialsLazyQuery
+>;
+export type FooterSocialsQueryResult = Apollo.QueryResult<
+  FooterSocialsQuery,
+  FooterSocialsQueryVariables
 >;
 export const MembersDocument = gql`
   query Members {

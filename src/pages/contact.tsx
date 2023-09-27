@@ -11,6 +11,8 @@ import Seo from '@/components/Seo';
 import {
   ContactPageDocument,
   ContactPageQuery,
+  FooterSocialsDocument,
+  FooterSocialsQuery,
 } from '@/queries/generated-queries';
 import { useTheme } from '@/ThemeContext';
 
@@ -29,9 +31,15 @@ const mainComponent = {
   },
 };
 
-export default function Contact(data: { data: ContactPageQuery }) {
+interface ContactProps {
+  data: ContactPageQuery;
+  socials: FooterSocialsQuery;
+}
+
+export default function Contact({ data, socials }: ContactProps) {
   // clean up the project array before use
-  const contactData = data.data.pageBy;
+  const contactData = data.pageBy;
+  const footerSocialsData = socials.pageBy?.contactPageFields?.socialMedia;
 
   // light/dark themeheme context
   const { theme, toggleTheme } = useTheme();
@@ -61,7 +69,11 @@ export default function Contact(data: { data: ContactPageQuery }) {
   };
 
   return (
-    <Layout theme={theme} toggleTheme={toggleTheme}>
+    <Layout
+      theme={theme}
+      toggleTheme={toggleTheme}
+      footerSocialsData={footerSocialsData}
+    >
       <Seo templateTitle='Contact' />
 
       <main
@@ -172,12 +184,19 @@ export default function Contact(data: { data: ContactPageQuery }) {
           </div>
 
           {/* Map Image */}
-          <div className='relative flex aspect-square w-2/5 items-end'>
+          <a
+            href={
+              contactData?.contactPageFields?.googleMapsLink ||
+              'maps.google.com'
+            }
+            target='_blank'
+            className='relative flex aspect-square w-2/5 items-end'
+          >
             {theme == 'light' ? (
               <Image
                 src={
-                  contactData?.contactPageFields?.lightModeMap?.mediaItemUrl ||
-                  ''
+                  contactData?.contactPageFields?.maps?.lightModeMap
+                    ?.mediaItemUrl || ''
                 }
                 alt='Location Map'
                 fill
@@ -187,8 +206,8 @@ export default function Contact(data: { data: ContactPageQuery }) {
             ) : (
               <Image
                 src={
-                  contactData?.contactPageFields?.darkModeMap?.mediaItemUrl ||
-                  ''
+                  contactData?.contactPageFields?.maps?.darkModeMap
+                    ?.mediaItemUrl || ''
                 }
                 alt='Location Map'
                 fill
@@ -196,7 +215,7 @@ export default function Contact(data: { data: ContactPageQuery }) {
                 className='object-cover'
               />
             )}
-          </div>
+          </a>
         </motion.div>
       </main>
     </Layout>
@@ -208,9 +227,14 @@ export async function getStaticProps() {
     query: ContactPageDocument,
   });
 
+  const { data: socials } = await client.query({
+    query: FooterSocialsDocument,
+  });
+
   return {
     props: {
       data,
+      socials,
     },
   };
 }

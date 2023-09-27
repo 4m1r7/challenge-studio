@@ -3,12 +3,15 @@ query ContactPage {
     id
     content
     contactPageFields {
-      darkModeMap {
-        mediaItemUrl
+      maps {
+        darkModeMap {
+          mediaItemUrl
+        }
+        lightModeMap {
+          mediaItemUrl
+        }
       }
-      lightModeMap {
-        mediaItemUrl
-      }
+      googleMapsLink
     }
   }
 }
