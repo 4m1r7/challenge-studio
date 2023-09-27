@@ -10,6 +10,8 @@ import Seo from '@/components/Seo';
 import {
   AboutPageDocument,
   AboutPageQuery,
+  FooterSocialsDocument,
+  FooterSocialsQuery,
   MembersDocument,
   MembersQuery,
 } from '@/queries/generated-queries';
@@ -36,22 +38,34 @@ const mainComponent = {
 interface AboutProps {
   membersData: MembersQuery;
   pageData: AboutPageQuery;
+  socials: FooterSocialsQuery;
 }
 
-export default function About({ membersData, pageData }: AboutProps) {
-  // clean up the project array before use
+export default function About({ membersData, pageData, socials }: AboutProps) {
+  // clean up About data & footer socials before use
+  const footerSocialsData = socials.pageBy?.contactPageFields?.socialMedia;
   const aboutContent = pageData.pageBy?.content;
   const allMembers = membersData?.members?.edges || [];
   const founder = allMembers[allMembers.length - 1]?.node;
   const members = allMembers
     .slice(0, allMembers.length - 1)
     .map((edge) => edge.node);
+  const currentMembers = members
+    .reverse()
+    .filter((member) => !member.memberFields?.oldMember);
+  const previousMembers = members
+    .reverse()
+    .filter((member) => member.memberFields?.oldMember);
 
   // light/dark themeheme context
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <Layout theme={theme} toggleTheme={toggleTheme}>
+    <Layout
+      theme={theme}
+      toggleTheme={toggleTheme}
+      footerSocialsData={footerSocialsData}
+    >
       <Seo templateTitle='About' />
 
       <main
@@ -134,70 +148,68 @@ export default function About({ membersData, pageData }: AboutProps) {
             </h2>
 
             <div className='grid w-11/12 grid-cols-4 gap-16 xl:w-9/12'>
-              {members
-                .reverse()
-                .filter((member) => !member.memberFields?.oldMember)
-                .map((member) => (
-                  <div key={member.id} id={member.slug || ''} className='lol'>
-                    <div className='relative mb-5 aspect-square w-full'>
-                      <Image
-                        src={member.featuredImage?.node.sourceUrl || ''}
-                        alt={member.title || 'studio-member'}
-                        fill
-                      />
-                    </div>
-
-                    <h2 className='mb-1 text-sm'>{member.title}</h2>
-
-                    <p className='text-xs font-light'>
-                      {member.memberFields?.position}
-                    </p>
-                    <div
-                      className='mt-2 text-left text-xs font-light'
-                      dangerouslySetInnerHTML={{
-                        __html: member?.content || '',
-                      }}
+              {currentMembers.map((member) => (
+                <div key={member.id} id={member.slug || ''} className='lol'>
+                  <div className='relative mb-5 aspect-square w-full'>
+                    <Image
+                      src={member.featuredImage?.node.sourceUrl || ''}
+                      alt={member.title || 'studio-member'}
+                      fill
                     />
                   </div>
-                ))}
-            </div>
 
-            <hr
-              className={`w-full border-t
-                          ${
-                            theme == 'light'
-                              ? 'border-customDarkBlue'
-                              : ' border-customGra'
-                          }`}
-            />
+                  <h2 className='mb-1 text-sm'>{member.title}</h2>
+
+                  <p className='text-xs font-light'>
+                    {member.memberFields?.position}
+                  </p>
+                  <div
+                    className='mt-2 text-left text-xs font-light'
+                    dangerouslySetInnerHTML={{
+                      __html: member?.content || '',
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
 
             {/* Previuos Members */}
-            <h2 className='font-normal'>
-              {'<'} Previous Members {'>'}
-            </h2>
+            {previousMembers.length > 0 && (
+              <>
+                <hr
+                  className={`w-full border-t
+                            ${
+                              theme == 'light'
+                                ? 'border-customDarkBlue'
+                                : ' border-customGra'
+                            }`}
+                />
 
-            <div className='grid w-11/12 grid-cols-4 gap-16 xl:w-9/12'>
-              {members
-                .reverse()
-                .filter((member) => member.memberFields?.oldMember)
-                .map((member) => (
-                  <div key={member.id} id={member.slug || ''}>
-                    <div className='relative mb-5 aspect-square w-full'>
-                      <Image
-                        src={member.featuredImage?.node.sourceUrl || ''}
-                        alt={member.title || 'studio-member'}
-                        fill
-                      />
+                <h2 className='font-normal'>
+                  {'<'} Previous Members {'>'}
+                </h2>
+
+                <div className='grid w-11/12 grid-cols-4 gap-16 xl:w-9/12'>
+                  {previousMembers.map((member) => (
+                    <div key={member.id} id={member.slug || ''}>
+                      <div className='relative mb-5 aspect-square w-full'>
+                        <Image
+                          src={member.featuredImage?.node.sourceUrl || ''}
+                          alt={member.title || 'studio-member'}
+                          fill
+                        />
+                      </div>
+
+                      <h2 className='mb-1 text-sm'>{member.title}</h2>
+
+                      <p className='text-xs font-light'>
+                        {member.memberFields?.position}
+                      </p>
                     </div>
-
-                    <h2 className='mb-1 text-sm'>{member.title}</h2>
-
-                    <p className='text-xs font-light'>
-                      {member.memberFields?.position}
-                    </p>
-                  </div>
-                ))}
-            </div>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         </motion.div>
       </main>
@@ -209,14 +221,20 @@ export async function getStaticProps() {
   const { data: pageData } = await client.query({
     query: AboutPageDocument,
   });
+
   const { data: membersData } = await client.query({
     query: MembersDocument,
+  });
+
+  const { data: socials } = await client.query({
+    query: FooterSocialsDocument,
   });
 
   return {
     props: {
       pageData,
       membersData,
+      socials,
     },
   };
 }

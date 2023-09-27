@@ -35,7 +35,12 @@ export default function Home() {
   };
 
   return (
-    <Layout theme={theme} toggleTheme={toggleTheme} noFooter>
+    <Layout
+      theme={theme}
+      toggleTheme={toggleTheme}
+      noFooter
+      footerSocialsData={undefined}
+    >
       <Seo templateTitle='Home' />
 
       <main

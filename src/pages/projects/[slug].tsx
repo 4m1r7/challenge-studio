@@ -13,6 +13,8 @@ import ModelViewer from '@/components/ModelViewer';
 import Seo from '@/components/Seo';
 
 import {
+  FooterSocialsDocument,
+  FooterSocialsQuery,
   ProjectDataDocument,
   ProjectDataQuery,
   ProjectRoutesDocument,
@@ -43,9 +45,15 @@ const mainComponent = {
   },
 };
 
-export default function Projects(data: { projectData: ProjectDataQuery }) {
-  // clean up the project data before use
-  const project = useMemo(() => data.projectData.projectBy, [data]);
+interface ContactProps {
+  projectData: ProjectDataQuery;
+  socials: FooterSocialsQuery;
+}
+
+export default function Project({ projectData, socials }: ContactProps) {
+  // clean up the project data & footer socials before use
+  const project = useMemo(() => projectData.projectBy, [projectData]);
+  const footerSocialsData = socials.pageBy?.contactPageFields?.socialMedia;
 
   const mediaUrls = [
     ...(project?.projectFields?.mainVideos || [])
@@ -110,7 +118,11 @@ export default function Projects(data: { projectData: ProjectDataQuery }) {
   }, [isHeightSet]);
 
   return (
-    <Layout theme={theme} toggleTheme={toggleTheme}>
+    <Layout
+      theme={theme}
+      toggleTheme={toggleTheme}
+      footerSocialsData={footerSocialsData}
+    >
       <Seo templateTitle={project?.title || ''} />
 
       <main
@@ -313,9 +325,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     },
   });
 
+  const { data: socials } = await client.query({
+    query: FooterSocialsDocument,
+  });
+
   return {
     props: {
       projectData,
+      socials,
     },
   };
 };

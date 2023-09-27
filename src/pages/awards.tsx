@@ -8,7 +8,12 @@ import client from '@/lib/apolloClient';
 import Layout from '@/components/layout/Layout';
 import Seo from '@/components/Seo';
 
-import { AwardsDocument, AwardsQuery } from '@/queries/generated-queries';
+import {
+  AwardsDocument,
+  AwardsQuery,
+  FooterSocialsDocument,
+  FooterSocialsQuery,
+} from '@/queries/generated-queries';
 import { useTheme } from '@/ThemeContext';
 
 import Arrow from '~/svg/right-arrow.svg';
@@ -28,15 +33,25 @@ const mainComponent = {
   },
 };
 
-export default function Awards(data: { data: AwardsQuery }) {
-  // clean up the project array before use
-  const awards = data?.data?.awards?.edges;
+interface ContactProps {
+  data: AwardsQuery;
+  socials: FooterSocialsQuery;
+}
+
+export default function Awards({ data, socials }: ContactProps) {
+  // clean up Awards data & footer socials before use
+  const awards = data?.awards?.edges;
+  const footerSocialsData = socials.pageBy?.contactPageFields?.socialMedia;
 
   // light/dark themeheme context
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <Layout theme={theme} toggleTheme={toggleTheme}>
+    <Layout
+      theme={theme}
+      toggleTheme={toggleTheme}
+      footerSocialsData={footerSocialsData}
+    >
       <Seo templateTitle='Awards' />
 
       <main
@@ -106,9 +121,14 @@ export async function getStaticProps() {
     query: AwardsDocument,
   });
 
+  const { data: socials } = await client.query({
+    query: FooterSocialsDocument,
+  });
+
   return {
     props: {
       data,
+      socials,
     },
   };
 }
