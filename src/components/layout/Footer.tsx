@@ -113,7 +113,7 @@ export default function Footer({
             )}
           </div>
 
-          <p>
+          <p className='flex items-center gap-2 text-xs'>
             <span className='text-lg'>©</span> 2023 Challenge Studio, All rights
             reserved
           </p>
