@@ -65,3 +65,34 @@
     transform: rotateY(360deg);
   }
 }
+
+@media (max-width: 767px) {
+  .cubeFace {
+    width: 10vw;
+    height: 10vw;
+  }
+
+  .cubeFaceFront {
+    transform: rotateY(0deg) translateZ(5vw);
+  }
+
+  .cubeFaceRight {
+    transform: rotateY(90deg) translateZ(5vw);
+  }
+
+  .cubeFaceBack {
+    transform: rotateY(180deg) translateZ(5vw);
+  }
+
+  .cubeFaceLeft {
+    transform: rotateY(-90deg) translateZ(5vw);
+  }
+
+  .cubeFaceTop {
+    transform: rotateX(90deg) translateZ(5vw);
+  }
+
+  .cubeFaceBottom {
+    transform: rotateX(-90deg) translateZ(5vw);
+  }
+}

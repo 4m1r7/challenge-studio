@@ -80,11 +80,11 @@ export default function ModelViewer({
   const sceneGroup = useRef<Group>(null);
 
   return (
-    <div className='flex h-[75vh] w-full items-center justify-center'>
+    <div className='flex h-[50vh] w-full items-center justify-center md:h-[75vh]'>
       {fileUrl ? (
         <>
           {isLoading && (
-            <div className=' absolute flex flex-col items-center justify-center pb-20'>
+            <div className=' absolute flex flex-col items-center justify-center gap-5'>
               <LoadingCube theme={theme} />
               <p>{isLoading}</p>
             </div>

@@ -1,12 +1,17 @@
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import * as React from 'react';
+import { useState } from 'react';
+
+import MobileMenu from '@/components/MobileMenu';
 
 import DarkMode from '~/svg/dark-mode.svg';
 import LightMode from '~/svg/light-mode.svg';
 import DarkLogo from '~/svg/logo-dark.svg';
 import LightLogo from '~/svg/logo-light.svg';
+import DarkOpenMenu from '~/svg/open-menu-dark.svg';
+import LightOpenMenu from '~/svg/open-menu-light.svg';
 import DarkSigns from '~/svg/signs-dark.svg';
 import LightSigns from '~/svg/signs-light.svg';
 
@@ -39,10 +44,19 @@ const mainComponent = {
 interface HeaderProps {
   theme: string;
   toggleTheme: () => void;
+  noMobileMenu?: boolean;
+  SocialLinksData: { [key: string]: string | null } | null | undefined;
 }
 
-export default function Header({ theme, toggleTheme }: HeaderProps) {
+export default function Header({
+  theme,
+  toggleTheme,
+  noMobileMenu,
+  SocialLinksData,
+}: HeaderProps) {
   const router = useRouter();
+  const currentSlug = router.asPath;
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <header
@@ -51,22 +65,24 @@ export default function Header({ theme, toggleTheme }: HeaderProps) {
       }`}
     >
       <motion.div
-        className='flex h-20 w-full items-center justify-start gap-6 px-12 pb-3 pt-5'
+        className='flex h-24 w-full items-center justify-between gap-6 px-12 pb-3 pt-6 md:h-20 md:justify-start md:pt-5'
         key='header'
         variants={mainComponent}
         initial='hidden'
         animate='enter'
         exit='exit'
       >
+        {/* Site Logo */}
         <Link href='/'>
           {theme == 'light' ? (
-            <DarkLogo className='plyarn-2 border-customDarkBlue h-8 min-w-[6rem] border-l ' />
+            <DarkLogo className='plyarn-2 border-customDarkBlue h-9 min-w-[6.75rem] border-l md:h-8 md:min-w-[6rem] ' />
           ) : (
-            <LightLogo className='plyarn-2 border-customGray h-8 min-w-[6rem] border-l ' />
+            <LightLogo className='plyarn-2 border-customGray h-9 min-w-[6.75rem] border-l md:h-8 md:min-w-[6rem] ' />
           )}
         </Link>
 
-        <div className='flex flex-grow items-center justify-end '>
+        {/* Brands Signs */}
+        <div className='hidden flex-grow items-center justify-end md:flex'>
           {theme == 'light' ? (
             <DarkSigns className='h-16 w-52' />
           ) : (
@@ -74,7 +90,8 @@ export default function Header({ theme, toggleTheme }: HeaderProps) {
           )}
         </div>
 
-        <nav>
+        {/* Desktop Navigation Menu */}
+        <nav className='hidden md:flex '>
           <ul
             className={`site-menu flex items-center justify-end gap-8 
                         ${
@@ -86,7 +103,7 @@ export default function Header({ theme, toggleTheme }: HeaderProps) {
             {links.map((link, index) => (
               <li
                 key={index}
-                className={router.asPath == link.href ? 'font-bold' : ''}
+                className={currentSlug == link.href ? 'font-bold' : ''}
               >
                 <Link href={link.href}>{link.label}</Link>
               </li>
@@ -109,7 +126,49 @@ export default function Header({ theme, toggleTheme }: HeaderProps) {
             )}
           </ul>
         </nav>
+
+        <div className='flex gap-8 md:hidden'>
+          {/* Theme Toggle */}
+          {theme == 'light' ? (
+            <DarkMode
+              className=' h-5 w-5 translate-y-0.5 cursor-pointer'
+              onClick={toggleTheme}
+            />
+          ) : (
+            <LightMode
+              className=' h-6 w-6 cursor-pointer '
+              onClick={toggleTheme}
+            />
+          )}
+
+          {/* Mobile Menu Toggle */}
+          {!noMobileMenu &&
+            (theme == 'light' ? (
+              <DarkOpenMenu
+                className=' h-6 w-6 cursor-pointer'
+                onClick={() => setIsMenuOpen(true)}
+              />
+            ) : (
+              <LightOpenMenu
+                className=' h-6 w-6 cursor-pointer'
+                onClick={() => setIsMenuOpen(true)}
+              />
+            ))}
+        </div>
       </motion.div>
+
+      {/* Mobile Menu Component */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <MobileMenu
+            links={links}
+            currentSlug={currentSlug}
+            theme={theme}
+            setIsMenuOpen={setIsMenuOpen}
+            SocialLinksData={SocialLinksData}
+          />
+        )}
+      </AnimatePresence>
     </header>
   );
 }

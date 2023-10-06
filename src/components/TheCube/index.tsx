@@ -5,17 +5,24 @@ import styles from './TheCube.module.css';
 interface CubeProps {
   cursorLocation: { x: number; y: number };
   theme: string;
+  mobileVersion?: boolean;
 }
 
-const Cube = ({ cursorLocation, theme }: CubeProps) => {
+const Cube = ({ cursorLocation, theme, mobileVersion }: CubeProps) => {
   return (
     <>
       <div
-        className={styles.scene}
+        className={`${styles.scene} ${
+          mobileVersion ? 'md:hidden' : 'hidden md:flex'
+        } `}
         style={{
-          transform: `rotateX(${-cursorLocation.y * 45}deg) rotateY(${
-            cursorLocation.x * 45
-          }deg)`,
+          transform: `${
+            mobileVersion
+              ? ''
+              : `rotateX(${-cursorLocation.y * 45}deg) rotateY(${
+                  cursorLocation.x * 45
+                }deg)`
+          }`,
           transition:
             cursorLocation.x === 0 && cursorLocation.y === 0
               ? '.5s all linear'

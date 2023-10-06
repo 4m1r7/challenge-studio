@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import * as React from 'react';
 import { useState } from 'react';
 
@@ -7,6 +8,14 @@ import Seo from '@/components/Seo';
 import TheCube from '@/components/TheCube';
 
 import { useTheme } from '@/ThemeContext';
+
+// Menu Links
+const links = [
+  { href: '/projects', label: 'Projects' },
+  { href: '/awards', label: 'Awards' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
+];
 
 const mainComponent = {
   hidden: {
@@ -38,8 +47,9 @@ export default function Home() {
     <Layout
       theme={theme}
       toggleTheme={toggleTheme}
+      noMobileMenu
       noFooter
-      footerSocialsData={undefined}
+      SocialLinksData={undefined}
     >
       <Seo templateTitle='Home' />
 
@@ -54,7 +64,7 @@ export default function Home() {
         onMouseLeave={() => setCursorLocation({ x: 0, y: 0 })}
       >
         <motion.div
-          className=''
+          className='flex flex-grow flex-col justify-evenly'
           style={{}}
           key='home'
           variants={mainComponent}
@@ -62,7 +72,29 @@ export default function Home() {
           animate='enter'
           exit='exit'
         >
+          {/* Desktop Version */}
           <TheCube cursorLocation={cursorLocation} theme={theme} />
+
+          {/* Mobile Version */}
+          <TheCube
+            cursorLocation={{ x: 0, y: 0 }}
+            theme={theme}
+            mobileVersion
+          />
+          <ul
+            className={`flex flex-col items-center justify-center gap-8 md:hidden
+                        ${
+                          theme == 'light'
+                            ? 'text-customDarkBlue'
+                            : 'text-customGray'
+                        }`}
+          >
+            {links.map((link, index) => (
+              <li key={index} className='text-2xl'>
+                <Link href={link.href}>{link.label}</Link>
+              </li>
+            ))}
+          </ul>
         </motion.div>
       </main>
     </Layout>

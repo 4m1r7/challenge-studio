@@ -8,6 +8,7 @@ import client from '@/lib/apolloClient';
 
 import FilterComponent from '@/components/ExpandableFilter';
 import Layout from '@/components/layout/Layout';
+import MobileFilters from '@/components/MobileFilters';
 import Seo from '@/components/Seo';
 
 import {
@@ -17,6 +18,9 @@ import {
   FooterSocialsQuery,
 } from '@/queries/generated-queries';
 import { useTheme } from '@/ThemeContext';
+
+import DarkOpenFilters from '~/svg/down-chev-dark.svg';
+import LightOpenFilters from '~/svg/down-chev-light.svg';
 
 // page motion values
 const mainComponent = {
@@ -44,10 +48,11 @@ interface ProjectsProps {
 export default function Projects({ data, socials }: ProjectsProps) {
   // clean up the projects array & footer socials before use
   const projects = useMemo(() => data?.projects?.edges, [data]);
-  const footerSocialsData = socials.pageBy?.contactPageFields?.socialMedia;
+  const SocialLinksData = socials.pageBy?.contactPageFields?.socialMedia;
 
   // light/dark themeheme context
   const { theme, toggleTheme } = useTheme();
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 
   // create filter options object and populate it
   const filterOptions: Record<string, string[]> = {};
@@ -106,6 +111,7 @@ export default function Projects({ data, socials }: ProjectsProps) {
 
     setActiveFilters(updatedFilters);
   };
+
   // Clear filters
   const clearFilters = () => {
     setActiveFilters((prevFilters) => {
@@ -122,20 +128,18 @@ export default function Projects({ data, socials }: ProjectsProps) {
     <Layout
       theme={theme}
       toggleTheme={toggleTheme}
-      footerSocialsData={footerSocialsData}
+      SocialLinksData={SocialLinksData}
     >
       <Seo templateTitle='Projects' />
 
       <main
         className={`flex flex-grow flex-col items-center justify-start px-12
-                        ${
-                          theme == 'light'
-                            ? 'bg-customGray'
-                            : 'bg-customDarkBlue'
-                        } `}
+                    ${
+                      theme == 'light' ? 'bg-customGray' : 'bg-customDarkBlue'
+                    } `}
       >
         <motion.div
-          className='flex h-full w-full pt-10'
+          className='flex h-full w-full flex-col items-end pt-3 md:flex-row md:items-start md:pt-10'
           style={{}}
           key='projects'
           variants={mainComponent}
@@ -143,8 +147,21 @@ export default function Projects({ data, socials }: ProjectsProps) {
           animate='enter'
           exit='exit'
         >
+          {/* Mobile Filters Toggle */}
+          {theme == 'light' ? (
+            <DarkOpenFilters
+              className=' mb-10 h-6 w-6 rotate-90 cursor-pointer md:hidden'
+              onClick={() => setIsFiltersOpen(true)}
+            />
+          ) : (
+            <LightOpenFilters
+              className=' mb-10 h-6 w-6 rotate-90 cursor-pointer md:hidden'
+              onClick={() => setIsFiltersOpen(true)}
+            />
+          )}
+
           {/* Projects filters */}
-          <div className='w-[12%] pl-4'>
+          <div className='hidden w-[12%] flex-col pl-4 md:flex'>
             {/* Sorting the filter option type based on arbitrary filterOrderIndex array then rendering them */}
             {filterOrderIndex
               .map((index) => Object.entries(filterOptions)[index - 1])
@@ -180,7 +197,7 @@ export default function Projects({ data, socials }: ProjectsProps) {
           </div>
 
           {/* Projects grid */}
-          <div className='grid h-fit w-[88%] grid-cols-5 gap-4'>
+          <div className='grid h-fit w-full grid-cols-1 gap-8 md:w-[88%] md:grid-cols-5 md:gap-4'>
             <AnimatePresence mode='wait'>
               {projects &&
                 projects
@@ -223,7 +240,6 @@ export default function Projects({ data, socials }: ProjectsProps) {
                     return (
                       <motion.div
                         key={item.node.id}
-                        className='relative aspect-square'
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
@@ -233,27 +249,43 @@ export default function Projects({ data, socials }: ProjectsProps) {
                         }}
                       >
                         <Link href={item.node.uri || ''} className='group'>
-                          <Image
-                            src={item.node.featuredImage?.node.sourceUrl || ''}
-                            alt={item.node.title || 'project-image'}
-                            className='object-cover'
-                            fill
-                            quality={100}
-                          />
+                          <div className='relative aspect-square'>
+                            <Image
+                              src={
+                                item.node.featuredImage?.node.sourceUrl || ''
+                              }
+                              alt={item.node.title || 'project-image'}
+                              className='object-cover'
+                              fill
+                              quality={100}
+                            />
 
-                          {/* Overlay */}
-                          <div className='bg-customDarkBlue/50 absolute inset-0 p-4 text-left opacity-0 mix-blend-multiply transition duration-300 group-hover:opacity-100' />
+                            {/* Desktop Overlay */}
+                            <div className='bg-customDarkBlue/50 absolute inset-0 hidden p-4 text-left opacity-0 mix-blend-multiply transition duration-300 group-hover:opacity-100 md:flex' />
 
-                          {/* Title & year */}
-                          <div className='text-customGray absolute inset-0 p-4 text-left opacity-0 transition duration-300 group-hover:opacity-100'>
-                            <p className='text-lg font-bold text-current'>
-                              {item.node.title}
-                            </p>
-                            <p className=' text-xl text-current'>
-                              –<br />
-                              {item.node.projectFields?.year}
-                            </p>
+                            {/* Desktop Title & year */}
+                            <div className='text-customGray absolute inset-0 hidden flex-col p-4 text-left opacity-0 transition duration-300 group-hover:opacity-100 md:flex'>
+                              <p className='text-lg font-bold text-current'>
+                                {item.node.title}
+                              </p>
+                              <p className=' text-xl text-current'>
+                                –<br />
+                                {item.node.projectFields?.year}
+                              </p>
+                            </div>
                           </div>
+
+                          {/* Mobile Title & year */}
+                          <p
+                            className={` py-1 text-left text-lg font-light md:hidden
+                                    ${
+                                      theme == 'light'
+                                        ? 'text-customDarkBlue'
+                                        : 'text-customGray'
+                                    } `}
+                          >
+                            {item.node.title}
+                          </p>
                         </Link>
                       </motion.div>
                     );
@@ -261,6 +293,20 @@ export default function Projects({ data, socials }: ProjectsProps) {
             </AnimatePresence>
           </div>
         </motion.div>
+
+        <AnimatePresence>
+          {isFiltersOpen && (
+            <MobileFilters
+              theme={theme}
+              setIsFiltersOpen={setIsFiltersOpen}
+              filterOrderIndex={filterOrderIndex}
+              filterOptions={filterOptions}
+              activeFilters={activeFilters}
+              handleFilterChange={handleFilterChange}
+              clearFilters={clearFilters}
+            />
+          )}
+        </AnimatePresence>
       </main>
     </Layout>
   );

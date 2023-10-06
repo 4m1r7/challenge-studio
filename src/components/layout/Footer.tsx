@@ -1,14 +1,7 @@
 import { motion } from 'framer-motion';
 import * as React from 'react';
 
-import DarkFacebook from '~/svg/facebook-dark.svg';
-import LightFacebook from '~/svg/facebook-light.svg';
-import DarkInstagram from '~/svg/instagram-dark.svg';
-import LightInstagram from '~/svg/instagram-light.svg';
-import DarkTwitter from '~/svg/twitter-dark.svg';
-import LightTwitter from '~/svg/twitter-light.svg';
-import DarkYouTube from '~/svg/youtube-dark.svg';
-import LightYouTube from '~/svg/youtube-light.svg';
+import SocialIcons from '@/components/SocialIcons';
 
 // Header motion values
 const mainComponent = {
@@ -31,7 +24,7 @@ const mainComponent = {
 interface FooterProps {
   noFooter?: boolean;
   theme: string;
-  footerSocialsData:
+  SocialLinksData:
     | {
         [key: string]: string | null;
       }
@@ -42,7 +35,7 @@ interface FooterProps {
 export default function Footer({
   noFooter,
   theme,
-  footerSocialsData,
+  SocialLinksData,
 }: FooterProps) {
   return (
     <section
@@ -59,61 +52,21 @@ export default function Footer({
           initial='hidden'
           animate='enter'
           exit='exit'
-          className='relative mx-12 my-10 flex justify-between border-y border-current px-1 py-4'
+          className='relative mx-12 mb-10 mt-24 flex flex-col justify-between border-y border-current py-4 md:flex-row md:px-1'
         >
-          <p>Architecture is inherently a challenge.</p>
+          <SocialIcons
+            theme={theme}
+            SocialLinksData={SocialLinksData}
+            mobileVersion
+          />
 
-          <div className='absolute flex w-full justify-center'>
-            {theme == 'light' ? (
-              <div className=' flex gap-5 '>
-                {footerSocialsData?.facebookLink && (
-                  <a href={footerSocialsData?.facebookLink}>
-                    <DarkFacebook className='h-6 w-6 cursor-pointer' />
-                  </a>
-                )}
-                {footerSocialsData?.twitterLink && (
-                  <a href={footerSocialsData?.twitterLink}>
-                    <DarkTwitter className='h-6 w-6 cursor-pointer' />
-                  </a>
-                )}
-                {footerSocialsData?.youtubeLink && (
-                  <a href={footerSocialsData?.youtubeLink}>
-                    <DarkYouTube className='h-6 w-6 cursor-pointer' />
-                  </a>
-                )}
-                {footerSocialsData?.instagramLink && (
-                  <a href={footerSocialsData?.instagramLink}>
-                    <DarkInstagram className='h-6 w-6 cursor-pointer' />
-                  </a>
-                )}
-              </div>
-            ) : (
-              <div className=' flex gap-5 '>
-                {footerSocialsData?.facebookLink && (
-                  <a href={footerSocialsData?.facebookLink}>
-                    <LightFacebook className='h-6 w-6 cursor-pointer' />
-                  </a>
-                )}
-                {footerSocialsData?.twitterLink && (
-                  <a href={footerSocialsData?.twitterLink}>
-                    <LightTwitter className='h-6 w-6 cursor-pointer' />
-                  </a>
-                )}
-                {footerSocialsData?.youtubeLink && (
-                  <a href={footerSocialsData?.youtubeLink}>
-                    <LightYouTube className='h-6 w-6 cursor-pointer' />
-                  </a>
-                )}
-                {footerSocialsData?.instagramLink && (
-                  <a href={footerSocialsData?.instagramLink}>
-                    <LightInstagram className='h-6 w-6 cursor-pointer' />
-                  </a>
-                )}
-              </div>
-            )}
-          </div>
+          <p className='mt-3 whitespace-nowrap text-center text-sm tracking-tighter'>
+            Architecture is inherently a challenge.
+          </p>
 
-          <p className='flex items-center gap-2 text-xs'>
+          <SocialIcons theme={theme} SocialLinksData={SocialLinksData} />
+
+          <p className='flex items-center justify-center gap-2 text-xs tracking-tighter md:tracking-normal'>
             <span className='text-lg'>©</span> 2023 Challenge Studio, All rights
             reserved
           </p>

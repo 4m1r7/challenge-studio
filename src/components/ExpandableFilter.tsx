@@ -6,19 +6,19 @@ import DarkOpen from '~/svg/filter-open-dark.svg';
 import LightOpen from '~/svg/filter-open-light.svg';
 
 interface FilterProps {
+  theme: string;
   filterType: string;
   filterValues: string[];
   activeFilter: string | number | null;
   onFilterChange: (filterType: string, filterValue: string | null) => void;
-  theme: string;
 }
 
 export default function FilterComponent({
+  theme,
   filterType,
   filterValues,
   activeFilter,
   onFilterChange,
-  theme,
 }: FilterProps) {
   const [showFilterValues, setShowFilterValues] = useState(false);
 
@@ -28,7 +28,7 @@ export default function FilterComponent({
 
   return (
     <div
-      className={`text-customDarkBlue relative mb-3
+      className={`relative mb-3
                     ${
                       theme == 'light'
                         ? 'text-customDarkBlue'
@@ -36,24 +36,30 @@ export default function FilterComponent({
                     }`}
     >
       <div className='cursor-pointer' onClick={toggleFilterValues}>
-        {showFilterValues ? (
-          theme == 'light' ? (
-            <DarkOpen className='absolute -left-5 top-2 h-3 w-3' />
+        <div className='hidden md:block'>
+          {showFilterValues ? (
+            theme == 'light' ? (
+              <DarkOpen className='absolute -left-5 top-2 h-3 w-3' />
+            ) : (
+              <LightClose className='absolute -left-5 top-2 h-3 w-3' />
+            )
+          ) : theme == 'light' ? (
+            <DarkClose className='absolute -left-5 top-2 h-3 w-3' />
           ) : (
-            <LightClose className='absolute -left-5 top-2 h-3 w-3' />
-          )
-        ) : theme == 'light' ? (
-          <DarkClose className='absolute -left-5 top-2 h-3 w-3' />
-        ) : (
-          <LightOpen className='absolute -left-5 top-2 h-3 w-3' />
-        )}
+            <LightOpen className='absolute -left-5 top-2 h-3 w-3' />
+          )}
+        </div>
 
         <p className={`${showFilterValues ? 'font-bold' : 'font-light'}`}>
           {filterType}
         </p>
       </div>
 
-      <ul className={`text-xs ${showFilterValues ? 'mb-6 block' : 'hidden'}`}>
+      <ul
+        className={`mt-7 flex flex-col gap-4 text-xl md:mt-0 md:gap-0 md:text-xs ${
+          showFilterValues ? 'mb-6 block' : 'hidden'
+        }`}
+      >
         <li key={`all-${filterType}s`} className='mt-2'>
           <button onClick={() => onFilterChange(filterType, null)}>All</button>
         </li>
@@ -62,9 +68,11 @@ export default function FilterComponent({
           .sort()
           .reverse()
           .map((filterValue) => (
-            <li key={filterValue} className='mt-2'>
+            <li key={filterValue} className='mt-2 font-light md:font-normal'>
               <button
-                className={activeFilter === filterValue ? 'font-bold' : ''}
+                className={
+                  activeFilter === filterValue ? 'font-bold md:text-base' : ''
+                }
                 onClick={() => onFilterChange(filterType, filterValue)}
               >
                 {filterValue}
