@@ -218,19 +218,21 @@ export default function Project({ projectData, socials }: ContactProps) {
             </div>
 
             {/* Project Model */}
-            <div className='relative flex h-[40vh] w-full items-center justify-center text-center md:min-h-[65vh] md:w-3/4'>
-              {theme == 'light' ? (
-                <DarkRotate className='absolute -right-12 top-0 h-20 w-20 md:right-0 md:top-auto md:h-24 md:w-24 ' />
-              ) : (
-                <LightRotate className='absolute -right-12 top-0 h-20 w-20 md:right-0 md:top-auto md:h-24 md:w-24 ' />
-              )}
+            <div className='relative my-4 flex h-[40vh] w-[100vw] -translate-x-12 items-center justify-center text-center md:min-h-[65vh] md:w-3/4 md:p-0'>
+              <div className='h-full w-full overflow-hidden'>
+                <ModelViewer
+                  fileUrl={
+                    project?.projectFields?.projectModel?.mediaItemUrl || null
+                  }
+                  theme={theme}
+                />
+              </div>
 
-              <ModelViewer
-                fileUrl={
-                  project?.projectFields?.projectModel?.mediaItemUrl || null
-                }
-                theme={theme}
-              />
+              {theme == 'light' ? (
+                <DarkRotate className='absolute right-0 top-0 h-20 w-20 md:right-0 md:top-auto md:h-24 md:w-24 ' />
+              ) : (
+                <LightRotate className='absolute right-0 top-0 h-20 w-20 md:right-0 md:top-auto md:h-24 md:w-24 ' />
+              )}
             </div>
 
             {/* Desktop Project Primary Info (minus) descroption */}

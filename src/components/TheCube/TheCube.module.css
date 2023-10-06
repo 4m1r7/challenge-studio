@@ -3,7 +3,7 @@
 .scene {
   width: 70vh;
   height: 70vh;
-  perspective: 30000px;
+  perspective: 1000000px;
   transform-style: preserve-3d;
   /* display: flex –– handled by mobileVersion condition on the element */
   justify-content: center;
