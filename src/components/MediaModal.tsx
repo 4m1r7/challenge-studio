@@ -59,24 +59,32 @@ export default function MediaModal({
                     ? 'bg-customGray text-customDarkBlue'
                     : 'bg-customDarkBlue text-customGray'
                 }
-                ${isFullScreen == true ? 'px-6 py-1' : 'p-20 pt-28'}`}
+                ${isFullScreen == true ? 'px-6 py-1' : 'p-3 pt-28 md:p-20'}`}
     >
       {/* Gallery Image and Controls */}
       <div
-        className={` z-50 flex w-full flex-grow items-center justify-between 
-                      ${isFullScreen == true ? 'gap-0' : 'gap-24'}`}
+        className={` z-50 flex w-full flex-grow items-center justify-between
+                      ${isFullScreen == true ? 'gap-0' : 'md:gap-24'}`}
       >
         {/* Close Button */}
         {theme == 'light' ? (
           <DarkClose
-            className={` absolute top-28 h-6 w-6 cursor-pointer 
-                        ${isFullScreen == true ? 'right-8' : 'right-20'}`}
+            className={`absolute top-10 h-6 w-6 cursor-pointer md:top-28 
+                        ${
+                          isFullScreen == true
+                            ? 'right-8'
+                            : 'right-10 md:right-20'
+                        }`}
             onClick={handleClose}
           />
         ) : (
           <LightClose
-            className={` absolute  top-28 h-6 w-6 cursor-pointer 
-                        ${isFullScreen == true ? 'right-8' : 'right-20'}`}
+            className={`absolute top-10 h-6 w-6 cursor-pointer md:top-28 
+                        ${
+                          isFullScreen == true
+                            ? 'right-8'
+                            : 'right-10 md:right-20'
+                        }`}
             onClick={handleClose}
           />
         )}
@@ -84,13 +92,13 @@ export default function MediaModal({
         {/* Fullscreen Button */}
         {theme == 'light' ? (
           <DarkFullscreen
-            className={` absolute  top-28 h-8 w-8 cursor-pointer 
+            className={` absolute top-28 hidden h-8 w-8 cursor-pointer md:block 
                         ${isFullScreen == true ? 'left-8' : 'left-20'}`}
             onClick={() => setIsFullScreen(!isFullScreen)}
           />
         ) : (
           <LightFullscreen
-            className={` absolute  top-28 h-8 w-8 cursor-pointer 
+            className={` absolute top-28 hidden h-8 w-8 cursor-pointer md:block 
                         ${isFullScreen == true ? 'left-8' : 'left-20'}`}
             onClick={() => setIsFullScreen(!isFullScreen)}
           />
@@ -99,12 +107,12 @@ export default function MediaModal({
         {/* Previous Button */}
         {theme == 'light' ? (
           <DarkChevron
-            className='top-1/2 h-10 w-10 -translate-y-1/2 rotate-90 transform cursor-pointer'
+            className='absolute left-4 top-12 h-6 w-6 -translate-y-1/2 rotate-90 transform cursor-pointer md:relative md:left-0 md:top-0 md:h-10 md:w-10'
             onClick={onPrev}
           />
         ) : (
           <LightChevron
-            className='top-1/2 h-10 w-10 -translate-y-1/2 rotate-90 transform cursor-pointer'
+            className='absolute left-4 top-12 h-6 w-6 -translate-y-1/2 rotate-90 transform cursor-pointer md:relative md:left-0 md:top-0 md:h-10 md:w-10'
             onClick={onPrev}
           />
         )}
@@ -143,12 +151,12 @@ export default function MediaModal({
         {/* Next Button */}
         {theme == 'light' ? (
           <DarkChevron
-            className='top-1/2 h-10 w-10 -translate-y-1/2 -rotate-90 transform cursor-pointer'
+            className='absolute left-14 top-12 h-6 w-6 -translate-y-1/2 -rotate-90 transform cursor-pointer md:relative md:left-0 md:top-0 md:h-10 md:w-10'
             onClick={onNext}
           />
         ) : (
           <LightChevron
-            className='top-1/2 h-10 w-10 -translate-y-1/2 -rotate-90 transform cursor-pointer'
+            className='absolute left-14 top-12 h-6 w-6 -translate-y-1/2 -rotate-90 transform cursor-pointer md:relative md:left-0 md:top-0 md:h-10 md:w-10'
             onClick={onNext}
           />
         )}

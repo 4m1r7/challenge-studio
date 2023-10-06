@@ -43,7 +43,7 @@ interface AboutProps {
 
 export default function About({ membersData, pageData, socials }: AboutProps) {
   // clean up About data & footer socials before use
-  const footerSocialsData = socials.pageBy?.contactPageFields?.socialMedia;
+  const SocialLinksData = socials.pageBy?.contactPageFields?.socialMedia;
   const aboutContent = pageData.pageBy?.content;
   const allMembers = membersData?.members?.edges || [];
   const founder = allMembers[allMembers.length - 1]?.node;
@@ -64,12 +64,12 @@ export default function About({ membersData, pageData, socials }: AboutProps) {
     <Layout
       theme={theme}
       toggleTheme={toggleTheme}
-      footerSocialsData={footerSocialsData}
+      SocialLinksData={SocialLinksData}
     >
       <Seo templateTitle='About' />
 
       <main
-        className={`flex flex-grow flex-col items-center justify-start px-12 py-10
+        className={`flex flex-grow flex-col items-center justify-start px-12 pt-10
                         ${
                           theme == 'light'
                             ? 'bg-customGray'
@@ -85,9 +85,9 @@ export default function About({ membersData, pageData, socials }: AboutProps) {
           exit='exit'
         >
           {/* Top Section */}
-          <div className='grid h-[82vh] w-full grid-cols-3 items-center justify-center pb-24'>
+          <div className='grid h-fit w-full grid-flow-row items-center justify-center gap-10 pb-24 md:h-[82vh] md:grid-cols-3 md:gap-0'>
             {/* Founder */}
-            <div className='flex h-[50vh] w-full'>
+            <div className='flex h-[50vh] w-full flex-col-reverse gap-4 md:flex-row md:gap-0'>
               <div
                 className={`flex flex-col items-end justify-start border-r pr-6
                               ${
@@ -100,7 +100,7 @@ export default function About({ membersData, pageData, socials }: AboutProps) {
                 <p className='whitespace-nowrap text-sm'>{founder.title}</p>
               </div>
 
-              <div className='relative ml-6 w-full'>
+              <div className='relative h-2/3 w-full md:ml-6 md:h-full'>
                 <Image
                   src={founder.featuredImage?.node.sourceUrl || ''}
                   fill
@@ -112,7 +112,7 @@ export default function About({ membersData, pageData, socials }: AboutProps) {
             </div>
 
             {/* Middle Image */}
-            <div className='flex h-[50vh] w-full items-center justify-center p-20'>
+            <div className='hidden h-[50vh] w-full items-center justify-center p-20 md:flex'>
               {theme == 'light' ? (
                 <AboutImageDark className='h-full w-full' />
               ) : (
@@ -121,10 +121,10 @@ export default function About({ membersData, pageData, socials }: AboutProps) {
             </div>
 
             {/* About Paragraph */}
-            <div className='flex h-[50vh] w-full items-center justify-start'>
+            <div className='flex h-fit w-full items-center justify-start md:h-[50vh]'>
               <div
                 dangerouslySetInnerHTML={{ __html: aboutContent || '' }}
-                className={`h-full border-l pl-4 text-sm xl:pr-[5vw] 2xl:pr-[6vw] ${
+                className={`h-fit border-l pl-4 text-sm md:h-full xl:pr-[5vw] 2xl:pr-[6vw] ${
                   theme == 'light'
                     ? 'border-customDarkBlue text-customDarkBlue'
                     : ' border-customGray text-customGray'
@@ -147,10 +147,10 @@ export default function About({ membersData, pageData, socials }: AboutProps) {
               {'<'} Challenge Team {'>'}
             </h2>
 
-            <div className='grid w-11/12 grid-cols-4 gap-16 xl:w-9/12'>
+            <div className='grid w-11/12 grid-cols-2 gap-10 md:grid-cols-4 md:gap-16 xl:w-9/12'>
               {currentMembers.map((member) => (
                 <div key={member.id} id={member.slug || ''} className='lol'>
-                  <div className='relative mb-5 aspect-square w-full'>
+                  <div className='relative mb-2 aspect-square w-full md:mb-5'>
                     <Image
                       src={member.featuredImage?.node.sourceUrl || ''}
                       alt={member.title || 'studio-member'}
@@ -164,7 +164,7 @@ export default function About({ membersData, pageData, socials }: AboutProps) {
                     {member.memberFields?.position}
                   </p>
                   <div
-                    className='mt-2 text-left text-xs font-light'
+                    className='mt-2 hidden text-left text-xs font-light md:flex'
                     dangerouslySetInnerHTML={{
                       __html: member?.content || '',
                     }}
@@ -189,7 +189,7 @@ export default function About({ membersData, pageData, socials }: AboutProps) {
                   {'<'} Previous Members {'>'}
                 </h2>
 
-                <div className='grid w-11/12 grid-cols-4 gap-16 xl:w-9/12'>
+                <div className='grid w-11/12 grid-cols-2 gap-10 md:grid-cols-4 md:gap-16 xl:w-9/12'>
                   {previousMembers.map((member) => (
                     <div key={member.id} id={member.slug || ''}>
                       <div className='relative mb-5 aspect-square w-full'>

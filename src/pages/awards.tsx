@@ -41,7 +41,7 @@ interface ContactProps {
 export default function Awards({ data, socials }: ContactProps) {
   // clean up Awards data & footer socials before use
   const awards = data?.awards?.edges;
-  const footerSocialsData = socials.pageBy?.contactPageFields?.socialMedia;
+  const SocialLinksData = socials.pageBy?.contactPageFields?.socialMedia;
 
   // light/dark themeheme context
   const { theme, toggleTheme } = useTheme();
@@ -50,7 +50,7 @@ export default function Awards({ data, socials }: ContactProps) {
     <Layout
       theme={theme}
       toggleTheme={toggleTheme}
-      footerSocialsData={footerSocialsData}
+      SocialLinksData={SocialLinksData}
     >
       <Seo templateTitle='Awards' />
 
@@ -71,41 +71,61 @@ export default function Awards({ data, socials }: ContactProps) {
           exit='exit'
         >
           {/* Awards grid */}
-          <div className='grid h-fit w-full grid-cols-3 gap-16'>
+          <div className='grid h-fit w-full grid-cols-1 gap-16 md:grid-cols-3'>
             {awards &&
               awards.map((item) => {
                 return (
-                  <div key={item.node.id} className='relative aspect-square'>
-                    <Image
-                      src={item.node.featuredImage?.node.sourceUrl || ''}
-                      alt={item.node.title || 'award-image'}
-                      fill
-                      className='object-cover'
-                      quality={100}
-                    />
-                    <div className='text-customGray bg-customDarkBlue/75 absolute inset-0 flex flex-col justify-between p-10 opacity-0 transition duration-200 hover:opacity-100'>
-                      <p className=' text-left text-3xl font-bold '>
-                        {item.node.title}
-                      </p>
-                      <div className='flex items-center justify-between gap-8 text-center text-2xl font-light'>
-                        <Link
-                          href={
-                            item.node.awardFields?.relatedProject?.uri ||
-                            '/projects'
-                          }
-                          className='bg-customGray flex-grow p-3 text-black'
-                        >
-                          Project
-                        </Link>
-                        <Link
-                          href={item.node.awardFields?.awardLink || '#'}
-                          className='border-customGray flex flex-grow items-center justify-center gap-2 border p-3'
-                        >
-                          <p>Award</p>
-                          <Arrow className='h-5 w-5' />
-                        </Link>
+                  <div key={item.node.id} className='flex flex-col gap-2'>
+                    <div className='relative aspect-square'>
+                      {/* Award Image */}
+                      <Image
+                        src={item.node.featuredImage?.node.sourceUrl || ''}
+                        alt={item.node.title || 'award-image'}
+                        fill
+                        className='object-cover'
+                        quality={100}
+                      />
+
+                      {/* OverLay */}
+                      <div className='text-customGray md:bg-customDarkBlue/75 absolute inset-0 flex flex-col justify-end p-5 transition duration-200 md:justify-between md:p-10 md:opacity-0 md:hover:opacity-100 '>
+                        {/* Title */}
+                        <p className=' hidden text-left text-3xl font-bold md:flex'>
+                          {item.node.title}
+                        </p>
+
+                        {/* Buttons */}
+                        <div className='flex items-center justify-between gap-8 text-center text-xl font-light md:text-2xl'>
+                          <Link
+                            href={
+                              item.node.awardFields?.relatedProject?.uri ||
+                              '/projects'
+                            }
+                            className='bg-customGray flex-grow p-3 text-black'
+                          >
+                            Project
+                          </Link>
+                          <Link
+                            href={item.node.awardFields?.awardLink || '#'}
+                            className='bg-customGray md:text-customGray border-customGray flex flex-grow items-center justify-center gap-2 border p-3 text-black md:bg-transparent'
+                          >
+                            <p>Award</p>
+                            <Arrow className='black-in-mobile h-5 w-7' />
+                          </Link>
+                        </div>
                       </div>
                     </div>
+
+                    {/* Mobile Title */}
+                    <p
+                      className={`text-left text-xl md:hidden
+                                ${
+                                  theme == 'light'
+                                    ? 'text-customDarkBlue'
+                                    : 'text-customGray'
+                                }`}
+                    >
+                      {item.node.title}
+                    </p>
                   </div>
                 );
               })}

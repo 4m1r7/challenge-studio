@@ -141,3 +141,11 @@
   width: 76%;
   float: right;
 }
+
+/* Change element's color using css filters */
+@media (max-width: 767px) {
+  .black-in-mobile {
+    filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(7469%)
+      hue-rotate(217deg) brightness(96%) contrast(108%);
+  }
+}

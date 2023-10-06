@@ -8,14 +8,16 @@ export default function Layout({
   children,
   theme,
   toggleTheme,
+  noMobileMenu,
   noFooter,
-  footerSocialsData,
+  SocialLinksData,
 }: {
   children: React.ReactNode;
   theme: string;
   toggleTheme: () => void;
+  noMobileMenu?: boolean;
   noFooter?: boolean;
-  footerSocialsData:
+  SocialLinksData:
     | {
         [key: string]: string | null;
       }
@@ -24,12 +26,17 @@ export default function Layout({
 }) {
   return (
     <div className=' flex min-h-screen flex-col '>
-      <Header theme={theme} toggleTheme={toggleTheme} />
+      <Header
+        theme={theme}
+        toggleTheme={toggleTheme}
+        noMobileMenu={noMobileMenu}
+        SocialLinksData={SocialLinksData}
+      />
       {children}
       <Footer
         theme={theme}
         noFooter={noFooter}
-        footerSocialsData={footerSocialsData}
+        SocialLinksData={SocialLinksData}
       />
     </div>
   );

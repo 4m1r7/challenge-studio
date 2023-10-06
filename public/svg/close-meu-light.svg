@@ -1,0 +1,9 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 42" width="23" height="42">
+	<title>Group 21-2-svg</title>
+	<defs>
+		<image  width="25" height="42" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAqAgMAAAA7aRjzAAAAAXNSR0IB2cksfwAAAAxQTFRFAEB05OTkAD51AAAAyVwkqgAAAAR0Uk5TQP8lAH7s2q0AAAAZSURBVHicYxANBYEGBhj9HwwODBp6iLkPANyH/5127oK7AAAAAElFTkSuQmCC"/>
+	</defs>
+	<style>
+	</style>
+	<use id="Layer" href="#img1" x="-1" y="0"/>
+</svg>

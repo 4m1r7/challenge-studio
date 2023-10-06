@@ -5,7 +5,7 @@
   height: 70vh;
   perspective: 30000px;
   transform-style: preserve-3d;
-  display: flex;
+  /* display: flex –– handled by mobileVersion condition on the element */
   justify-content: center;
   align-items: center;
 }
@@ -24,12 +24,12 @@
 }
 
 .cubeFace {
+  width: 18vw;
+  height: 18vw;
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  width: 18vw;
-  height: 18vw;
 }
 
 .cubeFaceFront {
@@ -54,4 +54,39 @@
 
 .cubeFaceBottom {
   transform: rotateX(-90deg) translateZ(9vw);
+}
+
+@media (max-width: 767px) {
+  .scene {
+    height: 35vh;
+  }
+
+  .cubeFace {
+    width: 40vw;
+    height: 40vw;
+  }
+
+  .cubeFaceFront {
+    transform: rotateY(0deg) translateZ(20vw);
+  }
+
+  .cubeFaceRight {
+    transform: rotateY(90deg) translateZ(20vw);
+  }
+
+  .cubeFaceBack {
+    transform: rotateY(180deg) translateZ(20vw);
+  }
+
+  .cubeFaceLeft {
+    transform: rotateY(-90deg) translateZ(20vw);
+  }
+
+  .cubeFaceTop {
+    transform: rotateX(90deg) translateZ(20vw);
+  }
+
+  .cubeFaceBottom {
+    transform: rotateX(-90deg) translateZ(20vw);
+  }
 }

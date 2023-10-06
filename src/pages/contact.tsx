@@ -39,7 +39,7 @@ interface ContactProps {
 export default function Contact({ data, socials }: ContactProps) {
   // clean up the project array before use
   const contactData = data.pageBy;
-  const footerSocialsData = socials.pageBy?.contactPageFields?.socialMedia;
+  const SocialLinksData = socials.pageBy?.contactPageFields?.socialMedia;
 
   // light/dark themeheme context
   const { theme, toggleTheme } = useTheme();
@@ -72,7 +72,7 @@ export default function Contact({ data, socials }: ContactProps) {
     <Layout
       theme={theme}
       toggleTheme={toggleTheme}
-      footerSocialsData={footerSocialsData}
+      SocialLinksData={SocialLinksData}
     >
       <Seo templateTitle='Contact' />
 
@@ -85,16 +85,50 @@ export default function Contact({ data, socials }: ContactProps) {
                         } `}
       >
         <motion.div
-          className='flex h-fit w-full items-end'
+          className='flex h-fit w-full flex-col items-end gap-14 md:flex-row md:gap-0'
           key='awards'
           variants={mainComponent}
           initial='hidden'
           animate='enter'
           exit='exit'
         >
+          {/* Mobile Map Image */}
+          <a
+            href={
+              contactData?.contactPageFields?.googleMapsLink ||
+              'maps.google.com'
+            }
+            target='_blank'
+            className='relative mt-10 flex aspect-square w-full items-end md:hidden'
+          >
+            {theme == 'light' ? (
+              <Image
+                src={
+                  contactData?.contactPageFields?.maps?.lightModeMap
+                    ?.mediaItemUrl || ''
+                }
+                alt='Location Map'
+                fill
+                loading='eager'
+                className='object-cover'
+              />
+            ) : (
+              <Image
+                src={
+                  contactData?.contactPageFields?.maps?.darkModeMap
+                    ?.mediaItemUrl || ''
+                }
+                alt='Location Map'
+                fill
+                loading='eager'
+                className='object-cover'
+              />
+            )}
+          </a>
+
           {/* Contact Info */}
           <div
-            className={`flex h-full w-1/5 flex-col gap-4 border-l pl-4 text-sm xl:pr-[5vw] 2xl:pr-[6vw] ${
+            className={`flex h-full w-full flex-col gap-4 border-l pl-4 text-sm md:w-1/5 xl:pr-[5vw] 2xl:pr-[6vw] ${
               theme == 'light'
                 ? 'border-customDarkBlue text-customDarkBlue'
                 : ' border-customGray text-customGray'
@@ -109,7 +143,7 @@ export default function Contact({ data, socials }: ContactProps) {
 
           {/* Contact Form */}
           <div
-            className={`relative flex w-2/5 flex-col items-start justify-end border-l border-current pl-4
+            className={`relative flex w-full flex-col items-start justify-end border-l border-current pl-4 md:w-2/5
                             ${
                               theme == 'light'
                                 ? 'text-customDarkBlue'
@@ -117,7 +151,7 @@ export default function Contact({ data, socials }: ContactProps) {
                             }`}
           >
             <h2 className='mb-2 text-left text-lg'>JOIN US</h2>
-            <p className='mb-8 w-2/3 text-justify text-sm font-light'>
+            <p className='mb-8 w-full text-justify text-sm font-light md:w-2/3'>
               Challenge Studio is always looking for talented people to join its
               team. If you are interested in working with us, submit your
               portfolio & cv to{' '}
@@ -128,8 +162,11 @@ export default function Contact({ data, socials }: ContactProps) {
 
             <h2 className='mb-2 text-left text-lg'>CONTACT</h2>
 
-            <form onSubmit={handleSubmit} className='flex w-full gap-4'>
-              <div className='w-1/2'>
+            <form
+              onSubmit={handleSubmit}
+              className='flex w-full flex-col gap-4 md:flex-row'
+            >
+              <div className='w-full md:w-1/2'>
                 <div className='flex w-full flex-col'>
                   <label htmlFor='name' className=''>
                     Full Name{'>'}
@@ -183,14 +220,14 @@ export default function Contact({ data, socials }: ContactProps) {
             </form>
           </div>
 
-          {/* Map Image */}
+          {/* Desktop Map Image */}
           <a
             href={
               contactData?.contactPageFields?.googleMapsLink ||
               'maps.google.com'
             }
             target='_blank'
-            className='relative flex aspect-square w-2/5 items-end'
+            className='relative hidden aspect-square w-2/5 items-end md:flex '
           >
             {theme == 'light' ? (
               <Image

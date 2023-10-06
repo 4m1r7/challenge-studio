@@ -53,7 +53,7 @@ interface ContactProps {
 export default function Project({ projectData, socials }: ContactProps) {
   // clean up the project data & footer socials before use
   const project = useMemo(() => projectData.projectBy, [projectData]);
-  const footerSocialsData = socials.pageBy?.contactPageFields?.socialMedia;
+  const SocialLinksData = socials.pageBy?.contactPageFields?.socialMedia;
 
   const mediaUrls = [
     ...(project?.projectFields?.mainVideos || [])
@@ -121,7 +121,7 @@ export default function Project({ projectData, socials }: ContactProps) {
     <Layout
       theme={theme}
       toggleTheme={toggleTheme}
-      footerSocialsData={footerSocialsData}
+      SocialLinksData={SocialLinksData}
     >
       <Seo templateTitle={project?.title || ''} />
 
@@ -134,7 +134,7 @@ export default function Project({ projectData, socials }: ContactProps) {
                         } `}
       >
         <motion.div
-          className={`flex h-full w-full flex-col items-center py-10
+          className={`flex h-full w-full flex-col items-center pt-10
                     ${
                       theme == 'light'
                         ? 'text-customDarkBlue'
@@ -147,10 +147,94 @@ export default function Project({ projectData, socials }: ContactProps) {
           animate='enter'
           exit='exit'
         >
-          {/* Top Section */}
-          <div className='flex w-full'>
+          {/* Top Section –– Mobile version is reversed and and has primary info for mobile at the end to engulf model, and original primary info hidden */}
+          <div className='flex w-full flex-col-reverse md:flex-row'>
             {/* Project Info */}
-            <div className='flex h-full w-1/4 flex-col gap-8'>
+            <div className='flex h-full w-full flex-col gap-8 md:w-1/4'>
+              {/* Desktop Project Primary Info (minus) descroption */}
+              <div className='hidden flex-col gap-8 md:flex'>
+                <Link href='/projects'>
+                  {theme == 'light' ? (
+                    <DarkArrow className='h-10 w-10 ' />
+                  ) : (
+                    <LightArrow className='h-10 w-10 ' />
+                  )}
+                </Link>
+
+                <h1 className='border-l border-current pl-4 text-current'>
+                  {project?.title}
+                </h1>
+
+                <div className='border-l border-current pl-4 text-current'>
+                  <div className='flex'>
+                    <p className='mr-3 whitespace-nowrap font-light'>
+                      Type {'>'}
+                    </p>
+                    <div className='flex flex-col'>
+                      {project?.projectFields?.type?.map((type) => (
+                        <p key={type}>{type}</p>
+                      ))}
+                    </div>
+                  </div>
+                  <div className='flex'>
+                    <p className='mr-3 whitespace-nowrap font-light'>
+                      Status {'>'}
+                    </p>
+                    <p>{project?.projectFields?.status}</p>
+                  </div>
+                  <div className='flex'>
+                    <p className='mr-3 whitespace-nowrap font-light'>
+                      Scale {'>'}
+                    </p>
+                    <p>{project?.projectFields?.scale}</p>
+                  </div>
+                  <div className='flex'>
+                    <p className='mr-3 whitespace-nowrap font-light'>
+                      Year {'>'}
+                    </p>
+                    <p>{project?.projectFields?.year}</p>
+                  </div>
+                </div>
+
+                {project?.projectFields?.members && (
+                  <div className='border-l border-current pl-4 text-current'>
+                    <p className='font-light'>Architects {'>'}</p>
+
+                    {project.projectFields.members.map((member) => (
+                      <Link key={member?.id} href={`/about#${member?.slug}`}>
+                        {member?.title}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div className='project-description border-l border-current pl-4 text-sm text-current'>
+                <div className='negative-space' ref={negativeSpace} />
+                <div
+                  dangerouslySetInnerHTML={{ __html: project?.content || '' }}
+                />
+              </div>
+            </div>
+
+            {/* Project Model */}
+            <div className='relative flex h-[40vh] w-full items-center justify-center text-center md:min-h-[65vh] md:w-3/4'>
+              {theme == 'light' ? (
+                <DarkRotate className='absolute -right-12 top-0 h-20 w-20 md:right-0 md:top-auto md:h-24 md:w-24 ' />
+              ) : (
+                <LightRotate className='absolute -right-12 top-0 h-20 w-20 md:right-0 md:top-auto md:h-24 md:w-24 ' />
+              )}
+
+              <ModelViewer
+                fileUrl={
+                  project?.projectFields?.projectModel?.mediaItemUrl || null
+                }
+                theme={theme}
+              />
+            </div>
+
+            {/* Desktop Project Primary Info (minus) descroption */}
+            <div className='flex flex-col gap-8 md:hidden'>
               <Link href='/projects'>
                 {theme == 'light' ? (
                   <DarkArrow className='h-10 w-10 ' />
@@ -205,44 +289,21 @@ export default function Project({ projectData, socials }: ContactProps) {
                   ))}
                 </div>
               )}
-
-              <div className='project-description border-l border-current pl-4 text-sm text-current'>
-                <div className='negative-space' ref={negativeSpace} />
-                <div
-                  dangerouslySetInnerHTML={{ __html: project?.content || '' }}
-                />
-              </div>
-            </div>
-
-            {/* Project Model */}
-            <div className='relative flex h-full min-h-[65vh] w-3/4 items-center justify-center text-center'>
-              {theme == 'light' ? (
-                <DarkRotate className='absolute right-0 h-24 w-24 ' />
-              ) : (
-                <LightRotate className='absolute right-0 h-24 w-24 ' />
-              )}
-
-              <ModelViewer
-                fileUrl={
-                  project?.projectFields?.projectModel?.mediaItemUrl || null
-                }
-                theme={theme}
-              />
             </div>
           </div>
 
           {/* Down Arrow */}
           {theme == 'light' ? (
-            <DownChevDark className='right-0 mb-40 mt-10 h-6 w-6' />
+            <DownChevDark className='right-0 mt-10 hidden h-6 w-6 md:block' />
           ) : (
-            <DownChevLight className='right-0 mb-40 mt-10 h-6 w-6' />
+            <DownChevLight className='right-0 mt-10 hidden h-6 w-6 md:block' />
           )}
 
           {/* Gallery */}
-          <div id='gallery' className='w-full'>
-            <h2 className='mb-4 font-normal text-current'>Gallery</h2>
+          <div id='gallery' className='mt-24 w-full md:mt-40'>
+            <h2 className='mb-4 text-3xl font-normal text-current'>Gallery</h2>
 
-            <div className='grid w-full grid-cols-6 gap-5'>
+            <div className='grid w-full grid-cols-2 gap-2 md:grid-cols-6 md:gap-5'>
               {mediaUrls.map((item, index) => (
                 <div
                   key={`image-${index}`}
