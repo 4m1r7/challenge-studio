@@ -59,7 +59,7 @@ export default function MediaModal({
                     ? 'bg-customGray text-customDarkBlue'
                     : 'bg-customDarkBlue text-customGray'
                 }
-                ${isFullScreen == true ? 'px-6 py-1' : 'p-3 pt-28 md:p-20'}`}
+                ${isFullScreen == true ? 'px-6 py-1' : 'p-3 pt-20 md:p-10'}`}
     >
       {/* Gallery Image and Controls */}
       <div
@@ -69,21 +69,21 @@ export default function MediaModal({
         {/* Close Button */}
         {theme == 'light' ? (
           <DarkClose
-            className={`absolute top-10 h-6 w-6 cursor-pointer md:top-28 
+            className={`absolute top-10 h-6 w-6 cursor-pointer md:top-[10vh] 
                         ${
                           isFullScreen == true
                             ? 'right-8'
-                            : 'right-10 md:right-20'
+                            : 'right-10 md:right-10'
                         }`}
             onClick={handleClose}
           />
         ) : (
           <LightClose
-            className={`absolute top-10 h-6 w-6 cursor-pointer md:top-28 
+            className={`absolute top-10 h-6 w-6 cursor-pointer md:top-[10vh] 
                         ${
                           isFullScreen == true
                             ? 'right-8'
-                            : 'right-10 md:right-20'
+                            : 'right-10 md:right-10'
                         }`}
             onClick={handleClose}
           />
@@ -92,14 +92,14 @@ export default function MediaModal({
         {/* Fullscreen Button */}
         {theme == 'light' ? (
           <DarkFullscreen
-            className={` absolute top-28 hidden h-8 w-8 cursor-pointer md:block 
-                        ${isFullScreen == true ? 'left-8' : 'left-20'}`}
+            className={` absolute top-[10vh] hidden h-8 w-8 cursor-pointer md:block 
+                        ${isFullScreen == true ? 'left-8' : 'left-10'}`}
             onClick={() => setIsFullScreen(!isFullScreen)}
           />
         ) : (
           <LightFullscreen
-            className={` absolute top-28 hidden h-8 w-8 cursor-pointer md:block 
-                        ${isFullScreen == true ? 'left-8' : 'left-20'}`}
+            className={` absolute top-[10vh] hidden h-8 w-8 cursor-pointer md:block 
+                        ${isFullScreen == true ? 'left-8' : 'left-10'}`}
             onClick={() => setIsFullScreen(!isFullScreen)}
           />
         )}

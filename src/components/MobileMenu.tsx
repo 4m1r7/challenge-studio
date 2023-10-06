@@ -80,7 +80,7 @@ export default function MobileMenu({
                 currentSlug == link.href ? 'font-bold' : 'font-light'
               }`}
               onClick={() => {
-                setIsMenuOpen(false);
+                currentSlug == link.href ? setIsMenuOpen(false) : null;
               }}
             >
               <Link href={link.href}>{link.label}</Link>
