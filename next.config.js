@@ -8,7 +8,7 @@ const nextConfig = {
   swcMinify: true,
 
   images: {
-    domains: ['challenge-studio.ir'],
+    domains: ['cms.challenge-studio.ir', 'challenge-studio.ir'],
   },
 
   // SVGR
