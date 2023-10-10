@@ -1,5 +1,5 @@
 overwrite: true
-schema: 'https://challenge-studio.ir/graphql'
+schema: 'https://cms.challenge-studio.ir/graphql'
 documents: 'src/queries/**/*.graphql'
 generates:
   src/queries/generated-queries.tsx:
