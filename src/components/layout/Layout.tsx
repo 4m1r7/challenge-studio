@@ -11,18 +11,15 @@ export default function Layout({
   noMobileMenu,
   noFooter,
   SocialLinksData,
+  setIsCalculatorOpen,
 }: {
   children: React.ReactNode;
   theme: string;
   toggleTheme: () => void;
   noMobileMenu?: boolean;
   noFooter?: boolean;
-  SocialLinksData:
-    | {
-        [key: string]: string | null;
-      }
-    | null
-    | undefined;
+  SocialLinksData: { [key: string]: string | null } | null | undefined;
+  setIsCalculatorOpen?: (isOpen: boolean) => void;
 }) {
   return (
     <div className=' flex min-h-screen flex-col '>
@@ -31,6 +28,7 @@ export default function Layout({
         toggleTheme={toggleTheme}
         noMobileMenu={noMobileMenu}
         SocialLinksData={SocialLinksData}
+        setIsCalculatorOpen={setIsCalculatorOpen}
       />
       {children}
       <Footer
