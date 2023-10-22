@@ -4134,6 +4134,8 @@ export type Page = ContentNode &
     authorDatabaseId?: Maybe<Scalars['Int']['output']>;
     /** The globally unique identifier of the author of the node */
     authorId?: Maybe<Scalars['ID']['output']>;
+    /** Added to the GraphQL Schema because the ACF Field Group &quot;Calculator Fields&quot; was set to Show in GraphQL. */
+    calculatorFields?: Maybe<Page_Calculatorfields>;
     /** Connection between the HierarchicalContentNode type and the ContentNode type */
     children?: Maybe<HierarchicalContentNodeToContentNodeChildrenConnection>;
     /** The number of comments. Even though WPGraphQL denotes this field as an integer, in WordPress this field should be saved as a numeric string for compatibility. */
@@ -4540,6 +4542,50 @@ export type PageToRevisionConnectionWhereArgs = {
   status?: InputMaybe<PostStatusEnum>;
   /** Title of the object */
   title?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Field Group */
+export type Page_Calculatorfields = AcfFieldGroup & {
+  __typename?: 'Page_Calculatorfields';
+  /** The name of the ACF Field Group */
+  fieldGroupName?: Maybe<Scalars['String']['output']>;
+  financialRates?: Maybe<Page_Calculatorfields_FinancialRates>;
+  residentialConstants?: Maybe<Page_Calculatorfields_ResidentialConstants>;
+  villaConstants?: Maybe<Page_Calculatorfields_VillaConstants>;
+};
+
+/** Field Group */
+export type Page_Calculatorfields_FinancialRates = AcfFieldGroup & {
+  __typename?: 'Page_Calculatorfields_FinancialRates';
+  /** The name of the ACF Field Group */
+  fieldGroupName?: Maybe<Scalars['String']['output']>;
+  hourlySalary?: Maybe<Scalars['Float']['output']>;
+  overheadCoefficient?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Field Group */
+export type Page_Calculatorfields_ResidentialConstants = AcfFieldGroup & {
+  __typename?: 'Page_Calculatorfields_ResidentialConstants';
+  areaCoefficient?: Maybe<Scalars['Float']['output']>;
+  conceptDesign?: Maybe<Scalars['Float']['output']>;
+  detailDesign?: Maybe<Scalars['Float']['output']>;
+  /** The name of the ACF Field Group */
+  fieldGroupName?: Maybe<Scalars['String']['output']>;
+  interiorDesign?: Maybe<Scalars['Float']['output']>;
+  nonResidentialCoefficient?: Maybe<Scalars['Float']['output']>;
+  schematicDesign?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Field Group */
+export type Page_Calculatorfields_VillaConstants = AcfFieldGroup & {
+  __typename?: 'Page_Calculatorfields_VillaConstants';
+  areaCoefficient?: Maybe<Scalars['Float']['output']>;
+  conceptDesign?: Maybe<Scalars['Float']['output']>;
+  detailDesign?: Maybe<Scalars['Float']['output']>;
+  /** The name of the ACF Field Group */
+  fieldGroupName?: Maybe<Scalars['String']['output']>;
+  interiorDesign?: Maybe<Scalars['Float']['output']>;
+  schematicDesign?: Maybe<Scalars['Float']['output']>;
 };
 
 /** Field Group */
@@ -10796,6 +10842,40 @@ export type AwardsQuery = {
   } | null;
 };
 
+export type CalculatorConstantsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type CalculatorConstantsQuery = {
+  __typename?: 'RootQuery';
+  pageBy?: {
+    __typename?: 'Page';
+    calculatorFields?: {
+      __typename?: 'Page_Calculatorfields';
+      financialRates?: {
+        __typename?: 'Page_Calculatorfields_FinancialRates';
+        hourlySalary?: number | null;
+        overheadCoefficient?: number | null;
+      } | null;
+      villaConstants?: {
+        __typename?: 'Page_Calculatorfields_VillaConstants';
+        areaCoefficient?: number | null;
+        conceptDesign?: number | null;
+        detailDesign?: number | null;
+        interiorDesign?: number | null;
+        schematicDesign?: number | null;
+      } | null;
+      residentialConstants?: {
+        __typename?: 'Page_Calculatorfields_ResidentialConstants';
+        areaCoefficient?: number | null;
+        conceptDesign?: number | null;
+        detailDesign?: number | null;
+        interiorDesign?: number | null;
+        nonResidentialCoefficient?: number | null;
+        schematicDesign?: number | null;
+      } | null;
+    } | null;
+  } | null;
+};
+
 export type ContactPageQueryVariables = Exact<{ [key: string]: never }>;
 
 export type ContactPageQuery = {
@@ -11132,6 +11212,83 @@ export type AwardsLazyQueryHookResult = ReturnType<typeof useAwardsLazyQuery>;
 export type AwardsQueryResult = Apollo.QueryResult<
   AwardsQuery,
   AwardsQueryVariables
+>;
+export const CalculatorConstantsDocument = gql`
+  query CalculatorConstants {
+    pageBy(uri: "home") {
+      calculatorFields {
+        financialRates {
+          hourlySalary
+          overheadCoefficient
+        }
+        villaConstants {
+          areaCoefficient
+          conceptDesign
+          detailDesign
+          interiorDesign
+          schematicDesign
+        }
+        residentialConstants {
+          areaCoefficient
+          conceptDesign
+          detailDesign
+          interiorDesign
+          nonResidentialCoefficient
+          schematicDesign
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useCalculatorConstantsQuery__
+ *
+ * To run a query within a React component, call `useCalculatorConstantsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCalculatorConstantsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCalculatorConstantsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCalculatorConstantsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    CalculatorConstantsQuery,
+    CalculatorConstantsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    CalculatorConstantsQuery,
+    CalculatorConstantsQueryVariables
+  >(CalculatorConstantsDocument, options);
+}
+export function useCalculatorConstantsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    CalculatorConstantsQuery,
+    CalculatorConstantsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    CalculatorConstantsQuery,
+    CalculatorConstantsQueryVariables
+  >(CalculatorConstantsDocument, options);
+}
+export type CalculatorConstantsQueryHookResult = ReturnType<
+  typeof useCalculatorConstantsQuery
+>;
+export type CalculatorConstantsLazyQueryHookResult = ReturnType<
+  typeof useCalculatorConstantsLazyQuery
+>;
+export type CalculatorConstantsQueryResult = Apollo.QueryResult<
+  CalculatorConstantsQuery,
+  CalculatorConstantsQueryVariables
 >;
 export const ContactPageDocument = gql`
   query ContactPage {

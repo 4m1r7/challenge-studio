@@ -18,7 +18,7 @@ const Cube = ({ cursorLocation, theme, mobileVersion }: CubeProps) => {
         style={{
           transform: `${
             mobileVersion
-              ? ''
+              ? 'rotateX(0deg) rotateY(0deg)'
               : `rotateX(${-cursorLocation.y * 45}deg) rotateY(${
                   cursorLocation.x * 45
                 }deg)`

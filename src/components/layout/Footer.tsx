@@ -60,7 +60,7 @@ export default function Footer({
             mobileVersion
           />
 
-          <p className='mt-3 whitespace-nowrap text-center text-sm tracking-tighter md:mt-0'>
+          <p className='mt-3 flex items-center justify-center whitespace-nowrap text-center text-sm tracking-tighter md:mt-0'>
             Architecture is inherently a challenge.
           </p>
 

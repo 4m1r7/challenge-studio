@@ -7,6 +7,8 @@ import { useState } from 'react';
 import MobileMenu from '@/components/MobileMenu';
 
 import DarkMode from '~/svg/dark-mode.svg';
+import DarkOpenFilters from '~/svg/down-chev-dark.svg';
+import LightOpenFilters from '~/svg/down-chev-light.svg';
 import LightMode from '~/svg/light-mode.svg';
 import DarkLogo from '~/svg/logo-dark.svg';
 import LightLogo from '~/svg/logo-light.svg';
@@ -46,6 +48,7 @@ interface HeaderProps {
   toggleTheme: () => void;
   noMobileMenu?: boolean;
   SocialLinksData: { [key: string]: string | null } | null | undefined;
+  setIsCalculatorOpen?: (isOpen: boolean) => void;
 }
 
 export default function Header({
@@ -53,6 +56,7 @@ export default function Header({
   toggleTheme,
   noMobileMenu,
   SocialLinksData,
+  setIsCalculatorOpen = () => null,
 }: HeaderProps) {
   const router = useRouter();
   const currentSlug = router.asPath;
@@ -60,7 +64,7 @@ export default function Header({
 
   return (
     <header
-      className={` sticky top-0 z-50 w-full ${
+      className={` sticky top-0 z-40 w-full ${
         theme == 'light' ? 'bg-customGray' : 'bg-customDarkBlue'
       }`}
     >
@@ -140,6 +144,20 @@ export default function Header({
               onClick={toggleTheme}
             />
           )}
+
+          {/* Mobile Calculator Toggle */}
+          {noMobileMenu &&
+            (theme == 'light' ? (
+              <DarkOpenFilters
+                className='h-6 w-6 rotate-90 cursor-pointer md:hidden'
+                onClick={() => setIsCalculatorOpen(true)}
+              />
+            ) : (
+              <LightOpenFilters
+                className='h-6 w-6 rotate-90 cursor-pointer md:hidden'
+                onClick={() => setIsCalculatorOpen(true)}
+              />
+            ))}
 
           {/* Mobile Menu Toggle */}
           {!noMobileMenu &&

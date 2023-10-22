@@ -1,0 +1,25 @@
+query CalculatorConstants {
+  pageBy(uri: "home") {
+    calculatorFields {
+      financialRates {
+        hourlySalary
+        overheadCoefficient
+      }
+      villaConstants {
+        areaCoefficient
+        conceptDesign
+        detailDesign
+        interiorDesign
+        schematicDesign
+      }
+      residentialConstants {
+        areaCoefficient
+        conceptDesign
+        detailDesign
+        interiorDesign
+        nonResidentialCoefficient
+        schematicDesign
+      }
+    }
+  }
+}

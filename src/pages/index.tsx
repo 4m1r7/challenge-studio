@@ -1,13 +1,23 @@
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 import * as React from 'react';
 import { useState } from 'react';
 
+import client from '@/lib/apolloClient';
+
+import Calculator from '@/components/Calculator';
 import Layout from '@/components/layout/Layout';
 import Seo from '@/components/Seo';
 import TheCube from '@/components/TheCube';
 
+import {
+  CalculatorConstantsDocument,
+  CalculatorConstantsQuery,
+} from '@/queries/generated-queries';
 import { useTheme } from '@/ThemeContext';
+
+import CalculatorToggleDark from '~/svg/calculator-dark.svg';
+import CalculatorToggleLight from '~/svg/calculator-light.svg';
 
 // Menu Links
 const links = [
@@ -23,6 +33,7 @@ const mainComponent = {
   },
   enter: {
     opacity: 1,
+    x: 0,
     transition: { ease: 'easeOut', duration: 1.5 },
   },
   exit: {
@@ -31,9 +42,13 @@ const mainComponent = {
   },
 };
 
-export default function Home() {
+export default function Home({
+  pageData,
+}: {
+  pageData: CalculatorConstantsQuery;
+}) {
   const { theme, toggleTheme } = useTheme();
-
+  const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
   const [cursorLocation, setCursorLocation] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -50,11 +65,12 @@ export default function Home() {
       noMobileMenu
       noFooter
       SocialLinksData={undefined}
+      setIsCalculatorOpen={setIsCalculatorOpen}
     >
       <Seo templateTitle='Home' />
 
       <main
-        className={`flex flex-grow flex-col items-center justify-center overflow-hidden px-12
+        className={`relative flex flex-grow flex-col items-center justify-center overflow-hidden px-12
                         ${
                           theme == 'light'
                             ? 'bg-customGray'
@@ -65,17 +81,23 @@ export default function Home() {
       >
         <motion.div
           className='flex flex-grow flex-col justify-evenly'
-          style={{}}
           key='home'
           variants={mainComponent}
           initial='hidden'
           animate='enter'
           exit='exit'
         >
-          {/* Desktop Version */}
-          <TheCube cursorLocation={cursorLocation} theme={theme} />
+          {/* Desktop Cube */}
+          <motion.div
+            className='hidden flex-grow flex-col justify-evenly md:flex'
+            key='desktop-cube'
+            animate={{ x: isCalculatorOpen ? '-25vw' : 0 }}
+            transition={{ ease: 'easeInOut', duration: 0.5 }}
+          >
+            <TheCube cursorLocation={cursorLocation} theme={theme} />
+          </motion.div>
 
-          {/* Mobile Version */}
+          {/* Mobile Cube */}
           <TheCube
             cursorLocation={{ x: 0, y: 0 }}
             theme={theme}
@@ -96,7 +118,51 @@ export default function Home() {
             ))}
           </ul>
         </motion.div>
+
+        {/* Desktop Calculator Toggle */}
+        <motion.div
+          className='absolute bottom-12 right-12'
+          key='calculator-toggle'
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ ease: 'easeIn', duration: 2 }}
+        >
+          {theme == 'light' ? (
+            <CalculatorToggleLight
+              className='hidden h-24 w-36 cursor-pointer md:block'
+              onClick={() => setIsCalculatorOpen((prev) => !prev)}
+            />
+          ) : (
+            <CalculatorToggleDark
+              className='hidden h-24 w-36 cursor-pointer md:block '
+              onClick={() => setIsCalculatorOpen((prev) => !prev)}
+            />
+          )}
+        </motion.div>
+
+        <AnimatePresence>
+          {isCalculatorOpen && (
+            <Calculator
+              theme={theme}
+              pageData={pageData}
+              setIsCalculatorOpen={setIsCalculatorOpen}
+            />
+          )}
+        </AnimatePresence>
       </main>
     </Layout>
   );
+}
+
+export async function getStaticProps() {
+  const { data: pageData } = await client.query({
+    query: CalculatorConstantsDocument,
+  });
+
+  return {
+    props: {
+      pageData,
+    },
+  };
 }
