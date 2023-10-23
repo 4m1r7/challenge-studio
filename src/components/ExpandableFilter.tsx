@@ -70,9 +70,9 @@ export default function FilterComponent({
           .map((filterValue) => (
             <li key={filterValue} className='mt-2 font-light md:font-normal'>
               <button
-                className={
-                  activeFilter === filterValue ? 'font-bold md:text-base' : ''
-                }
+                className={` text-left
+                  ${activeFilter === filterValue ? 'font-bold md:text-sm' : ''}
+                `}
                 onClick={() => onFilterChange(filterType, filterValue)}
               >
                 {filterValue}

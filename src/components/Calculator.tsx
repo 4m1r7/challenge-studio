@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 import React, { useEffect, useMemo, useState } from 'react';
 
-import CalculatorResult from '@/components/layout/CalculatorResult';
-import DropupSelect from '@/components/layout/DropupSelect';
+import CalculatorResult from '@/components/CalculatorResult';
+import DropupSelect from '@/components/DropupSelect';
 
 import { CalculatorConstantsQuery } from '@/queries/generated-queries';
 
@@ -369,7 +369,7 @@ export default function MobileMenu({
           </p>
           <input
             type='text'
-            value={inputValues.gfa || 0}
+            value={inputValues.gfa ? inputValues.gfa : 0}
             onChange={(event) =>
               setInputValues((prevInputValues) => ({
                 ...prevInputValues,
@@ -415,26 +415,26 @@ export default function MobileMenu({
         <CalculatorResult
           theme={theme}
           title='Concept Design'
-          result={conceptEstimate}
+          result={conceptEstimate || 6075}
           setCheckState={setConceptChecked}
           checked
         />
         <CalculatorResult
           theme={theme}
           title='Schematic Design'
-          result={schematicEstimate}
+          result={schematicEstimate || 4050}
           setCheckState={setSchematicChecked}
         />
         <CalculatorResult
           theme={theme}
           title='Detail Design'
-          result={detailEstimate}
+          result={detailEstimate || 8910}
           setCheckState={setDetailChecked}
         />
         <CalculatorResult
           theme={theme}
           title='Interior Design'
-          result={interiorEstimate}
+          result={interiorEstimate || 8910}
           setCheckState={setInteriorChecked}
         />
       </div>
@@ -450,10 +450,10 @@ export default function MobileMenu({
       >
         Total {'>'} $
         {(
-          (conceptChecked ? conceptEstimate : 0) +
-          (interiorChecked ? interiorEstimate : 0) +
-          (schematicChecked ? schematicEstimate : 0) +
-          (detailChecked ? detailEstimate : 0)
+          (conceptChecked ? conceptEstimate || 6075 : 0) +
+          (interiorChecked ? interiorEstimate || 4050 : 0) +
+          (schematicChecked ? schematicEstimate || 8910 : 0) +
+          (detailChecked ? detailEstimate || 8910 : 0)
         ).toFixed(0)}
       </p>
     </motion.div>
