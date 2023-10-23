@@ -298,8 +298,8 @@ export default function MobileMenu({
 
   return (
     <motion.div
-      className={`fixed right-0 top-0 z-50 flex h-[100vh] w-[100vw] flex-col items-center justify-start gap-8
-                  overflow-scroll py-14 pl-16 pr-16 md:absolute md:bottom-0 md:top-auto md:w-[50vw] md:-translate-y-12 md:gap-11 md:pr-24 md:pt-48
+      className={`fixed right-0 top-10 z-50 flex h-[100vh] w-[100vw] -translate-y-10 flex-col items-center justify-start overflow-scroll px-16 pb-14 pt-12 md:absolute
+                  md:bottom-0 md:top-auto md:h-[90vh] md:w-[50vw] md:-translate-y-0 md:gap-11 md:pr-24 md:pt-14
                   ${
                     theme == 'light'
                       ? 'bg-customDarkBlue text-customGray'
@@ -314,148 +314,152 @@ export default function MobileMenu({
         duration: 0.3,
       }}
     >
-      {/* Mobile Menu Toggle */}
-      {theme == 'light' ? (
-        <LightClose
-          className=' absolute right-12 h-7 w-7 cursor-pointer md:top-48'
-          onClick={() => setIsCalculatorOpen(false)}
-        />
-      ) : (
-        <DarkClose
-          className=' absolute right-12 h-7 w-7 cursor-pointer md:top-48'
-          onClick={() => setIsCalculatorOpen(false)}
-        />
-      )}
+      <div className='m-auto flex h-fit w-full flex-col gap-8'>
+        {/* Mobile Menu Toggle */}
+        {theme == 'light' ? (
+          <LightClose
+            className=' absolute right-12 h-7 w-7 cursor-pointer md:top-14'
+            onClick={() => setIsCalculatorOpen(false)}
+          />
+        ) : (
+          <DarkClose
+            className=' absolute right-12 h-7 w-7 cursor-pointer md:top-14'
+            onClick={() => setIsCalculatorOpen(false)}
+          />
+        )}
 
-      {/* Inputs – first row */}
-      <div className='mt-16 flex h-fit w-full gap-6'>
-        {/* Project Type */}
-        <div className='w-full md:w-5/12'>
-          <DropupSelect
+        {/* Inputs – first row */}
+        <div className='mt-16 flex h-fit w-full gap-6'>
+          {/* Project Type */}
+          <div className='w-full md:w-5/12'>
+            <DropupSelect
+              theme={theme}
+              options={['Residential', 'Non-Residential', 'Villa']}
+              values={['residential', 'nonResidential', 'villa']}
+              setActiveType={setActiveType}
+            />
+          </div>
+          <div className='hidden w-5/12 md:block' />
+          <div className='hidden w-2/12 md:block' />
+        </div>
+
+        {/* Inputs – second row */}
+        <div className='mt-2 flex h-fit w-full flex-col gap-10 md:flex-row md:gap-6'>
+          {/* Land Area */}
+          <div className='relative w-full md:w-5/12'>
+            <p className='absolute -top-[1.45rem] left-[.075rem] text-xs'>
+              Land Area
+            </p>
+            <input
+              type='text'
+              value={area || 0}
+              onChange={(event) => setArea(parseInt(event.target.value))}
+              className={`w-full border-2 ${
+                theme == 'light'
+                  ? 'bg-customGray text-customDarkBlue border-customGray'
+                  : 'bg-customDarkBlue text-customGray border-customDarkBlue'
+              }`}
+              pattern='[0-9]*'
+            />
+          </div>
+
+          {/* Gross Floor Area */}
+          <div className='relative w-full md:w-5/12'>
+            <p className='absolute -top-[1.45rem] left-[.075rem] text-xs'>
+              Gross Floor Area
+            </p>
+            <input
+              type='text'
+              value={inputValues.gfa ? inputValues.gfa : 0}
+              onChange={(event) =>
+                setInputValues((prevInputValues) => ({
+                  ...prevInputValues,
+                  gfa: parseInt(event.target.value),
+                }))
+              }
+              className={`w-full border-2 ${
+                theme == 'light'
+                  ? 'bg-customGray text-customDarkBlue border-customGray'
+                  : 'bg-customDarkBlue text-customGray border-customDarkBlue'
+              }`}
+              pattern='[0-9]*'
+            />
+          </div>
+
+          {/* Floors */}
+          <div className='relative w-full md:w-2/12'>
+            <p className='absolute -top-[1.45rem] left-[.075rem] text-xs'>
+              Floors
+            </p>
+            <input
+              type='text'
+              value={inputValues.floors || 0}
+              onChange={(event) =>
+                setInputValues((prevInputValues) => ({
+                  ...prevInputValues,
+                  floors: parseInt(event.target.value),
+                }))
+              }
+              className={`w-full border-2 ${
+                theme == 'light'
+                  ? 'bg-customGray text-customDarkBlue border-customGray'
+                  : 'bg-customDarkBlue text-customGray border-customDarkBlue'
+              }`}
+              pattern='[0-9]*'
+            />
+          </div>
+        </div>
+
+        {/* Inputs – second row */}
+        <div className='flex h-fit w-full flex-col gap-3'>
+          <p className='left-[.075rem] text-xs'>What Do You Need?</p>
+          <CalculatorResult
             theme={theme}
-            options={['Residential', 'Non-Residential', 'Villa']}
-            values={['residential', 'nonResidential', 'villa']}
-            setActiveType={setActiveType}
+            title='Concept Design'
+            result={conceptEstimate || 6075}
+            setCheckState={setConceptChecked}
+            checked
+          />
+          <CalculatorResult
+            theme={theme}
+            title='Schematic Design'
+            result={schematicEstimate || 4050}
+            setCheckState={setSchematicChecked}
+          />
+          <CalculatorResult
+            theme={theme}
+            title='Detail Design'
+            result={detailEstimate || 8910}
+            setCheckState={setDetailChecked}
+          />
+          <CalculatorResult
+            theme={theme}
+            title='Interior Design'
+            result={interiorEstimate || 8910}
+            setCheckState={setInteriorChecked}
           />
         </div>
-        <div className='hidden w-5/12 md:block' />
-        <div className='hidden w-2/12 md:block' />
+
+        {/* Total */}
+        <p
+          className={`left-[.075rem] flex w-full items-center justify-center border-2 py-3 text-center text-lg
+                    ${
+                      theme == 'light'
+                        ? 'bg-customGray text-customDarkBlue border-customGray'
+                        : 'bg-customDarkBlue text-customGray border-customDarkBlue'
+                    }`}
+        >
+          Total {'>'} $
+          {parseFloat(
+            (
+              (conceptChecked ? conceptEstimate || 6075 : 0) +
+              (interiorChecked ? interiorEstimate || 4050 : 0) +
+              (schematicChecked ? schematicEstimate || 8910 : 0) +
+              (detailChecked ? detailEstimate || 8910 : 0)
+            ).toFixed(2)
+          ).toLocaleString('en-US')}
+        </p>
       </div>
-
-      {/* Inputs – second row */}
-      <div className='mt-2 flex h-fit w-full flex-col gap-10 md:flex-row md:gap-6'>
-        {/* Land Area */}
-        <div className='relative w-full md:w-5/12'>
-          <p className='absolute -top-[1.45rem] left-[.075rem] text-xs'>
-            Land Area
-          </p>
-          <input
-            type='text'
-            value={area || 0}
-            onChange={(event) => setArea(parseInt(event.target.value))}
-            className={`w-full border-2 ${
-              theme == 'light'
-                ? 'bg-customGray text-customDarkBlue border-customGray'
-                : 'bg-customDarkBlue text-customGray border-customDarkBlue'
-            }`}
-            pattern='[0-9]*'
-          />
-        </div>
-
-        {/* Gross Floor Area */}
-        <div className='relative w-full md:w-5/12'>
-          <p className='absolute -top-[1.45rem] left-[.075rem] text-xs'>
-            Gross Floor Area
-          </p>
-          <input
-            type='text'
-            value={inputValues.gfa ? inputValues.gfa : 0}
-            onChange={(event) =>
-              setInputValues((prevInputValues) => ({
-                ...prevInputValues,
-                gfa: parseInt(event.target.value),
-              }))
-            }
-            className={`w-full border-2 ${
-              theme == 'light'
-                ? 'bg-customGray text-customDarkBlue border-customGray'
-                : 'bg-customDarkBlue text-customGray border-customDarkBlue'
-            }`}
-            pattern='[0-9]*'
-          />
-        </div>
-
-        {/* Floors */}
-        <div className='relative w-full md:w-2/12'>
-          <p className='absolute -top-[1.45rem] left-[.075rem] text-xs'>
-            Floors
-          </p>
-          <input
-            type='text'
-            value={inputValues.floors || 0}
-            onChange={(event) =>
-              setInputValues((prevInputValues) => ({
-                ...prevInputValues,
-                floors: parseInt(event.target.value),
-              }))
-            }
-            className={`w-full border-2 ${
-              theme == 'light'
-                ? 'bg-customGray text-customDarkBlue border-customGray'
-                : 'bg-customDarkBlue text-customGray border-customDarkBlue'
-            }`}
-            pattern='[0-9]*'
-          />
-        </div>
-      </div>
-
-      {/* Inputs – second row */}
-      <div className='flex h-fit w-full flex-col gap-3'>
-        <p className='left-[.075rem] text-xs'>What Do You Need?</p>
-        <CalculatorResult
-          theme={theme}
-          title='Concept Design'
-          result={conceptEstimate || 6075}
-          setCheckState={setConceptChecked}
-          checked
-        />
-        <CalculatorResult
-          theme={theme}
-          title='Schematic Design'
-          result={schematicEstimate || 4050}
-          setCheckState={setSchematicChecked}
-        />
-        <CalculatorResult
-          theme={theme}
-          title='Detail Design'
-          result={detailEstimate || 8910}
-          setCheckState={setDetailChecked}
-        />
-        <CalculatorResult
-          theme={theme}
-          title='Interior Design'
-          result={interiorEstimate || 8910}
-          setCheckState={setInteriorChecked}
-        />
-      </div>
-
-      {/* Total */}
-      <p
-        className={`left-[.075rem] flex w-full items-center justify-center border-2 py-3 text-center text-lg
-                  ${
-                    theme == 'light'
-                      ? 'bg-customGray text-customDarkBlue border-customGray'
-                      : 'bg-customDarkBlue text-customGray border-customDarkBlue'
-                  }`}
-      >
-        Total {'>'} $
-        {(
-          (conceptChecked ? conceptEstimate || 6075 : 0) +
-          (interiorChecked ? interiorEstimate || 4050 : 0) +
-          (schematicChecked ? schematicEstimate || 8910 : 0) +
-          (detailChecked ? detailEstimate || 8910 : 0)
-        ).toFixed(0)}
-      </p>
     </motion.div>
   );
 }

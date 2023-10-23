@@ -1,5 +1,8 @@
 import { useState } from 'react';
 
+import DownChevDark from '~/svg/down-chev-dark.svg';
+import DownChevLight from '~/svg/down-chev-light.svg';
+
 interface DropupSelectProps {
   theme: string;
   options: string[];
@@ -56,7 +59,7 @@ export default function DropupSelect({
           <li
             key={index}
             onClick={() => selectOption(values[index])}
-            className={`relative cursor-pointer select-none px-2 py-3 text-sm
+            className={`relative cursor-pointer select-none p-3 text-sm
                           ${
                             theme == 'light'
                               ? 'bg-customGray text-customDarkBlue'
@@ -71,9 +74,14 @@ export default function DropupSelect({
       <button
         onClick={() => setIsOpen(true)}
         type='button'
-        className='inline-flex w-full justify-between border-0 px-2 py-3 text-sm focus:outline-none'
+        className='inline-flex w-full items-center justify-between border-0 p-3 text-sm focus:outline-none'
         id='options-menu'
       >
+        {theme == 'light' ? (
+          <DownChevDark className='absolute right-3 h-4 w-4' />
+        ) : (
+          <DownChevLight className='absolute right-3 h-4 w-4' />
+        )}
         {options[values.indexOf(selectedOption)]}
       </button>
     </div>

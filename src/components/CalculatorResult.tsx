@@ -84,7 +84,7 @@ export default function CalculatorResult({
                           : 'bg-customDarkBlue text-customGray'
                       }`}
           >
-            $ {result.toFixed(0)}
+            $ {parseFloat(result.toFixed(2)).toLocaleString('en-US')}
           </p>
         )}
       </div>
