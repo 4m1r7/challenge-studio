@@ -456,7 +456,7 @@ export default function MobileMenu({
               (interiorChecked ? interiorEstimate || 4050 : 0) +
               (schematicChecked ? schematicEstimate || 8910 : 0) +
               (detailChecked ? detailEstimate || 8910 : 0)
-            ).toFixed(2)
+            ).toFixed(0)
           ).toLocaleString('en-US')}
         </p>
       </div>
