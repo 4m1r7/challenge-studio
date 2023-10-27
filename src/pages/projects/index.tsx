@@ -148,17 +148,17 @@ export default function Projects({ data, socials }: ProjectsProps) {
           exit='exit'
         >
           {/* Mobile Filters Toggle */}
-          {theme == 'light' ? (
-            <DarkOpenFilters
-              className=' mb-10 h-6 w-6 rotate-90 cursor-pointer md:hidden'
-              onClick={() => setIsFiltersOpen(true)}
-            />
-          ) : (
-            <LightOpenFilters
-              className=' mb-10 h-6 w-6 rotate-90 cursor-pointer md:hidden'
-              onClick={() => setIsFiltersOpen(true)}
-            />
-          )}
+          <div
+            className='mb-10 flex cursor-pointer items-center gap-3 md:hidden'
+            onClick={() => setIsFiltersOpen(true)}
+          >
+            {theme == 'light' ? (
+              <DarkOpenFilters className='h-5 w-5 rotate-90' />
+            ) : (
+              <LightOpenFilters className='h-5 w-5 rotate-90' />
+            )}
+            <p className='text-lg text-white'>Filters</p>
+          </div>
 
           {/* Projects filters */}
           <div className='hidden w-[12%] flex-col pl-4 md:flex'>
