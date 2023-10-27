@@ -42,6 +42,20 @@ const mainComponent = {
   },
 };
 
+const calculatorComponent = {
+  hidden: {
+    opacity: 0,
+  },
+  enter: {
+    opacity: 1,
+    transition: { ease: 'easeIn', duration: 2 },
+  },
+  exit: {
+    opacity: 0,
+    transition: { ease: 'easeOut', duration: 0.5 },
+  },
+};
+
 export default function Home({
   pageData,
 }: {
@@ -123,10 +137,10 @@ export default function Home({
         <motion.div
           className='absolute bottom-12 right-12'
           key='calculator-toggle'
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ ease: 'easeIn', duration: 2 }}
+          variants={calculatorComponent}
+          initial='hidden'
+          animate='enter'
+          exit='exit'
         >
           {theme == 'light' ? (
             <CalculatorToggleLight
