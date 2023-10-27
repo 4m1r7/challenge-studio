@@ -157,7 +157,13 @@ export default function Projects({ data, socials }: ProjectsProps) {
             ) : (
               <LightOpenFilters className='h-5 w-5 rotate-90' />
             )}
-            <p className='text-lg text-white'>Filters</p>
+            <p
+              className={`text-lg ${
+                theme == 'light' ? 'text-customDarkBlue' : 'text-customGray'
+              } `}
+            >
+              Filters
+            </p>
           </div>
 
           {/* Projects filters */}
