@@ -200,10 +200,13 @@ export default function Project({ projectData, socials }: ContactProps) {
                   <div className='border-l border-current pl-4 text-current'>
                     <p className='font-light'>Architects {'>'}</p>
 
-                    {project.projectFields.members.map((member) => (
-                      <Link key={member?.id} href={`/about#${member?.slug}`}>
-                        {member?.title}
-                      </Link>
+                    {project.projectFields.members.map((member, index) => (
+                      <span key={member?.id}>
+                        <Link href={`/about#${member?.slug}`}>
+                          {member?.title}
+                        </Link>
+                        {index == 0 ? ', ' : ''}
+                      </span>
                     ))}
                   </div>
                 )}

@@ -34,7 +34,7 @@ export default function CalculatorResult({
         theme === 'light' ? 'text-customGray' : 'text-customDarkBlue'
       }`}
     >
-      <div className='flex w-full gap-1 md:w-5/12'>
+      <div className='flex w-full gap-1 md:w-7/12'>
         <div
           onClick={toggleCheckbox}
           className={`flex h-10 w-12 cursor-pointer items-center justify-center md:h-full
@@ -72,7 +72,7 @@ export default function CalculatorResult({
       </div>
 
       <div
-        className={`w-full cursor-default md:h-full md:w-7/12
+        className={`w-full cursor-default md:h-full md:w-5/12
                       ${isChecked ? 'h-10' : ''}`}
       >
         {isChecked && (
