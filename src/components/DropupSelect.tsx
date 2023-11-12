@@ -43,7 +43,7 @@ export default function DropupSelect({
       </p>
       <ul
         className={`absolute z-20 w-full
-                      ${isOpen ? 'block -translate-y-11' : 'hidden'}
+                      ${isOpen ? 'block' : 'hidden'}
                       `}
         role='listbox'
         aria-labelledby='options-menu'

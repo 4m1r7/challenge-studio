@@ -9,6 +9,8 @@ query ProjectData($slug: String!) {
       }
     }
     projectFields {
+      architectsInformation
+      locationInformation
       scale
       status
       type
