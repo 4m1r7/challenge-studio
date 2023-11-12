@@ -23,6 +23,7 @@ const links = [
   { href: '/awards', label: 'Awards' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
+  { href: '/?calculator=open', label: 'Fee' },
 ];
 
 // Header motion values
@@ -112,10 +113,6 @@ export default function Header({
                 <Link href={link.href}>{link.label}</Link>
               </li>
             ))}
-
-            {/* <a href='https://www.instagram.com/challenge_studio_/' className='whitespace-nowrap'>
-              Instagram {'>'}
-            </a> */}
 
             {theme == 'light' ? (
               <DarkMode

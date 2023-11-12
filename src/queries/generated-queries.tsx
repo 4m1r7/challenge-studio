@@ -6178,8 +6178,10 @@ export type ProjectToPreviewConnectionEdge = Edge &
 /** Field Group */
 export type Project_Projectfields = AcfFieldGroup & {
   __typename?: 'Project_Projectfields';
+  architectsInformation?: Maybe<Scalars['String']['output']>;
   /** The name of the ACF Field Group */
   fieldGroupName?: Maybe<Scalars['String']['output']>;
+  locationInformation?: Maybe<Scalars['String']['output']>;
   mainVideos?: Maybe<Array<Maybe<Project_Projectfields_MainVideos>>>;
   members?: Maybe<Array<Maybe<Project_Projectfields_Members>>>;
   projectImages?: Maybe<Array<Maybe<MediaItem>>>;
@@ -10966,6 +10968,8 @@ export type ProjectDataQuery = {
     } | null;
     projectFields?: {
       __typename?: 'Project_Projectfields';
+      architectsInformation?: string | null;
+      locationInformation?: string | null;
       scale?: string | null;
       status?: string | null;
       type?: Array<string | null> | null;
@@ -11496,6 +11500,8 @@ export const ProjectDataDocument = gql`
         }
       }
       projectFields {
+        architectsInformation
+        locationInformation
         scale
         status
         type

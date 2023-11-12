@@ -1,7 +1,8 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import * as React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import client from '@/lib/apolloClient';
 
@@ -71,6 +72,14 @@ export default function Home({
       y: (e.clientY * 2) / window.innerHeight - 1,
     });
   };
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router.query.calculator === 'open') {
+      setIsCalculatorOpen(true);
+    }
+  }, [router.query.calculator]);
 
   return (
     <Layout
@@ -143,15 +152,33 @@ export default function Home({
           exit='exit'
         >
           {theme == 'light' ? (
-            <CalculatorToggleLight
-              className='hidden h-24 w-36 cursor-pointer md:block'
+            <div
               onClick={() => setIsCalculatorOpen((prev) => !prev)}
-            />
+              className='hidden cursor-pointer md:block'
+            >
+              <CalculatorToggleLight className='h-24 w-36' />
+              <p className='bg-customGray text-customDarkBlue absolute bottom-5 right-1 pl-12 pr-3 text-right text-xl font-bold leading-tight'>
+                Calculate
+                <br />
+                Our Fee
+                <br />
+                <span className='text-3xl'>NOW</span>
+              </p>
+            </div>
           ) : (
-            <CalculatorToggleDark
-              className='hidden h-24 w-36 cursor-pointer md:block '
+            <div
               onClick={() => setIsCalculatorOpen((prev) => !prev)}
-            />
+              className='hidden cursor-pointer md:block'
+            >
+              <CalculatorToggleDark className='h-24 w-36 ' />
+              <p className='bg-customDarkBlue text-customGray absolute bottom-5 right-1 pl-12 pr-3 text-right text-xl font-bold leading-tight'>
+                Calculate
+                <br />
+                Our Fee
+                <br />
+                <span className='text-3xl'>NOW</span>
+              </p>
+            </div>
           )}
         </motion.div>
 

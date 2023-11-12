@@ -329,7 +329,9 @@ export default function MobileMenu({
         )}
 
         {/* Inputs – first row */}
-        <div className='mt-16 flex h-fit w-full gap-6'>
+        <h3 className='text-xl font-normal'>Approximate Fee Estimation</h3>
+
+        <div className='mt-2 flex h-fit w-full gap-6'>
           {/* Project Type */}
           <div className='w-full md:w-5/12'>
             <DropupSelect

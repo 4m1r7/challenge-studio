@@ -151,7 +151,7 @@ export default function Project({ projectData, socials }: ContactProps) {
           <div className='flex w-full flex-col-reverse md:flex-row'>
             {/* Project Info */}
             <div className='flex h-full w-full flex-col gap-8 md:w-1/4'>
-              {/* Desktop Project Primary Info (minus) descroption */}
+              {/* Desktop Project Primary Info (minus) description */}
               <div className='hidden flex-col gap-8 md:flex'>
                 <Link href='/projects'>
                   {theme == 'light' ? (
@@ -161,67 +161,41 @@ export default function Project({ projectData, socials }: ContactProps) {
                   )}
                 </Link>
 
-                <h1 className='border-l border-current pl-4 text-current'>
+                <h1 className='-mb-5 border-l border-current pl-4 text-current'>
                   {project?.title}
                 </h1>
 
-                <div className='border-l border-current pl-4 text-current'>
-                  <div className='flex'>
-                    <p className='mr-3 whitespace-nowrap font-light'>
-                      Type {'>'}
-                    </p>
-                    <div className='flex flex-col'>
-                      {project?.projectFields?.type?.map((type) => (
-                        <p key={type}>{type}</p>
-                      ))}
-                    </div>
+                {project?.projectFields?.locationInformation && (
+                  <div className='project-description border-l border-current pl-4 text-current'>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: project?.projectFields?.locationInformation,
+                      }}
+                    />
                   </div>
-                  <div className='flex'>
-                    <p className='mr-3 whitespace-nowrap font-light'>
-                      Status {'>'}
-                    </p>
-                    <p>{project?.projectFields?.status}</p>
-                  </div>
-                  <div className='flex'>
-                    <p className='mr-3 whitespace-nowrap font-light'>
-                      Scale {'>'}
-                    </p>
-                    <p>{project?.projectFields?.scale}</p>
-                  </div>
-                  <div className='flex'>
-                    <p className='mr-3 whitespace-nowrap font-light'>
-                      Year {'>'}
-                    </p>
-                    <p>{project?.projectFields?.year}</p>
-                  </div>
-                </div>
+                )}
 
-                {project?.projectFields?.members && (
-                  <div className='border-l border-current pl-4 text-current'>
-                    <p className='font-light'>Architects {'>'}</p>
-
-                    {project.projectFields.members.map((member, index) => (
-                      <span key={member?.id}>
-                        <Link href={`/about#${member?.slug}`}>
-                          {member?.title}
-                        </Link>
-                        {index == 0 ? ', ' : ''}
-                      </span>
-                    ))}
+                {project?.projectFields?.architectsInformation && (
+                  <div className='project-description border-l border-current pl-4 text-current'>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: project?.projectFields?.architectsInformation,
+                      }}
+                    />
                   </div>
                 )}
               </div>
 
-              <div className='project-description border-l border-current pl-4 text-sm text-current'>
-                <div className='negative-space' ref={negativeSpace} />
-                <div
-                  dangerouslySetInnerHTML={{ __html: project?.content || '' }}
-                />
-              </div>
+              {project?.content && (
+                <div className='project-description border-l border-current pl-4 text-sm text-current'>
+                  <div className='negative-space' ref={negativeSpace} />
+                  <div dangerouslySetInnerHTML={{ __html: project?.content }} />
+                </div>
+              )}
             </div>
 
             {/* Project Model */}
-            <div className='relative my-4 flex h-[40vh] w-[100vw] -translate-x-12 items-center justify-center text-center md:min-h-[65vh] md:w-3/4 md:p-0'>
+            <div className='relative my-4 flex h-[40vh] w-[100vw] -translate-x-12 items-center justify-center text-center md:min-h-[65vh] md:w-3/4 md:translate-x-0 md:p-0'>
               <div className='h-full w-full overflow-hidden'>
                 <ModelViewer
                   fileUrl={
@@ -238,7 +212,7 @@ export default function Project({ projectData, socials }: ContactProps) {
               )}
             </div>
 
-            {/* Desktop Project Primary Info (minus) descroption */}
+            {/* Desktop Project Primary Info (minus) description */}
             <div className='flex flex-col gap-8 md:hidden'>
               <Link href='/projects'>
                 {theme == 'light' ? (
@@ -248,50 +222,27 @@ export default function Project({ projectData, socials }: ContactProps) {
                 )}
               </Link>
 
-              <h1 className='border-l border-current pl-4 text-current'>
+              <h1 className='-mb-4 border-l border-current pl-4 text-current'>
                 {project?.title}
               </h1>
 
-              <div className='border-l border-current pl-4 text-current'>
-                <div className='flex'>
-                  <p className='mr-3 whitespace-nowrap font-light'>
-                    Type {'>'}
-                  </p>
-                  <div className='flex flex-col'>
-                    {project?.projectFields?.type?.map((type) => (
-                      <p key={type}>{type}</p>
-                    ))}
-                  </div>
+              {project?.projectFields?.locationInformation && (
+                <div className='project-description border-l border-current pl-4 text-current'>
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: project?.projectFields?.locationInformation,
+                    }}
+                  />
                 </div>
-                <div className='flex'>
-                  <p className='mr-3 whitespace-nowrap font-light'>
-                    Status {'>'}
-                  </p>
-                  <p>{project?.projectFields?.status}</p>
-                </div>
-                <div className='flex'>
-                  <p className='mr-3 whitespace-nowrap font-light'>
-                    Scale {'>'}
-                  </p>
-                  <p>{project?.projectFields?.scale}</p>
-                </div>
-                <div className='flex'>
-                  <p className='mr-3 whitespace-nowrap font-light'>
-                    Year {'>'}
-                  </p>
-                  <p>{project?.projectFields?.year}</p>
-                </div>
-              </div>
+              )}
 
-              {project?.projectFields?.members && (
-                <div className='border-l border-current pl-4 text-current'>
-                  <p className='font-light'>Architects {'>'}</p>
-
-                  {project.projectFields.members.map((member) => (
-                    <Link key={member?.id} href={`/about#${member?.slug}`}>
-                      {member?.title}
-                    </Link>
-                  ))}
+              {project?.projectFields?.architectsInformation && (
+                <div className='project-description border-l border-current pl-4 text-current'>
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: project?.projectFields?.architectsInformation,
+                    }}
+                  />
                 </div>
               )}
             </div>
