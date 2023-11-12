@@ -166,7 +166,7 @@ export default function Project({ projectData, socials }: ContactProps) {
                 </h1>
 
                 {project?.projectFields?.locationInformation && (
-                  <div className='project-description border-l border-current pl-4 text-current'>
+                  <div className='info-box-text border-l border-current pl-4 text-current'>
                     <div
                       dangerouslySetInnerHTML={{
                         __html: project?.projectFields?.locationInformation,
@@ -176,7 +176,7 @@ export default function Project({ projectData, socials }: ContactProps) {
                 )}
 
                 {project?.projectFields?.architectsInformation && (
-                  <div className='project-description border-l border-current pl-4 text-current'>
+                  <div className='info-box-text border-l border-current pl-4 text-current'>
                     <div
                       dangerouslySetInnerHTML={{
                         __html: project?.projectFields?.architectsInformation,
