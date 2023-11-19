@@ -4221,6 +4221,8 @@ export type Page = ContentNode &
     previewRevisionDatabaseId?: Maybe<Scalars['Int']['output']>;
     /** Whether the object is a node in the preview state */
     previewRevisionId?: Maybe<Scalars['ID']['output']>;
+    /** Added to the GraphQL Schema because the ACF Field Group &quot;Projects Page Fields&quot; was set to Show in GraphQL. */
+    projectsPageFields?: Maybe<Page_Projectspagefields>;
     /** If the current node is a revision, this field exposes the node this is a revision of. Returns null if the node is not a revision of another node. */
     revisionOf?: Maybe<NodeWithRevisionsToContentNodeConnectionEdge>;
     /** Connection between the Page type and the page type */
@@ -4616,6 +4618,14 @@ export type Page_Contactpagefields_SocialMedia = AcfFieldGroup & {
   instagramLink?: Maybe<Scalars['String']['output']>;
   twitterLink?: Maybe<Scalars['String']['output']>;
   youtubeLink?: Maybe<Scalars['String']['output']>;
+};
+
+/** Field Group */
+export type Page_Projectspagefields = AcfFieldGroup & {
+  __typename?: 'Page_Projectspagefields';
+  /** The name of the ACF Field Group */
+  fieldGroupName?: Maybe<Scalars['String']['output']>;
+  portfolioFile?: Maybe<MediaItem>;
 };
 
 /** An plugin object */
@@ -11023,7 +11033,17 @@ export type ProjectsPageQueryVariables = Exact<{ [key: string]: never }>;
 
 export type ProjectsPageQuery = {
   __typename?: 'RootQuery';
-  pageBy?: { __typename?: 'Page'; id: string } | null;
+  pageBy?: {
+    __typename?: 'Page';
+    id: string;
+    projectsPageFields?: {
+      __typename?: 'Page_Projectspagefields';
+      portfolioFile?: {
+        __typename?: 'MediaItem';
+        mediaItemUrl?: string | null;
+      } | null;
+    } | null;
+  } | null;
 };
 
 export const AboutPageDocument = gql`
@@ -11647,6 +11667,11 @@ export const ProjectsPageDocument = gql`
   query ProjectsPage {
     pageBy(uri: "projects") {
       id
+      projectsPageFields {
+        portfolioFile {
+          mediaItemUrl
+        }
+      }
     }
   }
 `;

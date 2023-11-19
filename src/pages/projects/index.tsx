@@ -16,6 +16,8 @@ import {
   AllProjectsQuery,
   FooterSocialsDocument,
   FooterSocialsQuery,
+  ProjectsPageDocument,
+  ProjectsPageQuery,
 } from '@/queries/generated-queries';
 import { useTheme } from '@/ThemeContext';
 
@@ -41,11 +43,12 @@ const mainComponent = {
 const filterOrderIndex = [3, 4, 1, 2];
 
 interface ProjectsProps {
+  pageData: ProjectsPageQuery;
   data: AllProjectsQuery;
   socials: FooterSocialsQuery;
 }
 
-export default function Projects({ data, socials }: ProjectsProps) {
+export default function Projects({ pageData, data, socials }: ProjectsProps) {
   // clean up the projects array & footer socials before use
   const projects = useMemo(() => data?.projects?.edges, [data]);
   const SocialLinksData = socials.pageBy?.contactPageFields?.socialMedia;
@@ -139,7 +142,7 @@ export default function Projects({ data, socials }: ProjectsProps) {
                     } `}
       >
         <motion.div
-          className='flex h-full w-full flex-col items-end pt-3 md:flex-row md:items-start md:pt-10'
+          className='flex h-full h-full w-full flex-col items-end pt-3 md:flex-row md:items-stretch md:pt-10'
           style={{}}
           key='projects'
           variants={mainComponent}
@@ -167,39 +170,61 @@ export default function Projects({ data, socials }: ProjectsProps) {
           </div>
 
           {/* Projects filters */}
-          <div className='hidden w-[12%] flex-col pl-4 md:flex'>
-            {/* Sorting the filter option type based on arbitrary filterOrderIndex array then rendering them */}
-            {filterOrderIndex
-              .map((index) => Object.entries(filterOptions)[index - 1])
-              .map(([filterType, filterValues]) => (
-                <FilterComponent
-                  key={filterType}
-                  filterType={filterType}
-                  filterValues={filterValues}
-                  activeFilter={activeFilters[filterType]}
-                  onFilterChange={handleFilterChange}
-                  theme={theme}
-                />
-              ))}
+          <div className='relative hidden min-h-[65vh] w-[12%] flex-col justify-between pl-4 md:flex'>
+            <div className='flex flex-col'>
+              {/* Sorting the filter option type based on arbitrary filterOrderIndex array then rendering them */}
+              {filterOrderIndex
+                .map((index) => Object.entries(filterOptions)[index - 1])
+                .map(([filterType, filterValues]) => (
+                  <FilterComponent
+                    key={filterType}
+                    filterType={filterType}
+                    filterValues={filterValues}
+                    activeFilter={activeFilters[filterType]}
+                    onFilterChange={handleFilterChange}
+                    theme={theme}
+                  />
+                ))}
 
-            <span
-              onClick={clearFilters}
-              className={`mt-8 cursor-pointer text-xs duration-200
-                        ${
-                          theme == 'light'
-                            ? 'text-red-900/75  hover:text-red-900'
-                            : 'text-red-400/75  hover:text-red-400'
-                        }
-                        ${
-                          Object.values(activeFilters).every(
-                            (value) => value === null
-                          )
-                            ? 'pointer-events-none opacity-0'
-                            : 'opacity-1'
-                        }`}
-            >
-              clear filters
-            </span>
+              <span
+                onClick={clearFilters}
+                className={`mt-8 cursor-pointer text-xs duration-200
+                          ${
+                            theme == 'light'
+                              ? 'text-red-900/75  hover:text-red-900'
+                              : 'text-red-400/75  hover:text-red-400'
+                          }
+                          ${
+                            Object.values(activeFilters).every(
+                              (value) => value === null
+                            )
+                              ? 'pointer-events-none opacity-0'
+                              : 'opacity-1'
+                          }`}
+              >
+                clear filters
+              </span>
+            </div>
+
+            {/* Portfolio download link */}
+            {pageData.pageBy?.projectsPageFields?.portfolioFile
+              ?.mediaItemUrl && (
+              <a
+                download
+                href={
+                  pageData.pageBy?.projectsPageFields?.portfolioFile
+                    ?.mediaItemUrl
+                }
+                className={` sticky bottom-10 left-0 hidden -translate-x-5 text-base md:block
+                          ${
+                            theme == 'light'
+                              ? 'text-customDarkBlue'
+                              : 'text-customGray'
+                          }`}
+              >
+                Download Our <p className='text-lg font-bold'>Portfolio</p>
+              </a>
+            )}
           </div>
 
           {/* Projects grid */}
@@ -319,6 +344,10 @@ export default function Projects({ data, socials }: ProjectsProps) {
 }
 
 export async function getStaticProps() {
+  const { data: pageData } = await client.query({
+    query: ProjectsPageDocument,
+  });
+
   const { data } = await client.query({
     query: AllProjectsDocument,
   });
@@ -329,6 +358,7 @@ export async function getStaticProps() {
 
   return {
     props: {
+      pageData,
       data,
       socials,
     },
