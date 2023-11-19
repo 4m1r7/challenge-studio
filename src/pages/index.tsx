@@ -26,6 +26,7 @@ const links = [
   { href: '/awards', label: 'Awards' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
+  { href: '/?calculator=open', label: 'Fee' },
 ];
 
 const mainComponent = {

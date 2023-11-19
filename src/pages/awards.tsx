@@ -106,6 +106,7 @@ export default function Awards({ data, socials }: ContactProps) {
                           </Link>
                           <Link
                             href={item.node.awardFields?.awardLink || '#'}
+                            target='_blank'
                             className='bg-customGray md:text-customGray border-customGray flex flex-grow items-center justify-center gap-2 border p-3 text-black md:bg-transparent'
                           >
                             <p>Award</p>
