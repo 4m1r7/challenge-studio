@@ -211,6 +211,7 @@ export default function Projects({ pageData, data, socials }: ProjectsProps) {
               ?.mediaItemUrl && (
               <a
                 download
+                target='_blank'
                 href={
                   pageData.pageBy?.projectsPageFields?.portfolioFile
                     ?.mediaItemUrl
