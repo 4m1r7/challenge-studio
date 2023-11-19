@@ -57,21 +57,33 @@ export default function Project({ projectData, socials }: ContactProps) {
 
   const mediaUrls = [
     ...(project?.projectFields?.mainVideos || [])
-      .map((item) => ({
+      .map((item, index) => ({
         mediaUrl: item?.videoItem?.mediaItemUrl,
         mediaType: 'video',
+        coverImage: project?.projectFields?.allVideoImages
+          ? project?.projectFields?.allVideoImages[index]?.mediaItemUrl
+          : 'null',
       }))
       .filter((item) => item.mediaUrl),
     ...(project?.projectFields?.projectImages || [])
       .map((item) => ({
         mediaUrl: item?.mediaItemUrl,
         mediaType: 'image',
+        coverImage: '',
       }))
       .filter((item) => item.mediaUrl),
     ...(project?.projectFields?.projectVideos || [])
-      .map((item) => ({
+      .map((item, index) => ({
         mediaUrl: item?.videoItem?.mediaItemUrl,
         mediaType: 'video',
+        coverImage: project?.projectFields?.allVideoImages
+          ? project?.projectFields?.allVideoImages[
+              index +
+                (project?.projectFields?.mainVideos
+                  ? project?.projectFields?.mainVideos?.length
+                  : 0)
+            ]?.mediaItemUrl
+          : 'null',
       }))
       .filter((item) => item.mediaUrl),
   ];
@@ -276,7 +288,7 @@ export default function Project({ projectData, socials }: ContactProps) {
                   ) : (
                     <div className='flex aspect-square w-full items-center justify-center'>
                       <video
-                        poster={item.mediaUrl || ''}
+                        poster={item.coverImage || ''}
                         preload='metadata'
                         className='aspect-square w-full bg-stone-700 object-cover'
                       >
@@ -299,7 +311,12 @@ export default function Project({ projectData, socials }: ContactProps) {
                   .map((item) => ({
                     mediaUrl: item.mediaUrl || '',
                     mediaType: item.mediaType || '',
-                  })) as { mediaUrl: string; mediaType: string }[]
+                    coverImage: item.mediaType || '',
+                  })) as {
+                  mediaUrl: string;
+                  mediaType: string;
+                  coverImage: string;
+                }[]
               }
               currentMediaIndex={currentMediaIndex}
               setCurrentMediaIndex={setCurrentMediaIndex}

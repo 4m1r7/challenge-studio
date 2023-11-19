@@ -8,9 +8,10 @@ import DarkChevron from '~/svg/down-chev-dark.svg';
 import LightChevron from '~/svg/down-chev-light.svg';
 import DarkFullscreen from '~/svg/fullscreen-dark.svg';
 import LightFullscreen from '~/svg/fullscreen-light.svg';
+import Play from '~/svg/play-button.svg';
 
 interface MediaModalProps {
-  mediaUrls: { mediaUrl: string; mediaType: string }[];
+  mediaUrls: { mediaUrl: string; mediaType: string; coverImage: string }[];
   currentMediaIndex: number;
   setCurrentMediaIndex: (index: number) => void;
   onClose: () => void;
@@ -188,14 +189,16 @@ export default function MediaModal({
                   alt='Gallery Image'
                 />
               ) : (
-                <video
-                  poster={item.mediaUrl || ''}
-                  controls
-                  preload='metadata'
-                  className='aspect-square w-full object-cover'
-                >
-                  <source src={item.mediaUrl || ''} type='video/mp4' />
-                </video>
+                <div className='flex aspect-square w-full items-center justify-center'>
+                  <video
+                    poster={item.coverImage || ''}
+                    preload='metadata'
+                    className='aspect-square w-full object-cover'
+                  >
+                    <source src={item.mediaUrl || ''} type='video/mp4' />
+                  </video>
+                  <Play className='absolute h-8 w-8 ' />
+                </div>
               )}
             </div>
           ))}
