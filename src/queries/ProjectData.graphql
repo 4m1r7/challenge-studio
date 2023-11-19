@@ -25,6 +25,9 @@ query ProjectData($slug: String!) {
           mediaItemUrl
         }
       }
+      allVideoImages {
+        mediaItemUrl
+      }
       projectImages {
         mediaItemUrl
       }

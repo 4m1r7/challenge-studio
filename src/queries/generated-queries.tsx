@@ -6188,6 +6188,7 @@ export type ProjectToPreviewConnectionEdge = Edge &
 /** Field Group */
 export type Project_Projectfields = AcfFieldGroup & {
   __typename?: 'Project_Projectfields';
+  allVideoImages?: Maybe<Array<Maybe<MediaItem>>>;
   architectsInformation?: Maybe<Scalars['String']['output']>;
   /** The name of the ACF Field Group */
   fieldGroupName?: Maybe<Scalars['String']['output']>;
@@ -10998,6 +10999,10 @@ export type ProjectDataQuery = {
           mediaItemUrl?: string | null;
         } | null;
       } | null> | null;
+      allVideoImages?: Array<{
+        __typename?: 'MediaItem';
+        mediaItemUrl?: string | null;
+      } | null> | null;
       projectImages?: Array<{
         __typename?: 'MediaItem';
         mediaItemUrl?: string | null;
@@ -11535,6 +11540,9 @@ export const ProjectDataDocument = gql`
           videoItem {
             mediaItemUrl
           }
+        }
+        allVideoImages {
+          mediaItemUrl
         }
         projectImages {
           mediaItemUrl
