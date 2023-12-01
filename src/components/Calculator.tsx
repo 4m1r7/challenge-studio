@@ -350,7 +350,7 @@ export default function MobileMenu({
           {/* Land Area */}
           <div className='relative w-full md:w-5/12'>
             <p className='absolute -top-[1.45rem] left-[.075rem] text-xs'>
-              Land Area
+              Land Area (sqm)
             </p>
             <input
               type='text'
@@ -368,7 +368,7 @@ export default function MobileMenu({
           {/* Gross Floor Area */}
           <div className='relative w-full md:w-5/12'>
             <p className='absolute -top-[1.45rem] left-[.075rem] text-xs'>
-              Gross Floor Area
+              Gross Floor Area (sqm)
             </p>
             <input
               type='text'
