@@ -53,9 +53,21 @@ export default function About({ membersData, pageData, socials }: AboutProps) {
   const currentMembers = members
     .reverse()
     .filter((member) => !member.memberFields?.oldMember);
+  const currentMembersWimage = currentMembers.filter(
+    (member) => member.featuredImage?.node.sourceUrl
+  );
+  const currentMembersWOimage = currentMembers.filter(
+    (member) => !member.featuredImage?.node.sourceUrl
+  );
   const previousMembers = members
     .reverse()
     .filter((member) => member.memberFields?.oldMember);
+  const previousMembersWimage = previousMembers.filter(
+    (member) => member.featuredImage?.node.sourceUrl
+  );
+  const previousMembersWOimage = previousMembers.filter(
+    (member) => !member.featuredImage?.node.sourceUrl
+  );
 
   // light/dark themeheme context
   const { theme, toggleTheme } = useTheme();
@@ -147,9 +159,10 @@ export default function About({ membersData, pageData, socials }: AboutProps) {
               {'<'} Challenge Team {'>'}
             </h2>
 
+            {/* Current Members with Image */}
             <div className='grid w-11/12 grid-cols-2 gap-10 md:grid-cols-4 md:gap-16 xl:w-9/12'>
-              {currentMembers.map((member) => (
-                <div key={member.id} id={member.slug || ''} className='lol'>
+              {currentMembersWimage.map((member) => (
+                <div key={member.id} id={member.slug || ''}>
                   <div className='relative mb-2 aspect-square w-full md:mb-5'>
                     <Image
                       src={member.featuredImage?.node.sourceUrl || ''}
@@ -173,6 +186,26 @@ export default function About({ membersData, pageData, socials }: AboutProps) {
               ))}
             </div>
 
+            {/* Current Members without Image */}
+            {currentMembersWOimage.length > 0 && (
+              <div className='grid w-11/12 grid-cols-2 gap-10 md:grid-cols-4 md:gap-16 xl:w-9/12'>
+                {currentMembersWOimage.map((member) => (
+                  <div key={member.id} id={member.slug || ''}>
+                    <h2 className='mb-1 text-sm'>{member.title}</h2>
+                    <p className='text-xs font-light'>
+                      {member.memberFields?.position}
+                    </p>
+                    <div
+                      className='mt-2 hidden text-left text-xs font-light md:flex'
+                      dangerouslySetInnerHTML={{
+                        __html: member?.content || '',
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+
             {/* Previuos Members */}
             {previousMembers.length > 0 && (
               <>
@@ -189,25 +222,43 @@ export default function About({ membersData, pageData, socials }: AboutProps) {
                   {'<'} Previous Members {'>'}
                 </h2>
 
-                <div className='grid w-11/12 grid-cols-2 gap-10 md:grid-cols-4 md:gap-16 xl:w-9/12'>
-                  {previousMembers.map((member) => (
-                    <div key={member.id} id={member.slug || ''}>
-                      <div className='relative mb-5 aspect-square w-full'>
-                        <Image
-                          src={member.featuredImage?.node.sourceUrl || ''}
-                          alt={member.title || 'studio-member'}
-                          fill
-                        />
+                {/* Current Members with Image */}
+                {previousMembersWimage.length > 0 && (
+                  <div className='grid w-11/12 grid-cols-2 gap-10 md:grid-cols-4 md:gap-16 xl:w-9/12'>
+                    {previousMembersWimage.map((member) => (
+                      <div key={member.id} id={member.slug || ''}>
+                        <div className='relative mb-5 aspect-square w-full'>
+                          <Image
+                            src={member.featuredImage?.node.sourceUrl || ''}
+                            alt={member.title || 'studio-member'}
+                            fill
+                          />
+                        </div>
+
+                        <h2 className='mb-1 text-sm'>{member.title}</h2>
+
+                        <p className='text-xs font-light'>
+                          {member.memberFields?.position}
+                        </p>
                       </div>
+                    ))}
+                  </div>
+                )}
 
-                      <h2 className='mb-1 text-sm'>{member.title}</h2>
+                {/* Current Members without Image */}
+                {previousMembersWOimage.length > 0 && (
+                  <div className='grid w-11/12 grid-cols-2 gap-10 md:grid-cols-4 md:gap-16 xl:w-9/12'>
+                    {previousMembersWOimage.map((member) => (
+                      <div key={member.id} id={member.slug || ''}>
+                        <h2 className='mb-1 text-sm'>{member.title}</h2>
 
-                      <p className='text-xs font-light'>
-                        {member.memberFields?.position}
-                      </p>
-                    </div>
-                  ))}
-                </div>
+                        <p className='text-xs font-light'>
+                          {member.memberFields?.position}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </>
             )}
           </div>
