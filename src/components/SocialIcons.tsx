@@ -32,22 +32,22 @@ export default function ScialIcons({
       {theme == 'light' ? (
         <div className=' flex gap-5 '>
           {SocialLinksData?.facebookLink && (
-            <a href={SocialLinksData?.facebookLink}>
+            <a href={SocialLinksData?.facebookLink} target='_blank'>
               <DarkFacebook className='h-6 w-6 cursor-pointer' />
             </a>
           )}
           {SocialLinksData?.twitterLink && (
-            <a href={SocialLinksData?.twitterLink}>
+            <a href={SocialLinksData?.twitterLink} target='_blank'>
               <DarkTwitter className='h-6 w-6 cursor-pointer' />
             </a>
           )}
           {SocialLinksData?.youtubeLink && (
-            <a href={SocialLinksData?.youtubeLink}>
+            <a href={SocialLinksData?.youtubeLink} target='_blank'>
               <DarkYouTube className='h-6 w-6 cursor-pointer' />
             </a>
           )}
           {SocialLinksData?.instagramLink && (
-            <a href={SocialLinksData?.instagramLink}>
+            <a href={SocialLinksData?.instagramLink} target='_blank'>
               <DarkInstagram className='h-6 w-6 cursor-pointer' />
             </a>
           )}
@@ -55,22 +55,22 @@ export default function ScialIcons({
       ) : (
         <div className=' flex gap-5 '>
           {SocialLinksData?.facebookLink && (
-            <a href={SocialLinksData?.facebookLink}>
+            <a href={SocialLinksData?.facebookLink} target='_blank'>
               <LightFacebook className='h-6 w-6 cursor-pointer' />
             </a>
           )}
           {SocialLinksData?.twitterLink && (
-            <a href={SocialLinksData?.twitterLink}>
+            <a href={SocialLinksData?.twitterLink} target='_blank'>
               <LightTwitter className='h-6 w-6 cursor-pointer' />
             </a>
           )}
           {SocialLinksData?.youtubeLink && (
-            <a href={SocialLinksData?.youtubeLink}>
+            <a href={SocialLinksData?.youtubeLink} target='_blank'>
               <LightYouTube className='h-6 w-6 cursor-pointer' />
             </a>
           )}
           {SocialLinksData?.instagramLink && (
-            <a href={SocialLinksData?.instagramLink}>
+            <a href={SocialLinksData?.instagramLink} target='_blank'>
               <LightInstagram className='h-6 w-6 cursor-pointer' />
             </a>
           )}
