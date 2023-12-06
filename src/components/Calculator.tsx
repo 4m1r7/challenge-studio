@@ -354,12 +354,12 @@ export default function MobileMenu({
             </p>
             <input
               type='text'
-              value={area || 0}
+              placeholder={`${area || 0}`}
               onChange={(event) => setArea(parseInt(event.target.value))}
               className={`w-full border-2 ${
                 theme == 'light'
-                  ? 'bg-customGray text-customDarkBlue border-customGray'
-                  : 'bg-customDarkBlue text-customGray border-customDarkBlue'
+                  ? 'bg-customGray text-customDarkBlue placeholder:text-customDarkBlue/50 border-customGray'
+                  : 'bg-customDarkBlue text-customGray placeholder:text-customGray/50 border-customDarkBlue'
               }`}
               pattern='[0-9]*'
             />
@@ -372,17 +372,17 @@ export default function MobileMenu({
             </p>
             <input
               type='text'
-              value={inputValues.gfa ? inputValues.gfa : 0}
+              placeholder={`${inputValues.gfa || 0}`}
               onChange={(event) =>
                 setInputValues((prevInputValues) => ({
                   ...prevInputValues,
                   gfa: parseInt(event.target.value),
                 }))
               }
-              className={`w-full border-2 ${
+              className={`placeholder:text- w-full border-2 ${
                 theme == 'light'
-                  ? 'bg-customGray text-customDarkBlue border-customGray'
-                  : 'bg-customDarkBlue text-customGray border-customDarkBlue'
+                  ? 'bg-customGray text-customDarkBlue placeholder:text-customDarkBlue/50 border-customGray'
+                  : 'bg-customDarkBlue text-customGray placeholder:text-customGray/50 border-customDarkBlue'
               }`}
               pattern='[0-9]*'
             />
@@ -395,7 +395,7 @@ export default function MobileMenu({
             </p>
             <input
               type='text'
-              value={inputValues.floors || 0}
+              placeholder={`${inputValues.floors || 0}`}
               onChange={(event) =>
                 setInputValues((prevInputValues) => ({
                   ...prevInputValues,
@@ -404,8 +404,8 @@ export default function MobileMenu({
               }
               className={`w-full border-2 ${
                 theme == 'light'
-                  ? 'bg-customGray text-customDarkBlue border-customGray'
-                  : 'bg-customDarkBlue text-customGray border-customDarkBlue'
+                  ? 'bg-customGray text-customDarkBlue placeholder:text-customDarkBlue/50 border-customGray'
+                  : 'bg-customDarkBlue text-customGray placeholder:text-customGray/50 border-customDarkBlue'
               }`}
               pattern='[0-9]*'
             />
