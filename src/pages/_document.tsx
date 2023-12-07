@@ -6,8 +6,11 @@ export default function Document() {
     <Html lang='en'>
       <Head>
         {/* Google tag (gtag.js) */}
-        <Script src='https://www.googletagmanager.com/gtag/js?id=G-6QJVP16KQY' />
-        <Script id='google-analytics'>
+        <Script
+          src='https://www.googletagmanager.com/gtag/js?id=G-6QJVP16KQY'
+          strategy='afterInteractive'
+        />
+        <Script id='google-analytics' strategy='afterInteractive'>
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
