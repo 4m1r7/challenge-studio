@@ -14,8 +14,10 @@ interface ComponentProps {
   filterOrderIndex: number[];
   activeFilters: Record<string, string | number | null>;
   filterOptions: Record<string, string[]>;
+  sortBy: string | null;
   setIsFiltersOpen: (status: boolean) => void;
   handleFilterChange: (filterType: string, filterValue: string | null) => void;
+  onYearSort: (filterValue: string | null) => void;
   clearFilters: () => void;
 }
 
@@ -24,8 +26,10 @@ export default function MobileFilters({
   filterOrderIndex,
   filterOptions,
   activeFilters,
+  sortBy,
   setIsFiltersOpen,
   handleFilterChange,
+  onYearSort,
   clearFilters,
 }: ComponentProps) {
   return (
@@ -77,7 +81,9 @@ export default function MobileFilters({
               filterType={filterType}
               filterValues={filterValues}
               activeFilter={activeFilters[filterType]}
+              sortBy={sortBy}
               onFilterChange={handleFilterChange}
+              onYearSort={onYearSort}
               theme={theme}
             />
           ))}

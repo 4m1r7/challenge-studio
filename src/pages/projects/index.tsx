@@ -89,7 +89,10 @@ export default function Projects({ pageData, data, socials }: ProjectsProps) {
       });
     }
   });
+  // Change the year filter options to sort based on year
+  filterOptions['year'] = ['newest', 'oldest'];
 
+  const [sortBy, setSortBy] = useState<string | null>(null);
   // Create active filters state and set the initial state with all filter types set to null
   const [activeFilters, setActiveFilters] = useState<
     Record<string, string | number | null>
@@ -113,6 +116,15 @@ export default function Projects({ pageData, data, socials }: ProjectsProps) {
     updatedFilters[filterType] = filterValue;
 
     setActiveFilters(updatedFilters);
+  };
+
+  // Handle newest/oldest year sort change
+  const handleSortChange = (filterValue: string | null) => {
+    if (filterValue) {
+      setSortBy(filterValue);
+    } else {
+      setSortBy(null);
+    }
   };
 
   // Clear filters
@@ -142,7 +154,7 @@ export default function Projects({ pageData, data, socials }: ProjectsProps) {
                     } `}
       >
         <motion.div
-          className='flex h-full h-full w-full flex-col items-end pt-3 md:flex-row md:items-stretch md:pt-10'
+          className='flex h-full w-full flex-col items-end pt-3 md:flex-row md:items-stretch md:pt-10'
           style={{}}
           key='projects'
           variants={mainComponent}
@@ -181,7 +193,9 @@ export default function Projects({ pageData, data, socials }: ProjectsProps) {
                     filterType={filterType}
                     filterValues={filterValues}
                     activeFilter={activeFilters[filterType]}
+                    sortBy={sortBy}
                     onFilterChange={handleFilterChange}
+                    onYearSort={handleSortChange}
                     theme={theme}
                   />
                 ))}
@@ -233,6 +247,7 @@ export default function Projects({ pageData, data, socials }: ProjectsProps) {
             <AnimatePresence mode='wait'>
               {projects &&
                 projects
+                  // Filter projects based on chosen filters
                   .filter((item) => {
                     const { projectFields } = item.node;
 
@@ -268,6 +283,17 @@ export default function Projects({ pageData, data, socials }: ProjectsProps) {
 
                     return false; // Exclude projects with null or undefined projectFields
                   })
+                  .sort(
+                    sortBy === null
+                      ? () => 0
+                      : (a, b) => {
+                          const yearA = a.node.projectFields?.year || 0;
+                          const yearB = b.node.projectFields?.year || 0;
+                          return sortBy == 'oldest'
+                            ? yearA - yearB
+                            : yearB - yearA;
+                        }
+                  )
                   .map((item) => {
                     return (
                       <motion.div
@@ -310,11 +336,11 @@ export default function Projects({ pageData, data, socials }: ProjectsProps) {
                           {/* Mobile Title & year */}
                           <p
                             className={` py-1 text-left text-lg font-light md:hidden
-                                    ${
-                                      theme == 'light'
-                                        ? 'text-customDarkBlue'
-                                        : 'text-customGray'
-                                    } `}
+                                  ${
+                                    theme == 'light'
+                                      ? 'text-customDarkBlue'
+                                      : 'text-customGray'
+                                  } `}
                           >
                             {item.node.title}
                           </p>
@@ -334,7 +360,9 @@ export default function Projects({ pageData, data, socials }: ProjectsProps) {
               filterOrderIndex={filterOrderIndex}
               filterOptions={filterOptions}
               activeFilters={activeFilters}
+              sortBy={sortBy}
               handleFilterChange={handleFilterChange}
+              onYearSort={handleSortChange}
               clearFilters={clearFilters}
             />
           )}
