@@ -10,7 +10,9 @@ interface FilterProps {
   filterType: string;
   filterValues: string[];
   activeFilter: string | number | null;
+  sortBy: string | null;
   onFilterChange: (filterType: string, filterValue: string | null) => void;
+  onYearSort: (filterValue: string | null) => void;
 }
 
 export default function FilterComponent({
@@ -18,7 +20,9 @@ export default function FilterComponent({
   filterType,
   filterValues,
   activeFilter,
+  sortBy,
   onFilterChange,
+  onYearSort,
 }: FilterProps) {
   const [showFilterValues, setShowFilterValues] = useState(false);
 
@@ -61,7 +65,15 @@ export default function FilterComponent({
         }`}
       >
         <li key={`all-${filterType}s`} className='mt-2'>
-          <button onClick={() => onFilterChange(filterType, null)}>All</button>
+          <button
+            onClick={
+              filterType == 'year'
+                ? () => onYearSort(null)
+                : () => onFilterChange(filterType, null)
+            }
+          >
+            All
+          </button>
         </li>
         {filterValues
           .slice()
@@ -72,8 +84,19 @@ export default function FilterComponent({
               <button
                 className={` text-left
                   ${activeFilter === filterValue ? 'font-bold md:text-sm' : ''}
+                  ${
+                    filterType === 'year'
+                      ? sortBy === filterValue
+                        ? 'font-bold md:text-sm'
+                        : ''
+                      : ''
+                  }
                 `}
-                onClick={() => onFilterChange(filterType, filterValue)}
+                onClick={
+                  filterType == 'year'
+                    ? () => onYearSort(filterValue)
+                    : () => onFilterChange(filterType, filterValue)
+                }
               >
                 {filterValue}
               </button>
