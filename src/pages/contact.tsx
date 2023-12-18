@@ -155,8 +155,8 @@ export default function Contact({ data, socials }: ContactProps) {
               Challenge Studio is always looking for talented people to join its
               team. If you are interested in working with us, submit your
               portfolio & cv to{' '}
-              <a href='mailto:work@challenge-studio.ir' className='font-bold '>
-                work@challenge-studio.ir
+              <a href='mailto:work@challenge-studio.com' className='font-bold '>
+                work@challenge-studio.com
               </a>
             </p>
 
