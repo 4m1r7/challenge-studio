@@ -52,7 +52,7 @@ export default function Contact({ data, socials }: ContactProps) {
     setResult('Sending....');
     const formData = new FormData(event.target as HTMLFormElement);
 
-    formData.append('access_key', '5044e634-d563-40e8-b784-b6736cfe07b1');
+    formData.append('access_key', '3ec60215-7d0d-457f-8900-b84f874ea3a7');
 
     const res = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
