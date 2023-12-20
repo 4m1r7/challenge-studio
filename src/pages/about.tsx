@@ -14,6 +14,8 @@ import {
   FooterSocialsQuery,
   MembersDocument,
   MembersQuery,
+  ProjectsPageDocument,
+  ProjectsPageQuery,
 } from '@/queries/generated-queries';
 import { useTheme } from '@/ThemeContext';
 
@@ -38,10 +40,16 @@ const mainComponent = {
 interface AboutProps {
   membersData: MembersQuery;
   pageData: AboutPageQuery;
+  portfolioLink: ProjectsPageQuery;
   socials: FooterSocialsQuery;
 }
 
-export default function About({ membersData, pageData, socials }: AboutProps) {
+export default function About({
+  membersData,
+  pageData,
+  portfolioLink,
+  socials,
+}: AboutProps) {
   // clean up About data & footer socials before use
   const SocialLinksData = socials.pageBy?.contactPageFields?.socialMedia;
   const aboutContent = pageData.pageBy?.content;
@@ -76,6 +84,9 @@ export default function About({ membersData, pageData, socials }: AboutProps) {
     <Layout
       theme={theme}
       toggleTheme={toggleTheme}
+      portfolioLink={
+        portfolioLink.pageBy?.projectsPageFields?.portfolioFile?.mediaItemUrl
+      }
       SocialLinksData={SocialLinksData}
     >
       <Seo templateTitle='About' />
@@ -277,6 +288,10 @@ export async function getStaticProps() {
     query: MembersDocument,
   });
 
+  const { data: portfolioLink } = await client.query({
+    query: ProjectsPageDocument,
+  });
+
   const { data: socials } = await client.query({
     query: FooterSocialsDocument,
   });
@@ -285,6 +300,7 @@ export async function getStaticProps() {
     props: {
       pageData,
       membersData,
+      portfolioLink,
       socials,
     },
   };

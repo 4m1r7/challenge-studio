@@ -13,6 +13,8 @@ import {
   AwardsQuery,
   FooterSocialsDocument,
   FooterSocialsQuery,
+  ProjectsPageDocument,
+  ProjectsPageQuery,
 } from '@/queries/generated-queries';
 import { useTheme } from '@/ThemeContext';
 
@@ -35,10 +37,11 @@ const mainComponent = {
 
 interface ContactProps {
   data: AwardsQuery;
+  portfolioLink: ProjectsPageQuery;
   socials: FooterSocialsQuery;
 }
 
-export default function Awards({ data, socials }: ContactProps) {
+export default function Awards({ data, socials, portfolioLink }: ContactProps) {
   // clean up Awards data & footer socials before use
   const awards = data?.awards?.edges;
   const SocialLinksData = socials.pageBy?.contactPageFields?.socialMedia;
@@ -50,6 +53,9 @@ export default function Awards({ data, socials }: ContactProps) {
     <Layout
       theme={theme}
       toggleTheme={toggleTheme}
+      portfolioLink={
+        portfolioLink?.pageBy?.projectsPageFields?.portfolioFile?.mediaItemUrl
+      }
       SocialLinksData={SocialLinksData}
     >
       <Seo templateTitle='Awards' />
@@ -142,6 +148,10 @@ export async function getStaticProps() {
     query: AwardsDocument,
   });
 
+  const { data: portfolioLink } = await client.query({
+    query: ProjectsPageDocument,
+  });
+
   const { data: socials } = await client.query({
     query: FooterSocialsDocument,
   });
@@ -149,6 +159,7 @@ export async function getStaticProps() {
   return {
     props: {
       data,
+      portfolioLink,
       socials,
     },
   };

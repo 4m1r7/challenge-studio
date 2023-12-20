@@ -48,6 +48,7 @@ interface HeaderProps {
   theme: string;
   toggleTheme: () => void;
   noMobileMenu?: boolean;
+  portfolioLink?: string | null;
   SocialLinksData: { [key: string]: string | null } | null | undefined;
   setIsCalculatorOpen?: (isOpen: boolean) => void;
 }
@@ -56,6 +57,7 @@ export default function Header({
   theme,
   toggleTheme,
   noMobileMenu,
+  portfolioLink,
   SocialLinksData,
   setIsCalculatorOpen = () => null,
 }: HeaderProps) {
@@ -177,6 +179,7 @@ export default function Header({
         {isMenuOpen && (
           <MobileMenu
             links={links}
+            portfolioLink={portfolioLink}
             currentSlug={currentSlug}
             theme={theme}
             setIsMenuOpen={setIsMenuOpen}

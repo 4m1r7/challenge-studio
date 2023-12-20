@@ -10,6 +10,7 @@ export default function Layout({
   toggleTheme,
   noMobileMenu,
   noFooter,
+  portfolioLink,
   SocialLinksData,
   setIsCalculatorOpen,
 }: {
@@ -18,6 +19,7 @@ export default function Layout({
   toggleTheme: () => void;
   noMobileMenu?: boolean;
   noFooter?: boolean;
+  portfolioLink?: string | null;
   SocialLinksData: { [key: string]: string | null } | null | undefined;
   setIsCalculatorOpen?: (isOpen: boolean) => void;
 }) {
@@ -27,6 +29,7 @@ export default function Layout({
         theme={theme}
         toggleTheme={toggleTheme}
         noMobileMenu={noMobileMenu}
+        portfolioLink={portfolioLink}
         SocialLinksData={SocialLinksData}
         setIsCalculatorOpen={setIsCalculatorOpen}
       />

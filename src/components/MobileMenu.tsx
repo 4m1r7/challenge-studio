@@ -14,6 +14,7 @@ interface ComponentProps {
   currentSlug: string;
   theme: string;
   setIsMenuOpen: (status: boolean) => void;
+  portfolioLink?: string | null;
   SocialLinksData: { [key: string]: string | null } | null | undefined;
 }
 
@@ -21,6 +22,7 @@ export default function MobileMenu({
   theme,
   setIsMenuOpen,
   links,
+  portfolioLink,
   currentSlug,
   SocialLinksData,
 }: ComponentProps) {
@@ -86,6 +88,9 @@ export default function MobileMenu({
               <Link href={link.href}>{link.label}</Link>
             </li>
           ))}
+          <li key={90} className='text-4xl font-light'>
+            <a href={portfolioLink || ''}>Portfolio</a>
+          </li>
         </ul>
 
         {/* Social Icons */}
