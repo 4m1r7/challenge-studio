@@ -298,8 +298,8 @@ export default function MobileMenu({
 
   return (
     <motion.div
-      className={`fixed right-0 top-10 z-50 flex h-[100vh] w-[100vw] -translate-y-10 flex-col items-center justify-start overflow-scroll px-16 pb-14 pt-12 md:absolute
-                  md:bottom-0 md:top-auto md:h-[90vh] md:w-[50vw] md:-translate-y-0 md:gap-11 md:pr-24 md:pt-14
+      className={`fixed right-0 top-10 z-50 flex h-[100vh] w-[100vw] -translate-y-10 flex-col items-center justify-start overflow-scroll px-16 pb-48 pt-12 md:absolute md:bottom-0
+                  md:top-auto md:h-[90vh] md:w-[50vw] md:-translate-y-0 md:gap-11 md:pb-14 md:pr-24 md:pt-14
                   ${
                     theme == 'light'
                       ? 'bg-customDarkBlue text-customGray'
