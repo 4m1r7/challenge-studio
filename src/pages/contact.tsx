@@ -13,6 +13,8 @@ import {
   ContactPageQuery,
   FooterSocialsDocument,
   FooterSocialsQuery,
+  ProjectsPageDocument,
+  ProjectsPageQuery,
 } from '@/queries/generated-queries';
 import { useTheme } from '@/ThemeContext';
 
@@ -33,10 +35,15 @@ const mainComponent = {
 
 interface ContactProps {
   data: ContactPageQuery;
+  portfolioLink: ProjectsPageQuery;
   socials: FooterSocialsQuery;
 }
 
-export default function Contact({ data, socials }: ContactProps) {
+export default function Contact({
+  data,
+  portfolioLink,
+  socials,
+}: ContactProps) {
   // clean up the project array before use
   const contactData = data.pageBy;
   const SocialLinksData = socials.pageBy?.contactPageFields?.socialMedia;
@@ -72,6 +79,9 @@ export default function Contact({ data, socials }: ContactProps) {
     <Layout
       theme={theme}
       toggleTheme={toggleTheme}
+      portfolioLink={
+        portfolioLink.pageBy?.projectsPageFields?.portfolioFile?.mediaItemUrl
+      }
       SocialLinksData={SocialLinksData}
     >
       <Seo templateTitle='Contact' />
@@ -264,6 +274,10 @@ export async function getStaticProps() {
     query: ContactPageDocument,
   });
 
+  const { data: portfolioLink } = await client.query({
+    query: ProjectsPageDocument,
+  });
+
   const { data: socials } = await client.query({
     query: FooterSocialsDocument,
   });
@@ -271,6 +285,7 @@ export async function getStaticProps() {
   return {
     props: {
       data,
+      portfolioLink,
       socials,
     },
   };

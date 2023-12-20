@@ -143,6 +143,9 @@ export default function Projects({ pageData, data, socials }: ProjectsProps) {
     <Layout
       theme={theme}
       toggleTheme={toggleTheme}
+      portfolioLink={
+        pageData.pageBy?.projectsPageFields?.portfolioFile?.mediaItemUrl || '/'
+      }
       SocialLinksData={SocialLinksData}
     >
       <Seo templateTitle='Projects' />
