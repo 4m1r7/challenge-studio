@@ -1,71 +1,12 @@
 import { OrbitControls } from '@react-three/drei';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { RefObject, useEffect, useRef, useState } from 'react';
-import { Group, Mesh } from 'three';
-import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { Canvas } from '@react-three/fiber';
+import { Suspense, useRef, useState } from 'react';
+import React from 'react';
+import { Group } from 'three';
 
 import LoadingCube from '@/components/LoadingCube';
 
-interface MeshComponentProps {
-  fileUrl: string | null;
-  setIsLoading: (isLoading: string | null) => void;
-  castShadow?: boolean;
-  receiveShadow?: boolean;
-  sceneGroup: RefObject<Group>;
-}
-
-function MeshComponent({
-  fileUrl,
-  setIsLoading,
-  sceneGroup,
-}: MeshComponentProps) {
-  const model = useRef<Mesh | null>(null);
-  const [gltf, setGltf] = useState<GLTF | null>(null);
-  const [hasUserInteracted, setHasUserInteracted] = useState(false);
-
-  const handleUserInteraction = () => {
-    // Set the flag to indicate user interaction
-    setHasUserInteracted(true);
-  };
-
-  useEffect(() => {
-    if (fileUrl) {
-      // Perform a POST request to fetch the 3D model data
-      fetch(fileUrl, {
-        method: 'POST',
-      })
-        .then((response) => response.arrayBuffer())
-        .then((data) => {
-          const loader = new GLTFLoader();
-          loader.parse(data, '', (gltfResult) => {
-            setGltf(gltfResult);
-            setIsLoading(null);
-          });
-        })
-        .catch((error) => {
-          setIsLoading(`Error Loading 3D Model:', ${error}`);
-        });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useFrame(() => {
-    if (sceneGroup.current && gltf && !hasUserInteracted) {
-      sceneGroup.current.rotation.y += 0.005;
-    }
-  });
-
-  return (
-    <mesh
-      castShadow
-      receiveShadow
-      ref={model}
-      onPointerDown={handleUserInteraction}
-    >
-      {gltf && <primitive object={gltf.scene} />}
-    </mesh>
-  );
-}
+const MeshComponent = React.lazy(() => import('./MeshComponent'));
 
 export default function ModelViewer({
   fileUrl,
@@ -115,13 +56,15 @@ export default function ModelViewer({
               />
 
               {/* Model Component */}
-              <MeshComponent
-                castShadow
-                receiveShadow
-                fileUrl={fileUrl}
-                setIsLoading={setIsLoading}
-                sceneGroup={sceneGroup}
-              />
+              <Suspense>
+                <MeshComponent
+                  castShadow
+                  receiveShadow
+                  fileUrl={fileUrl}
+                  setIsLoading={setIsLoading}
+                  sceneGroup={sceneGroup}
+                />
+              </Suspense>
             </group>
           </Canvas>
         </>
