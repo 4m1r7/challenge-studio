@@ -282,6 +282,7 @@ export default function Project({ projectData, socials }: ContactProps) {
                     <Image
                       src={item.mediaUrl || ''}
                       fill
+                      sizes='(max-width: 767px) 33vw, 15vw'
                       className='object-cover'
                       alt='Gallery Image'
                     />

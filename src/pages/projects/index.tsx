@@ -318,6 +318,7 @@ export default function Projects({ pageData, data, socials }: ProjectsProps) {
                               alt={item.node.title || 'project-image'}
                               className='object-cover'
                               fill
+                              sizes='(max-width: 767px) 80vw, 16vw'
                               quality={100}
                             />
 
