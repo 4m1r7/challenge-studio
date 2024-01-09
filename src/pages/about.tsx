@@ -125,10 +125,11 @@ export default function About({
 
               <div className='relative h-2/3 w-full md:ml-6 md:h-full'>
                 <Image
+                  className='object-cover'
                   src={founder.featuredImage?.node.sourceUrl || ''}
                   fill
-                  className='object-cover'
-                  loading='eager'
+                  sizes='(min-width: 767px) 77vw, 25vw'
+                  priority
                   alt={founder.title || 'founder'}
                 />
               </div>
@@ -179,6 +180,7 @@ export default function About({
                       src={member.featuredImage?.node.sourceUrl || ''}
                       alt={member.title || 'studio-member'}
                       fill
+                      sizes='(min-width: 767px) 32vw, 17vw'
                     />
                   </div>
 
@@ -243,6 +245,7 @@ export default function About({
                             src={member.featuredImage?.node.sourceUrl || ''}
                             alt={member.title || 'studio-member'}
                             fill
+                            sizes='(min-width: 767px) 32vw, 17vw'
                           />
                         </div>
 
