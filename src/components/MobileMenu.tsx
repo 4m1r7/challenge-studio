@@ -42,7 +42,7 @@ export default function MobileMenu({
       {/* Menu Header */}
       <div className='flex h-20 w-full items-center justify-between gap-6 px-12 pb-3 pt-10'>
         {/* Site Logo */}
-        <Link href='/'>
+        <Link href='/' aria-label='Home'>
           {theme == 'light' ? (
             <DarkLogo className='plyarn-2 border-customDarkBlue h-9 min-w-[6.75rem] border-l md:h-8 md:min-w-[6rem] ' />
           ) : (
@@ -85,7 +85,9 @@ export default function MobileMenu({
                 currentSlug == link.href ? setIsMenuOpen(false) : null;
               }}
             >
-              <Link href={link.href}>{link.label}</Link>
+              <Link href={link.href} aria-label={link.label}>
+                {link.label}
+              </Link>
             </li>
           ))}
           <li key={90} className='text-4xl font-light'>

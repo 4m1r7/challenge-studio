@@ -80,7 +80,7 @@ export default function Header({
         exit='exit'
       >
         {/* Site Logo */}
-        <Link href='/'>
+        <Link href='/' aria-label='Home'>
           {theme == 'light' ? (
             <DarkLogo className='plyarn-2 border-customDarkBlue h-9 min-w-[6.75rem] border-l md:h-8 md:min-w-[6rem] ' />
           ) : (
@@ -112,20 +112,26 @@ export default function Header({
                 key={index}
                 className={currentSlug == link.href ? 'font-bold' : ''}
               >
-                <Link href={link.href}>{link.label}</Link>
+                <Link href={link.href} aria-label={link.label}>
+                  {link.label}
+                </Link>
               </li>
             ))}
 
             {theme == 'light' ? (
-              <DarkMode
-                className=' h-5 w-5 cursor-pointer '
-                onClick={toggleTheme}
-              />
+              <li>
+                <DarkMode
+                  className=' h-5 w-5 cursor-pointer '
+                  onClick={toggleTheme}
+                />
+              </li>
             ) : (
-              <LightMode
-                className=' h-6 w-6 cursor-pointer '
-                onClick={toggleTheme}
-              />
+              <li>
+                <LightMode
+                  className=' h-6 w-6 cursor-pointer '
+                  onClick={toggleTheme}
+                />
+              </li>
             )}
           </ul>
         </nav>

@@ -297,7 +297,7 @@ export default function Projects({ pageData, data, socials }: ProjectsProps) {
                             : yearB - yearA;
                         }
                   )
-                  .map((item) => {
+                  .map((item, index) => {
                     return (
                       <motion.div
                         key={item.node.id}
@@ -309,7 +309,11 @@ export default function Projects({ pageData, data, socials }: ProjectsProps) {
                           duration: 0.25,
                         }}
                       >
-                        <Link href={item.node.uri || ''} className='group'>
+                        <Link
+                          href={item.node.uri || ''}
+                          className='group'
+                          aria-label='project-link'
+                        >
                           <div className='relative aspect-square'>
                             <Image
                               src={
@@ -320,6 +324,7 @@ export default function Projects({ pageData, data, socials }: ProjectsProps) {
                               fill
                               sizes='(max-width: 767px) 80vw, 16vw'
                               quality={100}
+                              priority={index < 16 ? true : false}
                             />
 
                             {/* Desktop Overlay */}
