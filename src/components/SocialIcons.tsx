@@ -32,22 +32,38 @@ export default function ScialIcons({
       {theme == 'light' ? (
         <div className=' flex gap-5 '>
           {SocialLinksData?.facebookLink && (
-            <a href={SocialLinksData?.facebookLink} target='_blank'>
+            <a
+              href={SocialLinksData?.facebookLink}
+              target='_blank'
+              aria-label='Facebook'
+            >
               <DarkFacebook className='h-6 w-6 cursor-pointer' />
             </a>
           )}
           {SocialLinksData?.twitterLink && (
-            <a href={SocialLinksData?.twitterLink} target='_blank'>
+            <a
+              href={SocialLinksData?.twitterLink}
+              target='_blank'
+              aria-label='Twitter'
+            >
               <DarkTwitter className='h-6 w-6 cursor-pointer' />
             </a>
           )}
           {SocialLinksData?.youtubeLink && (
-            <a href={SocialLinksData?.youtubeLink} target='_blank'>
+            <a
+              href={SocialLinksData?.youtubeLink}
+              target='_blank'
+              aria-label='Youtube'
+            >
               <DarkYouTube className='h-6 w-6 cursor-pointer' />
             </a>
           )}
           {SocialLinksData?.instagramLink && (
-            <a href={SocialLinksData?.instagramLink} target='_blank'>
+            <a
+              href={SocialLinksData?.instagramLink}
+              target='_blank'
+              aria-label='Instagram'
+            >
               <DarkInstagram className='h-6 w-6 cursor-pointer' />
             </a>
           )}
@@ -55,22 +71,38 @@ export default function ScialIcons({
       ) : (
         <div className=' flex gap-5 '>
           {SocialLinksData?.facebookLink && (
-            <a href={SocialLinksData?.facebookLink} target='_blank'>
+            <a
+              href={SocialLinksData?.facebookLink}
+              target='_blank'
+              aria-label='Facebook'
+            >
               <LightFacebook className='h-6 w-6 cursor-pointer' />
             </a>
           )}
           {SocialLinksData?.twitterLink && (
-            <a href={SocialLinksData?.twitterLink} target='_blank'>
+            <a
+              href={SocialLinksData?.twitterLink}
+              target='_blank'
+              aria-label='Twitter'
+            >
               <LightTwitter className='h-6 w-6 cursor-pointer' />
             </a>
           )}
           {SocialLinksData?.youtubeLink && (
-            <a href={SocialLinksData?.youtubeLink} target='_blank'>
+            <a
+              href={SocialLinksData?.youtubeLink}
+              target='_blank'
+              aria-label='Youtube'
+            >
               <LightYouTube className='h-6 w-6 cursor-pointer' />
             </a>
           )}
           {SocialLinksData?.instagramLink && (
-            <a href={SocialLinksData?.instagramLink} target='_blank'>
+            <a
+              href={SocialLinksData?.instagramLink}
+              target='_blank'
+              aria-label='Instagram'
+            >
               <LightInstagram className='h-6 w-6 cursor-pointer' />
             </a>
           )}

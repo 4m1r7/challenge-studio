@@ -165,7 +165,7 @@ export default function Project({ projectData, socials }: ContactProps) {
             <div className='flex h-full w-full flex-col gap-8 md:w-1/4'>
               {/* Desktop Project Primary Info (minus) description */}
               <div className='hidden flex-col gap-8 md:flex'>
-                <Link href='/projects'>
+                <Link href='/projects' aria-label='Projects'>
                   {theme == 'light' ? (
                     <DarkArrow className='h-10 w-10 ' />
                   ) : (
@@ -226,7 +226,7 @@ export default function Project({ projectData, socials }: ContactProps) {
 
             {/* Desktop Project Primary Info (minus) description */}
             <div className='flex flex-col gap-8 md:hidden'>
-              <Link href='/projects'>
+              <Link href='/projects' aria-label='Projects'>
                 {theme == 'light' ? (
                   <DarkArrow className='h-10 w-10 ' />
                 ) : (

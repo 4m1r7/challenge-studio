@@ -137,7 +137,9 @@ export default function Home({
           >
             {links.map((link, index) => (
               <li key={index} className='text-2xl'>
-                <Link href={link.href}>{link.label}</Link>
+                <Link href={link.href} aria-label={link.label}>
+                  {link.label}
+                </Link>
               </li>
             ))}
           </ul>

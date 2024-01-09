@@ -106,6 +106,7 @@ export default function Awards({ data, socials, portfolioLink }: ContactProps) {
                               item.node.awardFields?.relatedProject?.uri ||
                               '/projects'
                             }
+                            aria-label='Related Project'
                             className='bg-customGray flex-grow p-3 text-black'
                           >
                             Project
@@ -113,6 +114,7 @@ export default function Awards({ data, socials, portfolioLink }: ContactProps) {
                           <Link
                             href={item.node.awardFields?.awardLink || '#'}
                             target='_blank'
+                            aria-label='Award Link'
                             className='bg-customGray md:text-customGray border-customGray flex flex-grow items-center justify-center gap-2 border p-3 text-black md:bg-transparent'
                           >
                             <p>Award</p>
