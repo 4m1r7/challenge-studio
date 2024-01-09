@@ -118,7 +118,9 @@ export default function Contact({
                     ?.mediaItemUrl || ''
                 }
                 alt='Location Map'
+                priority
                 fill
+                sizes='(max-width: 767px) 80vw, 40vw'
                 loading='eager'
                 className='object-cover'
               />
@@ -129,7 +131,9 @@ export default function Contact({
                     ?.mediaItemUrl || ''
                 }
                 alt='Location Map'
+                priority
                 fill
+                sizes='(max-width: 767px) 80vw, 40vw'
                 loading='eager'
                 className='object-cover'
               />
@@ -247,7 +251,8 @@ export default function Contact({
                 }
                 alt='Location Map'
                 fill
-                loading='eager'
+                sizes='(max-width: 767px) 80vw, 40vw'
+                priority
                 className='object-cover'
               />
             ) : (
@@ -258,7 +263,8 @@ export default function Contact({
                 }
                 alt='Location Map'
                 fill
-                loading='eager'
+                sizes='(max-width: 767px) 80vw, 40vw'
+                priority
                 className='object-cover'
               />
             )}

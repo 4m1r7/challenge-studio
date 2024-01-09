@@ -79,17 +79,19 @@ export default function Awards({ data, socials, portfolioLink }: ContactProps) {
           {/* Awards grid */}
           <div className='grid h-fit w-full grid-cols-1 gap-16 md:grid-cols-3'>
             {awards &&
-              awards.map((item) => {
+              awards.map((item, index) => {
                 return (
                   <div key={item.node.id} className='flex flex-col gap-2'>
                     <div className='relative aspect-square'>
                       {/* Award Image */}
                       <Image
+                        className='object-cover'
                         src={item.node.featuredImage?.node.sourceUrl || ''}
                         alt={item.node.title || 'award-image'}
                         fill
-                        className='object-cover'
+                        sizes='(max-width: 767px) 77vw, 35vw'
                         quality={100}
+                        priority={index < 4 ? true : false}
                       />
 
                       {/* OverLay */}
